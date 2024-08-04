@@ -1,0 +1,78 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\CommonLibraries\Core\Core.csproj", "{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuiWords.Test", "GuiWords.Test\GuiWords.Test.csproj", "{47042BF8-2AA4-4B03-8A6A-64686436F4CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuiWords", "GuiWords.csproj", "{65905B19-B245-4CE8-98BB-9B3A8A805A0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "..\..\CommonLibraries\Serialization\Serialization.csproj", "{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingBase", "..\..\UnitTesting\UnitTestingBase\UnitTestingBase.csproj", "{41BBB6B5-5D06-4291-A820-C4F71E110ECC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Core", "..\..\CommonLibraries\Data\Data.Core\Data.Core.csproj", "{EF090992-9E5F-4318-A88D-F4335F21E92B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47042BF8-2AA4-4B03-8A6A-64686436F4CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47042BF8-2AA4-4B03-8A6A-64686436F4CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47042BF8-2AA4-4B03-8A6A-64686436F4CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47042BF8-2AA4-4B03-8A6A-64686436F4CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65905B19-B245-4CE8-98BB-9B3A8A805A0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65905B19-B245-4CE8-98BB-9B3A8A805A0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65905B19-B245-4CE8-98BB-9B3A8A805A0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65905B19-B245-4CE8-98BB-9B3A8A805A0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF090992-9E5F-4318-A88D-F4335F21E92B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF090992-9E5F-4318-A88D-F4335F21E92B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF090992-9E5F-4318-A88D-F4335F21E92B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF090992-9E5F-4318-A88D-F4335F21E92B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B1D4250F-4416-48B5-9302-B187689D2C5F}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\CommonLibraries\\Core\\Core.csproj
+		SccProjectName1 = ../../CommonLibraries/Core
+		SccLocalPath1 = ..\\..\\CommonLibraries\\Core
+		SccProjectUniqueName2 = GuiWords.Test\\GuiWords.Test.csproj
+		SccProjectName2 = GuiWords.Test
+		SccLocalPath2 = GuiWords.Test
+		SccProjectUniqueName3 = GuiWords.csproj
+		SccLocalPath3 = .
+		SccProjectUniqueName4 = ..\\..\\CommonLibraries\\Serialization\\Serialization.csproj
+		SccProjectName4 = ../../CommonLibraries/Serialization
+		SccLocalPath4 = ..\\..\\CommonLibraries\\Serialization
+		SccProjectUniqueName5 = ..\\..\\UnitTesting\\UnitTestingBase\\UnitTestingBase.csproj
+		SccProjectName5 = ../../UnitTesting/UnitTestingBase
+		SccLocalPath5 = ..\\..\\UnitTesting\\UnitTestingBase
+		SccProjectUniqueName6 = ..\\..\\CommonLibraries\\Data\\Data.Core\\Data.Core.csproj
+		SccProjectName6 = ../../CommonLibraries/Data/Data.Core
+		SccLocalPath6 = ..\\..\\CommonLibraries\\Data\\Data.Core
+	EndGlobalSection
+EndGlobal

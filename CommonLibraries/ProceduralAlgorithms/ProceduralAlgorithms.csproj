@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>CommonLibraries.ProceduralAlgorithms</AssemblyName>
+    <RootNamespace>TRW.CommonLibraries.ProceduralAlgorithms</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ProceduralAlgorithms.Test\**" />
+    <EmbeddedResource Remove="ProceduralAlgorithms.Test\**" />
+    <None Remove="ProceduralAlgorithms.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="ProceduralAlgorithms.csproj.vspscc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+</Project>

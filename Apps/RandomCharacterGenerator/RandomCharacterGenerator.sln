@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrwAppsBase", "..\TrwAppsBase\TrwAppsBase.csproj", "{B7871487-7B9F-4E88-A885-14482A48E103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character", "..\..\GameLibraries\Character\Character.csproj", "{D56D7853-3501-4F0A-A63F-8393A1A7B655}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml", "..\..\CommonLibraries\Xml\Xml.csproj", "{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serialization", "..\..\CommonLibraries\Serialization\Serialization.csproj", "{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\..\CommonLibraries\Core\Core.csproj", "{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pdf", "..\..\CommonLibraries\Pdf\Pdf.csproj", "{7F393B71-A430-4C2E-965C-061A7DCF6D65}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCore", "..\..\GameLibraries\GameCore\GameCore.csproj", "{97D4B486-A299-49DD-B54A-1DC5AD9A4E2D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RandomCharacterGenerator", "RandomCharacterGenerator.csproj", "{4394ECE7-29C8-4697-8EC5-47422E82C4DC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F393B71-A430-4C2E-965C-061A7DCF6D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F393B71-A430-4C2E-965C-061A7DCF6D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F393B71-A430-4C2E-965C-061A7DCF6D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F393B71-A430-4C2E-965C-061A7DCF6D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97D4B486-A299-49DD-B54A-1DC5AD9A4E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97D4B486-A299-49DD-B54A-1DC5AD9A4E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97D4B486-A299-49DD-B54A-1DC5AD9A4E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97D4B486-A299-49DD-B54A-1DC5AD9A4E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4394ECE7-29C8-4697-8EC5-47422E82C4DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4394ECE7-29C8-4697-8EC5-47422E82C4DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4394ECE7-29C8-4697-8EC5-47422E82C4DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4394ECE7-29C8-4697-8EC5-47422E82C4DC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B2C99286-9D20-4587-B4F1-01916E8DC727}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 9
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\GameLibraries\\Character\\Character.csproj
+		SccProjectName1 = ../../GameLibraries/Character
+		SccLocalPath1 = ..\\..\\GameLibraries\\Character
+		SccProjectUniqueName2 = ..\\..\\CommonLibraries\\Xml\\Xml.csproj
+		SccProjectName2 = ../../CommonLibraries/Xml
+		SccLocalPath2 = ..\\..\\CommonLibraries\\Xml
+		SccProjectUniqueName3 = ..\\..\\CommonLibraries\\Serialization\\Serialization.csproj
+		SccProjectName3 = ../../CommonLibraries/Serialization
+		SccLocalPath3 = ..\\..\\CommonLibraries\\Serialization
+		SccProjectUniqueName4 = ..\\..\\CommonLibraries\\Core\\Core.csproj
+		SccProjectName4 = ../../CommonLibraries/Core
+		SccLocalPath4 = ..\\..\\CommonLibraries\\Core
+		SccProjectUniqueName5 = ..\\TrwAppsBase\\TrwAppsBase.csproj
+		SccProjectName5 = ../TrwAppsBase
+		SccLocalPath5 = ..\\TrwAppsBase
+		SccProjectUniqueName6 = ..\\..\\CommonLibraries\\Pdf\\Pdf.csproj
+		SccProjectName6 = ../../CommonLibraries/Pdf
+		SccLocalPath6 = ..\\..\\CommonLibraries\\Pdf
+		SccProjectUniqueName7 = ..\\..\\GameLibraries\\GameCore\\GameCore.csproj
+		SccProjectName7 = ../../GameLibraries/GameCore
+		SccLocalPath7 = ..\\..\\GameLibraries\\GameCore
+		SccProjectUniqueName8 = RandomCharacterGenerator.csproj
+		SccLocalPath8 = .
+	EndGlobalSection
+EndGlobal

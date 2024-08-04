@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrwAppsBase", "TrwAppsBase.csproj", "{B7871487-7B9F-4E88-A885-14482A48E103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\CommonLibraries\Core\Core.csproj", "{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xml", "..\..\CommonLibraries\Xml\Xml.csproj", "{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {899779D6-16D3-43E3-B53C-31C2732DFDD6}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = TrwAppsBase.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = ..\\..\\CommonLibraries\\Core\\Core.csproj
+		SccProjectName2 = ../../CommonLibraries/Core
+		SccLocalPath2 = ..\\..\\CommonLibraries\\Core
+		SccProjectUniqueName3 = ..\\..\\CommonLibraries\\Xml\\Xml.csproj
+		SccProjectName3 = ../../CommonLibraries/Xml
+		SccLocalPath3 = ..\\..\\CommonLibraries\\Xml
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>TRW.Apps.RandomCharacterGenerator</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="Includes\1523York\FemaleGivenNames.xml" />
+	  <None Remove="Includes\1523York\MaleGivenNames.xml" />
+	  <None Remove="Includes\1523York\Surnames.xml" />
+	  <None Remove="Includes\Modern\FemaleGivenNames.xml" />
+	  <None Remove="Includes\Modern\MaleGivenNames.xml" />
+	  <None Remove="Includes\Modern\Surnames.xml" />
+	  <None Remove="NPCGenerator.csproj.vspscc" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Includes\1523York\FemaleGivenNames.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Includes\1523York\MaleGivenNames.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Includes\1523York\Surnames.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Includes\Modern\FemaleGivenNames.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Includes\Modern\MaleGivenNames.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	  <Content Include="Includes\Modern\Surnames.xml">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+	
+	<ItemGroup>
+		<ProjectReference Include="..\..\CommonLibraries\Data\Data.Core\Data.Core.csproj" />
+		<ProjectReference Include="..\..\CommonLibraries\Data\Data.csproj" />
+		<ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
+		<ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
+		<ProjectReference Include="..\..\GameLibraries\Character\Character.csproj" />
+		<ProjectReference Include="..\..\GameLibraries\GameCore\GameCore.csproj" />
+		<ProjectReference Include="..\TrwAppsBase\TrwAppsBase.csproj" />
+	</ItemGroup>
+</Project>

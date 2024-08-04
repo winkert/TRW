@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>%24/TRW/CommonLibraries/Data</SccProjectName>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+    <SccAuxPath>https://dev.azure.com/trwinker</SccAuxPath>
+    <SccLocalPath>.</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data.Core\**" />
+    <Compile Remove="Data.Test\**" />
+    <EmbeddedResource Remove="Data.Core\**" />
+    <EmbeddedResource Remove="Data.Test\**" />
+    <None Remove="Data.Core\**" />
+    <None Remove="Data.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Data.csproj.vspscc" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="5.8.2" />
+    <PackageReference Include="MySql.Data" Version="8.0.27" />
+    <PackageReference Include="System.Data.OleDb" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Xml\Xml.csproj" />
+    <ProjectReference Include="Data.Core\Data.Core.csproj" />
+  </ItemGroup>
+
+</Project>

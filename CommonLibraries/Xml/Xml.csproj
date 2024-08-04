@@ -1,0 +1,33 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+	  <AssemblyName>CommonLibraries.Xml</AssemblyName>
+	  <RootNamespace>TRW.CommonLibraries.Xml</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Properties\**" />
+    <Compile Remove="Xml.Test\**" />
+    <Compile Remove="Xml.Test_New\**" />
+    <EmbeddedResource Remove="Properties\**" />
+    <EmbeddedResource Remove="Xml.Test\**" />
+    <EmbeddedResource Remove="Xml.Test_New\**" />
+    <None Remove="Properties\**" />
+    <None Remove="Xml.Test\**" />
+    <None Remove="Xml.Test_New\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove=".tfignore" />
+    <None Remove="Xml.csproj.vspscc" />
+  </ItemGroup>
+
+</Project>

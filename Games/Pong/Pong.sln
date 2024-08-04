@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pong", "Pong.csproj", "{D7026D4D-697F-44A0-83C5-97A26FC00F5F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCore", "..\..\GameLibraries\GameCore\GameCore.csproj", "{C5BDE93E-EC1F-415C-A05B-4140ECA93F19}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml", "..\..\CommonLibraries\Xml\Xml.csproj", "{F7B75460-972B-433E-A81A-6BEEE37C3863}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7026D4D-697F-44A0-83C5-97A26FC00F5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7026D4D-697F-44A0-83C5-97A26FC00F5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7026D4D-697F-44A0-83C5-97A26FC00F5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7026D4D-697F-44A0-83C5-97A26FC00F5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5BDE93E-EC1F-415C-A05B-4140ECA93F19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BDE93E-EC1F-415C-A05B-4140ECA93F19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BDE93E-EC1F-415C-A05B-4140ECA93F19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BDE93E-EC1F-415C-A05B-4140ECA93F19}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7B75460-972B-433E-A81A-6BEEE37C3863}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7B75460-972B-433E-A81A-6BEEE37C3863}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7B75460-972B-433E-A81A-6BEEE37C3863}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7B75460-972B-433E-A81A-6BEEE37C3863}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C412AEB9-9FF6-4EEC-A5B0-FDD189AD65B9}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 2
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccProjectUniqueName0 = ..\\..\\GameLibraries\\GameCore\\GameCore.csproj
+		SccProjectName0 = ../../GameLibraries/GameCore
+		SccAuxPath0 = https://dev.azure.com/trwinker
+		SccLocalPath0 = ..\\..\\GameLibraries\\GameCore
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = ..\\..\\CommonLibraries\\Xml\\Xml.csproj
+		SccProjectName1 = ../../CommonLibraries/Xml
+		SccAuxPath1 = https://dev.azure.com/trwinker
+		SccLocalPath1 = ..\\..\\CommonLibraries\\Xml
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

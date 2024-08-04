@@ -1,0 +1,87 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapGenerator", "MapGenerator.csproj", "{E4EA275C-9753-48D8-9CE9-C57F4CADA88F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\CommonLibraries\Core\Core.csproj", "{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrwAppsBase", "..\TrwAppsBase\TrwAppsBase.csproj", "{B7871487-7B9F-4E88-A885-14482A48E103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Maps", "..\..\GameLibraries\Maps\Maps.csproj", "{28C688C0-5810-41E7-BA89-B866030B96BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "..\..\CommonLibraries\Graphics\Graphics.csproj", "{9BC815DA-FC54-4D96-9E1A-836098D4CFAA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProceduralAlgorithms", "..\..\CommonLibraries\ProceduralAlgorithms\ProceduralAlgorithms.csproj", "{1644ABD5-B3CA-4843-8534-4F1DDF68544F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "..\..\CommonLibraries\Serialization\Serialization.csproj", "{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E4EA275C-9753-48D8-9CE9-C57F4CADA88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4EA275C-9753-48D8-9CE9-C57F4CADA88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4EA275C-9753-48D8-9CE9-C57F4CADA88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4EA275C-9753-48D8-9CE9-C57F4CADA88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28C688C0-5810-41E7-BA89-B866030B96BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C688C0-5810-41E7-BA89-B866030B96BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C688C0-5810-41E7-BA89-B866030B96BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C688C0-5810-41E7-BA89-B866030B96BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9BC815DA-FC54-4D96-9E1A-836098D4CFAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9BC815DA-FC54-4D96-9E1A-836098D4CFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9BC815DA-FC54-4D96-9E1A-836098D4CFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9BC815DA-FC54-4D96-9E1A-836098D4CFAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1644ABD5-B3CA-4843-8534-4F1DDF68544F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1644ABD5-B3CA-4843-8534-4F1DDF68544F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1644ABD5-B3CA-4843-8534-4F1DDF68544F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1644ABD5-B3CA-4843-8534-4F1DDF68544F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A22AD1C5-1C21-47CD-AEB3-39229DABF059}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 8
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = MapGenerator.csproj
+		SccLocalPath1 = .
+		SccProjectUniqueName2 = ..\\..\\CommonLibraries\\Core\\Core.csproj
+		SccProjectName2 = ../../CommonLibraries/Core
+		SccLocalPath2 = ..\\..\\CommonLibraries\\Core
+		SccProjectUniqueName3 = ..\\TrwAppsBase\\TrwAppsBase.csproj
+		SccProjectName3 = ../TrwAppsBase
+		SccLocalPath3 = ..\\TrwAppsBase
+		SccProjectUniqueName4 = ..\\..\\GameLibraries\\Maps\\Maps.csproj
+		SccProjectName4 = ../../GameLibraries/Maps
+		SccLocalPath4 = ..\\..\\GameLibraries\\Maps
+		SccProjectUniqueName5 = ..\\..\\CommonLibraries\\Graphics\\Graphics.csproj
+		SccProjectName5 = ../../CommonLibraries/Graphics
+		SccLocalPath5 = ..\\..\\CommonLibraries\\Graphics
+		SccProjectUniqueName6 = ..\\..\\CommonLibraries\\ProceduralAlgorithms\\ProceduralAlgorithms.csproj
+		SccProjectName6 = ../../CommonLibraries/ProceduralAlgorithms
+		SccLocalPath6 = ..\\..\\CommonLibraries\\ProceduralAlgorithms
+		SccProjectUniqueName7 = ..\\..\\CommonLibraries\\Serialization\\Serialization.csproj
+		SccProjectName7 = ../../CommonLibraries/Serialization
+		SccLocalPath7 = ..\\..\\CommonLibraries\\Serialization
+	EndGlobalSection
+EndGlobal

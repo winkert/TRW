@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCore", "GameCore.csproj", "{A0832524-24B9-48AB-8A6E-FD2840414872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xml", "..\..\CommonLibraries\Xml\Xml.csproj", "{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0832524-24B9-48AB-8A6E-FD2840414872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0832524-24B9-48AB-8A6E-FD2840414872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0832524-24B9-48AB-8A6E-FD2840414872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0832524-24B9-48AB-8A6E-FD2840414872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D27DCA93-B99F-4490-ABB2-77C61C047C26}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccProjectUniqueName0 = ..\\..\\CommonLibraries\\Xml\\Xml.csproj
+		SccProjectName0 = ../../CommonLibraries/Xml
+		SccAuxPath0 = https://dev.azure.com/trwinker
+		SccLocalPath0 = ..\\..\\CommonLibraries\\Xml
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewmodels="clr-namespace:MobileWords.ViewModels" 
+             x:DataType="viewmodels:ItemDetailViewModel"
+             x:Class="MobileWords.Views.ItemDetailPage"
+             xmlns:local="clr-namespace:MobileWords.Controls"
+             Title="{Binding Title}">
+
+    <StackLayout Spacing="20" Padding="15">
+        <Label Text="{Binding DictionaryWord}" FontSize="Title" TextDecorations="Underline" FontAttributes="Bold"/>
+        <Label Text="{Binding Definition}" FontSize="Medium"/>
+        <Label Text="{Binding ParsingInformation}" FontSize="Medium"/>
+        <Frame BorderColor="{StaticResource Accent}">
+            <Label Text="{Binding AllForms}" FontSize="Small" TextType="Html"/>
+        </Frame>
+            <local:FormattedLabel TextParameters=""/>
+    </StackLayout>
+    
+</ContentPage>

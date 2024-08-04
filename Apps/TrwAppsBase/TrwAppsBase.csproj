@@ -1,0 +1,53 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup Label="Globals">
+		<SccProjectName>%24/TRW/Apps/TrwAppsBase</SccProjectName>
+		<SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+		<SccAuxPath>https://dev.azure.com/trwinker</SccAuxPath>
+		<SccLocalPath>.</SccLocalPath>
+	</PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWindowsForms>true</UseWindowsForms>
+		<AssemblyName>TrwAppsBase</AssemblyName>
+		<RootNamespace>TRW.Apps.TrwAppsBase</RootNamespace>
+		<AssemblyVersion>1.0.0.0</AssemblyVersion>
+		<FileVersion>1.0.0.0</FileVersion>
+	</PropertyGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
+		<ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Remove="Images\AddButton.png" />
+		<None Remove="Images\CancelButton.png" />
+		<None Remove="Images\CloseButton.png" />
+		<None Remove="Images\CloseButton_Grey.png" />
+		<None Remove="Images\CopyButton.png" />
+		<None Remove="Images\DeleteButton.png" />
+		<None Remove="Images\EditButton.png" />
+		<None Remove="Images\SaveButton.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Images\AddButton.png" />
+		<EmbeddedResource Include="Images\CancelButton.png" />
+		<EmbeddedResource Include="Images\CloseButton.png" />
+		<EmbeddedResource Include="Images\CloseButton_Grey.png" />
+		<EmbeddedResource Include="Images\CopyButton.png" />
+		<EmbeddedResource Include="Images\DeleteButton.png" />
+		<EmbeddedResource Include="Images\EditButton.png" />
+		<EmbeddedResource Include="Images\SaveButton.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="Properties\Resources.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>Resources.resx</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<EmbeddedResource Update="Properties\Resources.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+</Project>

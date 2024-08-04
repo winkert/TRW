@@ -1,0 +1,113 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29215.179
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NPCGenerator", "NPCGenerator.csproj", "{EFBB4C49-FF34-4CFD-B1F5-86A6034DD49A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xml", "..\..\CommonLibraries\Xml\Xml.csproj", "{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "..\..\CommonLibraries\Data\Data.csproj", "{4DCE1917-9BB9-48CA-9B16-EC9D55FDE332}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrwAppsBase", "..\TrwAppsBase\TrwAppsBase.csproj", "{B7871487-7B9F-4E88-A885-14482A48E103}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Character", "..\..\GameLibraries\Character\Character.csproj", "{D56D7853-3501-4F0A-A63F-8393A1A7B655}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameCore", "..\..\GameLibraries\GameCore\GameCore.csproj", "{6AFA006B-7054-43CC-841D-749F8DFC59C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\..\CommonLibraries\Core\Core.csproj", "{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "..\..\CommonLibraries\Serialization\Serialization.csproj", "{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Core", "..\..\CommonLibraries\Data\Data.Core\Data.Core.csproj", "{30D3AD87-4FA7-4B02-910D-119DD348F936}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EFBB4C49-FF34-4CFD-B1F5-86A6034DD49A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EFBB4C49-FF34-4CFD-B1F5-86A6034DD49A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EFBB4C49-FF34-4CFD-B1F5-86A6034DD49A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EFBB4C49-FF34-4CFD-B1F5-86A6034DD49A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7F180E5-4D89-4E19-BB6A-263D156C8BEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DCE1917-9BB9-48CA-9B16-EC9D55FDE332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DCE1917-9BB9-48CA-9B16-EC9D55FDE332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DCE1917-9BB9-48CA-9B16-EC9D55FDE332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DCE1917-9BB9-48CA-9B16-EC9D55FDE332}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7871487-7B9F-4E88-A885-14482A48E103}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D56D7853-3501-4F0A-A63F-8393A1A7B655}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6AFA006B-7054-43CC-841D-749F8DFC59C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6AFA006B-7054-43CC-841D-749F8DFC59C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6AFA006B-7054-43CC-841D-749F8DFC59C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6AFA006B-7054-43CC-841D-749F8DFC59C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30D3AD87-4FA7-4B02-910D-119DD348F936}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30D3AD87-4FA7-4B02-910D-119DD348F936}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30D3AD87-4FA7-4B02-910D-119DD348F936}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30D3AD87-4FA7-4B02-910D-119DD348F936}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CEDDAC09-9D66-4033-85DE-B69B5EE4C583}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 7
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccProjectUniqueName0 = ..\\..\\CommonLibraries\\Xml\\Xml.csproj
+		SccProjectName0 = ../../CommonLibraries/Xml
+		SccAuxPath0 = https://dev.azure.com/trwinker
+		SccLocalPath0 = ..\\..\\CommonLibraries\\Xml
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = ..\\..\\CommonLibraries\\Data\\Data.csproj
+		SccProjectName1 = ../../CommonLibraries/Data
+		SccAuxPath1 = https://dev.azure.com/trwinker
+		SccLocalPath1 = ..\\..\\CommonLibraries\\Data
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = ..\\TrwAppsBase\\TrwAppsBase.csproj
+		SccProjectName2 = ../TrwAppsBase
+		SccAuxPath2 = https://dev.azure.com/trwinker
+		SccLocalPath2 = ..\\TrwAppsBase
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = ..\\..\\GameLibraries\\Character\\Character.csproj
+		SccProjectName3 = ../../GameLibraries/Character
+		SccAuxPath3 = https://dev.azure.com/trwinker
+		SccLocalPath3 = ..\\..\\GameLibraries\\Character
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName4 = ..\\..\\CommonLibraries\\Core\\Core.csproj
+		SccProjectName4 = ../../CommonLibraries/Core
+		SccAuxPath4 = https://dev.azure.com/trwinker
+		SccLocalPath4 = ..\\..\\CommonLibraries\\Core
+		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName5 = ..\\..\\CommonLibraries\\Serialization\\Serialization.csproj
+		SccProjectName5 = ../../CommonLibraries/Serialization
+		SccAuxPath5 = https://dev.azure.com/trwinker
+		SccLocalPath5 = ..\\..\\CommonLibraries\\Serialization
+		SccProvider5 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName6 = ..\\..\\CommonLibraries\\Data\\Data.Core\\Data.Core.csproj
+		SccProjectName6 = ../../CommonLibraries/Data/Data.Core
+		SccAuxPath6 = https://dev.azure.com/trwinker
+		SccLocalPath6 = ..\\..\\CommonLibraries\\Data\\Data.Core
+		SccProvider6 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

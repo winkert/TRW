@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Audio", "Audio.csproj", "{D08065ED-35A9-4EC9-BC20-8F2E1DDBC5C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Audio.Test", "Audio.Test\Audio.Test.csproj", "{57C7382F-40DE-4572-8876-224B8BB453A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serialization", "..\Serialization\Serialization.csproj", "{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D08065ED-35A9-4EC9-BC20-8F2E1DDBC5C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D08065ED-35A9-4EC9-BC20-8F2E1DDBC5C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D08065ED-35A9-4EC9-BC20-8F2E1DDBC5C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D08065ED-35A9-4EC9-BC20-8F2E1DDBC5C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57C7382F-40DE-4572-8876-224B8BB453A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57C7382F-40DE-4572-8876-224B8BB453A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57C7382F-40DE-4572-8876-224B8BB453A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57C7382F-40DE-4572-8876-224B8BB453A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD8CEDB-1BAC-4CB8-93B8-3757556F6BCA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E73D7263-C77C-4503-9996-C25BF30FDB40}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\Core\\Core.csproj
+		SccProjectName1 = ../Core
+		SccLocalPath1 = ..\\Core
+		SccProjectUniqueName2 = Audio.csproj
+		SccLocalPath2 = .
+		SccProjectUniqueName3 = Audio.Test\\Audio.Test.csproj
+		SccProjectName3 = Audio.Test
+		SccLocalPath3 = Audio.Test
+		SccProjectUniqueName4 = ..\\Serialization\\Serialization.csproj
+		SccProjectName4 = ../Serialization
+		SccLocalPath4 = ..\\Serialization
+	EndGlobalSection
+EndGlobal

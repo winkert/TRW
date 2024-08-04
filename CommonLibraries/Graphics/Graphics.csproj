@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Globals">
+    <SccProjectName>%24/TRW/CommonLibraries/Graphics</SccProjectName>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+    <SccAuxPath>https://dev.azure.com/trwinker</SccAuxPath>
+    <SccLocalPath>.</SccLocalPath>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Graphics.Test\**" />
+    <EmbeddedResource Remove="Graphics.Test\**" />
+    <None Remove="Graphics.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Graphics.csproj.vspscc" />
+  </ItemGroup>
+
+</Project>

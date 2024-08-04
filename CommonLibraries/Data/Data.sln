@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data", "Data.csproj", "{CAC2ED97-947B-4FFE-BAE4-4D9FE9E7C25E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Test", "Data.Test\Data.Test.csproj", "{15B056CD-C602-4903-AEC9-F372CF271139}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "..\Core\Core.csproj", "{B244F01C-FAA2-40CF-8291-F5CD8A6E69C5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Data.Core", "Data.Core\Data.Core.csproj", "{DFA7D01B-FBAB-43E3-BA45-C25936E36B59}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestingBase", "..\..\UnitTesting\UnitTestingBase\UnitTestingBase.csproj", "{557590A3-A5BD-4658-A970-892424067DB0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml", "..\Xml\Xml.csproj", "{8972A11B-A45E-4922-8144-01B5ED544D0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Serialization", "..\Serialization\Serialization.csproj", "{CF783727-4267-4BF1-9224-019C09C960F4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CAC2ED97-947B-4FFE-BAE4-4D9FE9E7C25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CAC2ED97-947B-4FFE-BAE4-4D9FE9E7C25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CAC2ED97-947B-4FFE-BAE4-4D9FE9E7C25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CAC2ED97-947B-4FFE-BAE4-4D9FE9E7C25E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15B056CD-C602-4903-AEC9-F372CF271139}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15B056CD-C602-4903-AEC9-F372CF271139}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15B056CD-C602-4903-AEC9-F372CF271139}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15B056CD-C602-4903-AEC9-F372CF271139}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B244F01C-FAA2-40CF-8291-F5CD8A6E69C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B244F01C-FAA2-40CF-8291-F5CD8A6E69C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B244F01C-FAA2-40CF-8291-F5CD8A6E69C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B244F01C-FAA2-40CF-8291-F5CD8A6E69C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFA7D01B-FBAB-43E3-BA45-C25936E36B59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFA7D01B-FBAB-43E3-BA45-C25936E36B59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFA7D01B-FBAB-43E3-BA45-C25936E36B59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFA7D01B-FBAB-43E3-BA45-C25936E36B59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{557590A3-A5BD-4658-A970-892424067DB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{557590A3-A5BD-4658-A970-892424067DB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{557590A3-A5BD-4658-A970-892424067DB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{557590A3-A5BD-4658-A970-892424067DB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8972A11B-A45E-4922-8144-01B5ED544D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8972A11B-A45E-4922-8144-01B5ED544D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8972A11B-A45E-4922-8144-01B5ED544D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8972A11B-A45E-4922-8144-01B5ED544D0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CF783727-4267-4BF1-9224-019C09C960F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CF783727-4267-4BF1-9224-019C09C960F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CF783727-4267-4BF1-9224-019C09C960F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CF783727-4267-4BF1-9224-019C09C960F4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FF3D7ECD-4ECD-45E4-A408-C37E1A518735}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 5
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccProjectUniqueName0 = ..\\Core\\Core.csproj
+		SccProjectName0 = ../Core
+		SccAuxPath0 = https://dev.azure.com/trwinker
+		SccLocalPath0 = ..\\Core
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = Data.Core\\Data.Core.csproj
+		SccProjectName1 = Data.Core
+		SccAuxPath1 = https://dev.azure.com/trwinker
+		SccLocalPath1 = Data.Core
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = ..\\..\\UnitTesting\\UnitTestingBase\\UnitTestingBase.csproj
+		SccProjectName2 = ../../UnitTesting/UnitTestingBase
+		SccAuxPath2 = https://dev.azure.com/trwinker
+		SccLocalPath2 = ..\\..\\UnitTesting\\UnitTestingBase
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName3 = ..\\Xml\\Xml.csproj
+		SccProjectName3 = ../Xml
+		SccAuxPath3 = https://dev.azure.com/trwinker
+		SccLocalPath3 = ..\\Xml
+		SccProvider3 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName4 = ..\\Serialization\\Serialization.csproj
+		SccProjectName4 = ../Serialization
+		SccAuxPath4 = https://dev.azure.com/trwinker
+		SccLocalPath4 = ..\\Serialization
+		SccProvider4 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

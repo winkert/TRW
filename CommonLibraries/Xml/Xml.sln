@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestingBase", "..\..\UnitTesting\UnitTestingBase\UnitTestingBase.csproj", "{41BBB6B5-5D06-4291-A820-C4F71E110ECC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml.Test", "Xml.Test\Xml.Test.csproj", "{B1FD6836-8C76-4830-893F-3E9D9AA0B240}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xml", "Xml.csproj", "{E4B0440D-B77E-4FE5-92A1-0FD1822E09DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1FD6836-8C76-4830-893F-3E9D9AA0B240}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1FD6836-8C76-4830-893F-3E9D9AA0B240}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1FD6836-8C76-4830-893F-3E9D9AA0B240}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1FD6836-8C76-4830-893F-3E9D9AA0B240}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4B0440D-B77E-4FE5-92A1-0FD1822E09DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4B0440D-B77E-4FE5-92A1-0FD1822E09DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4B0440D-B77E-4FE5-92A1-0FD1822E09DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4B0440D-B77E-4FE5-92A1-0FD1822E09DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4858B1B-5A69-4670-9FFB-C2F997577C8A}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 4
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = ..\\..\\UnitTesting\\UnitTestingBase\\UnitTestingBase.csproj
+		SccProjectName1 = ../../UnitTesting/UnitTestingBase
+		SccLocalPath1 = ..\\..\\UnitTesting\\UnitTestingBase
+		SccProjectUniqueName2 = Xml.Test\\Xml.Test.csproj
+		SccProjectName2 = Xml.Test
+		SccLocalPath2 = Xml.Test
+		SccProjectUniqueName3 = Xml.csproj
+		SccLocalPath3 = .
+	EndGlobalSection
+EndGlobal

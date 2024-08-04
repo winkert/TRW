@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Html", "Html.csproj", "{911BD8C6-AE24-45F7-A57A-C5C82EBB633D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestingBase", "..\..\UnitTesting\UnitTestingBase\UnitTestingBase.csproj", "{41BBB6B5-5D06-4291-A820-C4F71E110ECC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "..\Core\Core.csproj", "{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Html.Test", "Html.Test\Html.Test.csproj", "{49291D57-81C8-46D5-BCF8-0D1B945D172C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{911BD8C6-AE24-45F7-A57A-C5C82EBB633D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{911BD8C6-AE24-45F7-A57A-C5C82EBB633D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{911BD8C6-AE24-45F7-A57A-C5C82EBB633D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{911BD8C6-AE24-45F7-A57A-C5C82EBB633D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41BBB6B5-5D06-4291-A820-C4F71E110ECC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{703375AF-8BEC-48FB-9D44-AF9C9FEA0765}.Release|Any CPU.Build.0 = Release|Any CPU
+		{49291D57-81C8-46D5-BCF8-0D1B945D172C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{49291D57-81C8-46D5-BCF8-0D1B945D172C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{49291D57-81C8-46D5-BCF8-0D1B945D172C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{49291D57-81C8-46D5-BCF8-0D1B945D172C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {867A0D92-17DD-49A7-BFFB-F9DD88D0208E}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccProjectUniqueName0 = Html.csproj
+		SccProjectName0 = .
+		SccAuxPath0 = https://dev.azure.com/trwinker
+		SccLocalPath0 = .
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName1 = ..\\..\\UnitTesting\\UnitTestingBase\\UnitTestingBase.csproj
+		SccProjectName1 = ../../UnitTesting/UnitTestingBase
+		SccAuxPath1 = https://dev.azure.com/trwinker
+		SccLocalPath1 = ..\\..\\UnitTesting\\UnitTestingBase
+		SccProvider1 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccProjectUniqueName2 = ..\\Core\\Core.csproj
+		SccProjectName2 = ../Core
+		SccAuxPath2 = https://dev.azure.com/trwinker
+		SccLocalPath2 = ..\\Core
+		SccProvider2 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

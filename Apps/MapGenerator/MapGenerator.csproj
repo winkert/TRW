@@ -1,0 +1,50 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup Label="Globals">
+		<SccProjectName>SAK</SccProjectName>
+		<SccProvider>SAK</SccProvider>
+		<SccAuxPath>SAK</SccAuxPath>
+		<SccLocalPath>SAK</SccLocalPath>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<RootNamespace>MapGenerator</RootNamespace>
+		<AssemblyName>MapGenerator</AssemblyName>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="MapGenerator.csproj.vspscc" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj">
+      <Project>{703375af-8bec-48fb-9d44-af9c9fea0765}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonLibraries\Graphics\Graphics.csproj">
+      <Project>{9bc815da-fc54-4d96-9e1a-836098d4cfaa}</Project>
+      <Name>Graphics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonLibraries\ProceduralAlgorithms\ProceduralAlgorithms.csproj">
+      <Project>{1644abd5-b3ca-4843-8534-4f1ddf68544f}</Project>
+      <Name>ProceduralAlgorithms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\CommonLibraries\Serialization\Serialization.csproj">
+      <Project>{6dd8cedb-1bac-4cb8-93b8-3757556f6bca}</Project>
+      <Name>Serialization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\GameLibraries\Maps\Maps.csproj">
+      <Project>{28c688c0-5810-41e7-ba89-b866030b96bc}</Project>
+      <Name>Maps</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrwAppsBase\TrwAppsBase.csproj">
+      <Project>{b7871487-7b9f-4e88-a885-14482a48e103}</Project>
+      <Name>TrwAppsBase</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

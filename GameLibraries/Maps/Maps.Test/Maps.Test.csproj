@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup Label="Globals">
+<SccProjectName>SAK</SccProjectName>
+<SccProvider>SAK</SccProvider>
+<SccAuxPath>SAK</SccAuxPath>
+<SccLocalPath>SAK</SccLocalPath>
+</PropertyGroup>
+<PropertyGroup>
+<TargetFramework>netstandard2.0</TargetFramework>
+<AssemblyName>Maps.Test</AssemblyName>
+<RootNamespace>Maps.Test</RootNamespace>
+</PropertyGroup>
+<ItemGroup>
+<None Remove="Maps.Test.csproj.vspscc" />
+</ItemGroup>
+<ItemGroup>
+<ProjectReference Include="..\..\..\CommonLibraries\Core\Core.csproj" />
+<ProjectReference Include="..\..\..\CommonLibraries\ProceduralAlgorithms\ProceduralAlgorithms.csproj" />
+<ProjectReference Include="..\..\..\UnitTesting\UnitTestingBase\UnitTestingBase.csproj" />
+<ProjectReference Include="..\Maps.csproj" />
+</ItemGroup>
+<ItemGroup>
+</ItemGroup>
+</Project>

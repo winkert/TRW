@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestingBase", "..\..\UnitTesting\UnitTestingBase\UnitTestingBase.csproj", "{950FC261-B628-46DF-8890-65D0B9B481AE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core.csproj", "{CD63F762-1CC0-4990-AF66-F723431B6BE3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Tests", "Core.Tests\Core.Tests.csproj", "{46C50800-3573-414F-AA5D-429FFE43653B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{950FC261-B628-46DF-8890-65D0B9B481AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950FC261-B628-46DF-8890-65D0B9B481AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950FC261-B628-46DF-8890-65D0B9B481AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950FC261-B628-46DF-8890-65D0B9B481AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD63F762-1CC0-4990-AF66-F723431B6BE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD63F762-1CC0-4990-AF66-F723431B6BE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD63F762-1CC0-4990-AF66-F723431B6BE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD63F762-1CC0-4990-AF66-F723431B6BE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46C50800-3573-414F-AA5D-429FFE43653B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46C50800-3573-414F-AA5D-429FFE43653B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46C50800-3573-414F-AA5D-429FFE43653B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46C50800-3573-414F-AA5D-429FFE43653B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {920F6DFD-A2D5-4ED7-8128-F3EEA5943E82}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 1
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://dev.azure.com/trwinker
+		SccProjectUniqueName0 = ..\\..\\UnitTesting\\UnitTestingBase\\UnitTestingBase.csproj
+		SccProjectName0 = ../../UnitTesting/UnitTestingBase
+		SccAuxPath0 = https://dev.azure.com/trwinker
+		SccLocalPath0 = ..\\..\\UnitTesting\\UnitTestingBase
+		SccProvider0 = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+	EndGlobalSection
+EndGlobal

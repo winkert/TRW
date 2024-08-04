@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+<PropertyGroup Label="Globals">
+<SccProjectName>SAK</SccProjectName>
+<SccProvider>SAK</SccProvider>
+<SccAuxPath>SAK</SccAuxPath>
+<SccLocalPath>SAK</SccLocalPath>
+</PropertyGroup>
+<PropertyGroup>
+<TargetFramework>netstandard2.0</TargetFramework>
+<AssemblyName>GameLibraries.Maps</AssemblyName>
+<RootNamespace>TRW.GameLibraries.Maps</RootNamespace>
+</PropertyGroup>
+<ItemGroup>
+  <Compile Remove="Maps.Test\**" />
+  <EmbeddedResource Remove="Maps.Test\**" />
+  <None Remove="Maps.Test\**" />
+</ItemGroup>
+<ItemGroup>
+<None Remove="Maps.csproj.vspscc" />
+</ItemGroup>
+<ItemGroup>
+  <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
+</ItemGroup>
+<ItemGroup>
+<ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
+<ProjectReference Include="..\..\CommonLibraries\ProceduralAlgorithms\ProceduralAlgorithms.csproj" />
+</ItemGroup>
+</Project>
