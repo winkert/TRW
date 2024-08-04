@@ -153,11 +153,11 @@ namespace TRW.GameLibraries.Maps
 
         public void FillPerlinNoise(int octaves, decimal persistence)
         {
-            PerlinNoiseAlgorithm<CellCollection, Cell> randomWalk = new PerlinNoiseAlgorithm<CellCollection, Cell>(this, Grid.Cells, _xDimension, _yDimension);
+            PerlinNoiseAlgorithm<CellCollection, Cell> perlinNoise = new PerlinNoiseAlgorithm<CellCollection, Cell>(this, Grid.Cells, _xDimension, _yDimension);
             if (UpdateMap != null)
-                randomWalk.Callback += UpdateMap;
+                perlinNoise.Callback += UpdateMap;
 
-            randomWalk.DoAlgorithm(octaves, persistence);
+            perlinNoise.DoAlgorithm(octaves, persistence, 8, 128);
         }
 
         public List<MapComponentBase> GenerateRandomDungeon(int numOfRooms, Tuple<int, int> minSizeOfRooms, Tuple<int, int> maxSizeOfRooms, HallCreationModes hallCreationMode, RoomShapes roomShape, bool allowIntersectingRooms)

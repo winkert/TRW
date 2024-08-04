@@ -9,28 +9,41 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         {
         }
 
-        public override int NumberOfParamters => 2;
+        public override int NumberOfParamters => 4;
 
-        public override Type[] TypesOfParameters => new Type[] { typeof(int), typeof(decimal) };
+        public override Type[] TypesOfParameters => new Type[] { typeof(int), typeof(decimal), typeof(decimal), typeof(decimal) };
 
         internal int[] Permutations { get; set; }
+        /// <summary>
+        /// In Perlin noise, gradient vectors represent the direction of change at each grid point.
+        /// </summary>
         internal readonly decimal[][] GradientGrid = new decimal[][] {
-            new decimal[] { 0, 1 },
-            new decimal[] { 1, 0 },
-            new decimal[] { -1, 0 },
-            new decimal[] { 0, -1 },
-            new decimal[] { 0.707106781m, 0.707106781m },
-            new decimal[] { 0.707106781m, -0.707106781m },
-            new decimal[] { -0.707106781m, 0.707106781m },
-            new decimal[] { -0.707106781m, -0.707106781m }
+            new decimal[] { 0, 1 },     // up
+            new decimal[] { 1, 0 },     // right
+            new decimal[] { -1, 0 },    // down
+            new decimal[] { 0, -1 },    // left
+            new decimal[] { 0.707106781m, 0.707106781m },       // diagonal intermediate vector
+            new decimal[] { 0.707106781m, -0.707106781m },      // diagonal intermediate vector
+            new decimal[] { -0.707106781m, 0.707106781m },      // diagonal intermediate vector
+            new decimal[] { -0.707106781m, -0.707106781m }      // diagonal intermediate vector
         };
         internal int Octaves { get; set; }
         internal decimal Persistence {  get; set; }
+        /// <summary>
+        /// The frequency determines how rapidly the noise oscillates or repeats.
+        /// </summary>
+        internal decimal Frequency { get; set; }
+        /// <summary>
+        /// The amplitude represents the strength or magnitude of the noise.
+        /// </summary>
+        internal decimal Amplitude { get; set; }
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
             Octaves = Convert.ToInt32(args[0]);
             Persistence = Convert.ToDecimal(args[1]);
+            Frequency = Convert.ToDecimal(args[2]);
+            Amplitude = Convert.ToDecimal(args[3]);
 
             // define the permutations at run time to use Random
             Permutations = new int[256];
@@ -49,18 +62,16 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             _grid.First();
             do
             {
-                _grid.Current.Content = Math.Abs((int)(GetNoise(_grid.Current.Position) * 255m));
+                _grid.Current.Content = Math.Abs((int)(GetNoise(_grid.Current.Position.X, _grid.Current.Position.Y, Frequency, Amplitude) * 255m));
             } while (_grid.Next());
         }
 
-        private decimal GetNoise(Position p)
+        private decimal GetNoise(int x, int y, decimal frequency, decimal amplitude)
         {
-            decimal pX = p.X / 100m;
-            decimal pY = p.Y / 100m;
+            decimal pX = x / 100m;
+            decimal pY = y / 100m;
 
             decimal total = 0;
-            decimal frequency = 8;
-            decimal amplitude = 128;
             decimal maxAmplitude = 0;
 
             for (int i = 0; i < Octaves; i++)
