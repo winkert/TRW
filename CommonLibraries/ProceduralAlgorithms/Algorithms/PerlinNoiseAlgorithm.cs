@@ -14,6 +14,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         public override Type[] TypesOfParameters => new Type[] { typeof(int), typeof(decimal), typeof(decimal), typeof(decimal) };
 
         internal int[] Permutations { get; set; }
+
         /// <summary>
         /// In Perlin noise, gradient vectors represent the direction of change at each grid point.
         /// </summary>
@@ -25,9 +26,28 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             new decimal[] { 0.707106781m, 0.707106781m },       // diagonal intermediate vector
             new decimal[] { 0.707106781m, -0.707106781m },      // diagonal intermediate vector
             new decimal[] { -0.707106781m, 0.707106781m },      // diagonal intermediate vector
-            new decimal[] { -0.707106781m, -0.707106781m }      // diagonal intermediate vector
+            new decimal[] { -0.707106781m, -0.707106781m },      // diagonal intermediate vector
+            new decimal[] { 0.230219016m, 0.230219016m },       // diagonal intermediate vector
+            new decimal[] { 0.230219016m, -0.230219016m },      // diagonal intermediate vector
+            new decimal[] { -0.230219016m, 0.230219016m },      // diagonal intermediate vector
+            new decimal[] { -0.230219016m, -0.230219016m }      // diagonal intermediate vector
         };
+
+        internal readonly decimal[][] GradientGridSimple = new decimal[][] {
+            new decimal[] { 0, 1 },     // up
+            new decimal[] { 1, 0 },     // right
+            new decimal[] { -1, 0 },    // down
+            new decimal[] { 0, -1 }    // left
+        };
+
+        /// <summary>
+        /// The number of iterations to do - impacts smoothness
+        /// </summary>
         internal int Octaves { get; set; }
+
+        /// <summary>
+        /// 0 to 1 value indicating how the slope changes between iterations (octaves)
+        /// </summary>
         internal decimal Persistence {  get; set; }
         /// <summary>
         /// The frequency determines how rapidly the noise oscillates or repeats.
