@@ -249,37 +249,41 @@ namespace TRW.Apps.MapGenerator
             DrawMap(map);
         }
 
-        private bool ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence)
+        private bool ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude)
         {
             width = 0;
             height = 0;
             octaves = 0;
             persistence = 0;
+            frequency = 0;
+            amplitude = 0;
 
             if(string.IsNullOrEmpty(uxPerlinNoiseWidth.Text))
                 return false;
             if(string.IsNullOrEmpty(uxPerlinNoiseHeight.Text))
-                return false;
-            if (string.IsNullOrEmpty(uxPerlinNoiseOctaves.Text))
                 return false;
 
             if(!int.TryParse(uxPerlinNoiseWidth.Text, out width))
                 return false;
             if(!int.TryParse(uxPerlinNoiseHeight.Text, out height))
                 return false;
-            octaves = (int)uxPerlinNoiseOctaves.Value;
+
             if (!decimal.TryParse(uxPerlinNoisePersistence.Text, out persistence))
                 return false;
+
+            octaves = (int)uxPerlinNoiseOctaves.Value;
+            frequency = uxPerlinNoiseFreq.Value;
+            amplitude = uxPerlinNoiseAmp.Value;
 
             return true;
         }
 
-        private void RunPerlinNoise(Map map, int octaves, decimal persistence)
+        private void RunPerlinNoise(Map map, int octaves, decimal persistence, decimal frequency, decimal amplitude)
         {
             map.UpdateMap += UpdateMapHandler;
             map.ColorStyle = MapParser.ColorMapStyle.Exact;
-            map.MapColorMap = ColorMap.RGB256;
-            map.FillPerlinNoise(octaves, persistence);
+            map.MapColorMap = ColorMap.GetGrayScale256Bits();
+            map.FillPerlinNoise(octaves, persistence, frequency, amplitude);
             
             // for debug purposes only
             //UpdateStatus(map.ToString());
@@ -487,10 +491,10 @@ namespace TRW.Apps.MapGenerator
 
         private void uxGeneratePerlinNoise_Click(object sender, EventArgs e)
         {
-            if (ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence))
+            if (ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude))
             {
                 Map m = new Map(width, height);
-                StartTaskInNewThread(() => { RunPerlinNoise(m, octaves, persistence); });
+                StartTaskInNewThread(() => { RunPerlinNoise(m, octaves, persistence, frequency, amplitude); });
             }
         }
     }

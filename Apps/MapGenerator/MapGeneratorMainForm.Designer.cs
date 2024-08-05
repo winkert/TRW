@@ -70,6 +70,20 @@
             txtCellAutomataHeight = new TextBox();
             txtCellAutomataWidth = new TextBox();
             btnGenerateCellAutomata = new Button();
+            tabProcPN = new TabPage();
+            label25 = new Label();
+            uxPerlinNoiseAmp = new NumericUpDown();
+            label24 = new Label();
+            uxPerlinNoiseFreq = new NumericUpDown();
+            uxPerlinNoiseOctaves = new NumericUpDown();
+            label20 = new Label();
+            uxPerlinNoisePersistence = new TextBox();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            uxPerlinNoiseHeight = new TextBox();
+            uxPerlinNoiseWidth = new TextBox();
+            uxGeneratePerlinNoise = new Button();
             rndDungeonTab = new TabPage();
             label18 = new Label();
             label19 = new Label();
@@ -93,16 +107,6 @@
             copyToolStripMenuItem = new ToolStripMenuItem();
             MainSplitContainer = new SplitContainer();
             SettingsSplitContainer = new SplitContainer();
-            PerlinNoiseTab = new TabPage();
-            uxPerlinNoiseOctaves = new NumericUpDown();
-            label20 = new Label();
-            this.uxPerlinNoisePersistence = new TextBox();
-            label21 = new Label();
-            label22 = new Label();
-            label23 = new Label();
-            uxPerlinNoiseHeight = new TextBox();
-            uxPerlinNoiseWidth = new TextBox();
-            uxGeneratePerlinNoise = new Button();
             ((System.ComponentModel.ISupportInitialize)pctPreview).BeginInit();
             tabGenSettings.SuspendLayout();
             tabPgFromFile.SuspendLayout();
@@ -111,6 +115,10 @@
             ((System.ComponentModel.ISupportInitialize)txtRandomWalkIterations).BeginInit();
             tabProcCA.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtCellAutomataIterations).BeginInit();
+            tabProcPN.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseAmp).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseFreq).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseOctaves).BeginInit();
             rndDungeonTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)uxMaxYOfRooms).BeginInit();
             ((System.ComponentModel.ISupportInitialize)uxMaxXOfRooms).BeginInit();
@@ -126,8 +134,6 @@
             SettingsSplitContainer.Panel1.SuspendLayout();
             SettingsSplitContainer.Panel2.SuspendLayout();
             SettingsSplitContainer.SuspendLayout();
-            PerlinNoiseTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseOctaves).BeginInit();
             SuspendLayout();
             // 
             // pctPreview
@@ -148,8 +154,8 @@
             tabGenSettings.Controls.Add(tabPgProcDS);
             tabGenSettings.Controls.Add(tabProcRW);
             tabGenSettings.Controls.Add(tabProcCA);
+            tabGenSettings.Controls.Add(tabProcPN);
             tabGenSettings.Controls.Add(rndDungeonTab);
-            tabGenSettings.Controls.Add(PerlinNoiseTab);
             tabGenSettings.Dock = DockStyle.Fill;
             tabGenSettings.Location = new Point(0, 0);
             tabGenSettings.Margin = new Padding(4, 3, 4, 3);
@@ -591,6 +597,158 @@
             btnGenerateCellAutomata.UseVisualStyleBackColor = true;
             btnGenerateCellAutomata.Click += btnGenerateCellAutomata_Click;
             // 
+            // tabProcPN
+            // 
+            tabProcPN.Controls.Add(label25);
+            tabProcPN.Controls.Add(uxPerlinNoiseAmp);
+            tabProcPN.Controls.Add(label24);
+            tabProcPN.Controls.Add(uxPerlinNoiseFreq);
+            tabProcPN.Controls.Add(uxPerlinNoiseOctaves);
+            tabProcPN.Controls.Add(label20);
+            tabProcPN.Controls.Add(uxPerlinNoisePersistence);
+            tabProcPN.Controls.Add(label21);
+            tabProcPN.Controls.Add(label22);
+            tabProcPN.Controls.Add(label23);
+            tabProcPN.Controls.Add(uxPerlinNoiseHeight);
+            tabProcPN.Controls.Add(uxPerlinNoiseWidth);
+            tabProcPN.Controls.Add(uxGeneratePerlinNoise);
+            tabProcPN.Location = new Point(4, 24);
+            tabProcPN.Name = "tabProcPN";
+            tabProcPN.Padding = new Padding(3);
+            tabProcPN.Size = new Size(569, 307);
+            tabProcPN.TabIndex = 5;
+            tabProcPN.Text = "Perlin Noise";
+            tabProcPN.UseVisualStyleBackColor = true;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(19, 168);
+            label25.Margin = new Padding(4, 0, 4, 0);
+            label25.Name = "label25";
+            label25.Size = new Size(63, 15);
+            label25.TabIndex = 28;
+            label25.Text = "Amplitude";
+            // 
+            // uxPerlinNoiseAmp
+            // 
+            uxPerlinNoiseAmp.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            uxPerlinNoiseAmp.Location = new Point(115, 165);
+            uxPerlinNoiseAmp.Margin = new Padding(4, 3, 4, 3);
+            uxPerlinNoiseAmp.Maximum = new decimal(new int[] { 256, 0, 0, 0 });
+            uxPerlinNoiseAmp.Name = "uxPerlinNoiseAmp";
+            uxPerlinNoiseAmp.Size = new Size(87, 23);
+            uxPerlinNoiseAmp.TabIndex = 5;
+            uxPerlinNoiseAmp.Value = new decimal(new int[] { 128, 0, 0, 0 });
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(18, 139);
+            label24.Margin = new Padding(4, 0, 4, 0);
+            label24.Name = "label24";
+            label24.Size = new Size(62, 15);
+            label24.TabIndex = 26;
+            label24.Text = "Frequency";
+            // 
+            // uxPerlinNoiseFreq
+            // 
+            uxPerlinNoiseFreq.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            uxPerlinNoiseFreq.Location = new Point(114, 136);
+            uxPerlinNoiseFreq.Margin = new Padding(4, 3, 4, 3);
+            uxPerlinNoiseFreq.Maximum = new decimal(new int[] { 64, 0, 0, 0 });
+            uxPerlinNoiseFreq.Name = "uxPerlinNoiseFreq";
+            uxPerlinNoiseFreq.Size = new Size(87, 23);
+            uxPerlinNoiseFreq.TabIndex = 4;
+            uxPerlinNoiseFreq.Value = new decimal(new int[] { 8, 0, 0, 0 });
+            // 
+            // uxPerlinNoiseOctaves
+            // 
+            uxPerlinNoiseOctaves.Location = new Point(114, 78);
+            uxPerlinNoiseOctaves.Margin = new Padding(4, 3, 4, 3);
+            uxPerlinNoiseOctaves.Maximum = new decimal(new int[] { 24, 0, 0, 0 });
+            uxPerlinNoiseOctaves.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            uxPerlinNoiseOctaves.Name = "uxPerlinNoiseOctaves";
+            uxPerlinNoiseOctaves.Size = new Size(88, 23);
+            uxPerlinNoiseOctaves.TabIndex = 2;
+            uxPerlinNoiseOctaves.Value = new decimal(new int[] { 1, 0, 0, 0 });
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(18, 110);
+            label20.Margin = new Padding(4, 0, 4, 0);
+            label20.Name = "label20";
+            label20.Size = new Size(66, 15);
+            label20.TabIndex = 24;
+            label20.Text = "Persistence";
+            // 
+            // uxPerlinNoisePersistence
+            // 
+            uxPerlinNoisePersistence.Location = new Point(114, 107);
+            uxPerlinNoisePersistence.Margin = new Padding(4, 3, 4, 3);
+            uxPerlinNoisePersistence.Name = "uxPerlinNoisePersistence";
+            uxPerlinNoisePersistence.Size = new Size(87, 23);
+            uxPerlinNoisePersistence.TabIndex = 3;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(18, 80);
+            label21.Margin = new Padding(4, 0, 4, 0);
+            label21.Name = "label21";
+            label21.Size = new Size(49, 15);
+            label21.TabIndex = 23;
+            label21.Text = "Octaves";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(18, 50);
+            label22.Margin = new Padding(4, 0, 4, 0);
+            label22.Name = "label22";
+            label22.Size = new Size(70, 15);
+            label22.TabIndex = 22;
+            label22.Text = "Map Height";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(18, 20);
+            label23.Margin = new Padding(4, 0, 4, 0);
+            label23.Name = "label23";
+            label23.Size = new Size(66, 15);
+            label23.TabIndex = 21;
+            label23.Text = "Map Width";
+            // 
+            // uxPerlinNoiseHeight
+            // 
+            uxPerlinNoiseHeight.Location = new Point(114, 47);
+            uxPerlinNoiseHeight.Margin = new Padding(4, 3, 4, 3);
+            uxPerlinNoiseHeight.Name = "uxPerlinNoiseHeight";
+            uxPerlinNoiseHeight.Size = new Size(87, 23);
+            uxPerlinNoiseHeight.TabIndex = 1;
+            // 
+            // uxPerlinNoiseWidth
+            // 
+            uxPerlinNoiseWidth.Location = new Point(114, 17);
+            uxPerlinNoiseWidth.Margin = new Padding(4, 3, 4, 3);
+            uxPerlinNoiseWidth.Name = "uxPerlinNoiseWidth";
+            uxPerlinNoiseWidth.Size = new Size(87, 23);
+            uxPerlinNoiseWidth.TabIndex = 0;
+            // 
+            // uxGeneratePerlinNoise
+            // 
+            uxGeneratePerlinNoise.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            uxGeneratePerlinNoise.Location = new Point(114, 233);
+            uxGeneratePerlinNoise.Margin = new Padding(4, 3, 4, 3);
+            uxGeneratePerlinNoise.Name = "uxGeneratePerlinNoise";
+            uxGeneratePerlinNoise.Size = new Size(88, 27);
+            uxGeneratePerlinNoise.TabIndex = 7;
+            uxGeneratePerlinNoise.Text = "Generate";
+            uxGeneratePerlinNoise.UseVisualStyleBackColor = true;
+            uxGeneratePerlinNoise.Click += uxGeneratePerlinNoise_Click;
+            // 
             // rndDungeonTab
             // 
             rndDungeonTab.Controls.Add(label18);
@@ -844,112 +1002,6 @@
             SettingsSplitContainer.SplitterWidth = 5;
             SettingsSplitContainer.TabIndex = 0;
             // 
-            // PerlinNoiseTab
-            // 
-            PerlinNoiseTab.Controls.Add(uxPerlinNoiseOctaves);
-            PerlinNoiseTab.Controls.Add(label20);
-            PerlinNoiseTab.Controls.Add(this.uxPerlinNoisePersistence);
-            PerlinNoiseTab.Controls.Add(label21);
-            PerlinNoiseTab.Controls.Add(label22);
-            PerlinNoiseTab.Controls.Add(label23);
-            PerlinNoiseTab.Controls.Add(uxPerlinNoiseHeight);
-            PerlinNoiseTab.Controls.Add(uxPerlinNoiseWidth);
-            PerlinNoiseTab.Controls.Add(uxGeneratePerlinNoise);
-            PerlinNoiseTab.Location = new Point(4, 24);
-            PerlinNoiseTab.Name = "PerlinNoiseTab";
-            PerlinNoiseTab.Padding = new Padding(3);
-            PerlinNoiseTab.Size = new Size(569, 307);
-            PerlinNoiseTab.TabIndex = 5;
-            PerlinNoiseTab.Text = "Perlin Noise";
-            PerlinNoiseTab.UseVisualStyleBackColor = true;
-            // 
-            // uxPerlinNoiseOctaves
-            // 
-            uxPerlinNoiseOctaves.Location = new Point(114, 78);
-            uxPerlinNoiseOctaves.Margin = new Padding(4, 3, 4, 3);
-            uxPerlinNoiseOctaves.Maximum = new decimal(new int[] { 24, 0, 0, 0 });
-            uxPerlinNoiseOctaves.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
-            uxPerlinNoiseOctaves.Name = "uxPerlinNoiseOctaves";
-            uxPerlinNoiseOctaves.Size = new Size(88, 23);
-            uxPerlinNoiseOctaves.TabIndex = 2;
-            uxPerlinNoiseOctaves.Value = new decimal(new int[] { 1, 0, 0, 0 });
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Location = new Point(18, 110);
-            label20.Margin = new Padding(4, 0, 4, 0);
-            label20.Name = "label20";
-            label20.Size = new Size(66, 15);
-            label20.TabIndex = 24;
-            label20.Text = "Persistence";
-            // 
-            // uxPerlinNoisePersistence
-            // 
-            this.uxPerlinNoisePersistence.Location = new Point(114, 107);
-            this.uxPerlinNoisePersistence.Margin = new Padding(4, 3, 4, 3);
-            this.uxPerlinNoisePersistence.Name = "uxPerlinNoisePersistence";
-            this.uxPerlinNoisePersistence.Size = new Size(87, 23);
-            this.uxPerlinNoisePersistence.TabIndex = 3;
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Location = new Point(18, 80);
-            label21.Margin = new Padding(4, 0, 4, 0);
-            label21.Name = "label21";
-            label21.Size = new Size(49, 15);
-            label21.TabIndex = 23;
-            label21.Text = "Octaves";
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Location = new Point(18, 50);
-            label22.Margin = new Padding(4, 0, 4, 0);
-            label22.Name = "label22";
-            label22.Size = new Size(70, 15);
-            label22.TabIndex = 22;
-            label22.Text = "Map Height";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Location = new Point(18, 20);
-            label23.Margin = new Padding(4, 0, 4, 0);
-            label23.Name = "label23";
-            label23.Size = new Size(66, 15);
-            label23.TabIndex = 21;
-            label23.Text = "Map Width";
-            // 
-            // uxPerlinNoiseHeight
-            // 
-            uxPerlinNoiseHeight.Location = new Point(114, 47);
-            uxPerlinNoiseHeight.Margin = new Padding(4, 3, 4, 3);
-            uxPerlinNoiseHeight.Name = "uxPerlinNoiseHeight";
-            uxPerlinNoiseHeight.Size = new Size(87, 23);
-            uxPerlinNoiseHeight.TabIndex = 1;
-            // 
-            // uxPerlinNoiseWidth
-            // 
-            uxPerlinNoiseWidth.Location = new Point(114, 17);
-            uxPerlinNoiseWidth.Margin = new Padding(4, 3, 4, 3);
-            uxPerlinNoiseWidth.Name = "uxPerlinNoiseWidth";
-            uxPerlinNoiseWidth.Size = new Size(87, 23);
-            uxPerlinNoiseWidth.TabIndex = 0;
-            // 
-            // uxGeneratePerlinNoise
-            // 
-            uxGeneratePerlinNoise.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            uxGeneratePerlinNoise.Location = new Point(113, 153);
-            uxGeneratePerlinNoise.Margin = new Padding(4, 3, 4, 3);
-            uxGeneratePerlinNoise.Name = "uxGeneratePerlinNoise";
-            uxGeneratePerlinNoise.Size = new Size(88, 27);
-            uxGeneratePerlinNoise.TabIndex = 4;
-            uxGeneratePerlinNoise.Text = "Generate";
-            uxGeneratePerlinNoise.UseVisualStyleBackColor = true;
-            uxGeneratePerlinNoise.Click += uxGeneratePerlinNoise_Click;
-            // 
             // MapGeneratorMainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -973,6 +1025,11 @@
             tabProcCA.ResumeLayout(false);
             tabProcCA.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)txtCellAutomataIterations).EndInit();
+            tabProcPN.ResumeLayout(false);
+            tabProcPN.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseAmp).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseFreq).EndInit();
+            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseOctaves).EndInit();
             rndDungeonTab.ResumeLayout(false);
             rndDungeonTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)uxMaxYOfRooms).EndInit();
@@ -991,9 +1048,6 @@
             SettingsSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)SettingsSplitContainer).EndInit();
             SettingsSplitContainer.ResumeLayout(false);
-            PerlinNoiseTab.ResumeLayout(false);
-            PerlinNoiseTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)uxPerlinNoiseOctaves).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -1064,12 +1118,12 @@
         private System.Windows.Forms.TextBox uxDungeonHeight;
         private System.Windows.Forms.TextBox uxDungeonWidth;
         private System.Windows.Forms.CheckBox chkRandomWalkAvoidClusters;
-        private TabPage PerlinNoiseTab;
+        private TabPage tabProcPN;
         private CheckBox checkBox1;
         private CheckBox checkBox2;
         private NumericUpDown uxPerlinNoiseOctaves;
         private Label label20;
-        private TextBox textBox1;
+        private NumericUpDown uxPerlinNoiseFreq;
         private Label label21;
         private Label label22;
         private Label label23;
@@ -1077,6 +1131,9 @@
         private TextBox uxPerlinNoiseWidth;
         private TextBox uxPerlinNoisePersistence;
         private Button uxGeneratePerlinNoise;
+        private Label label25;
+        private NumericUpDown uxPerlinNoiseAmp;
+        private Label label24;
     }
 }
 
