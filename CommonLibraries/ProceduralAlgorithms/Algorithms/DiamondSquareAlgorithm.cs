@@ -9,22 +9,36 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 {
     public class DiamondSquareAlgorithm<M, C> : ProceduralAlgorithmBase<M, C> where C : ICell where M : IMatrix<C>
     {
-        private readonly Type[] parameterTypes = new Type[] { typeof(int), typeof(int), typeof(int), typeof(decimal) };
-
         public DiamondSquareAlgorithm(object sender, M grid, int xDim, int yDim) : base(sender, grid, xDim, yDim)
         {
 
         }
 
-        public override int NumberOfParamters => 4;
-        public override Type[] TypesOfParameters => parameterTypes;
+        private static ProceduralAlgorithmParameterCollection _parameters;
+        public override ProceduralAlgorithmParameterCollection Parameters
+        {
+            get
+            {
+                if (_parameters == null)
+                {
+                    _parameters = new ProceduralAlgorithmParameterCollection(4)
+                    {
+                        new ProceduralAlgorithmParameter<int>(),
+                        new ProceduralAlgorithmParameter<int>(),
+                        new ProceduralAlgorithmParameter<int>(),
+                        new ProceduralAlgorithmParameter<decimal>()
+                    };
+                }
+                return _parameters;
+            }
+        }
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            int cx = Convert.ToInt32(args[0]);
-            int cy = Convert.ToInt32(args[1]);
-            int step = Convert.ToInt32(args[2]);
-            decimal spread = Convert.ToDecimal(args[3]);
+            int cx = Parameters.GetParameterValue<int>(args, 0);
+            int cy = Parameters.GetParameterValue<int>(args, 1);
+            int step = Parameters.GetParameterValue<int>(args, 2);
+            decimal spread = Parameters.GetParameterValue<decimal>(args, 3);
 
             if (cx > _xDimension || cy > _yDimension)
                 return;

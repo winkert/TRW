@@ -249,42 +249,52 @@ namespace TRW.Apps.MapGenerator
             DrawMap(map);
         }
 
-        private bool ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence)
+        private bool ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude, out bool useComplexGrid)
         {
             width = 0;
             height = 0;
             octaves = 0;
             persistence = 0;
+            frequency = 0;
+            amplitude = 0;
+            useComplexGrid = false;
 
-            if(string.IsNullOrEmpty(uxPerlinNoiseWidth.Text))
+            if (string.IsNullOrEmpty(uxPerlinNoiseWidth.Text))
                 return false;
             if(string.IsNullOrEmpty(uxPerlinNoiseHeight.Text))
-                return false;
-            if (string.IsNullOrEmpty(uxPerlinNoiseOctaves.Text))
                 return false;
 
             if(!int.TryParse(uxPerlinNoiseWidth.Text, out width))
                 return false;
             if(!int.TryParse(uxPerlinNoiseHeight.Text, out height))
                 return false;
-            octaves = (int)uxPerlinNoiseOctaves.Value;
+
+            if(uxPerlinNoiseGrid.SelectedIndex < 0)
+                return false;
+
             if (!decimal.TryParse(uxPerlinNoisePersistence.Text, out persistence))
                 return false;
+
+            octaves = (int)uxPerlinNoiseOctaves.Value;
+            frequency = uxPerlinNoiseFreq.Value;
+            amplitude = uxPerlinNoiseAmp.Value;
+            useComplexGrid = uxPerlinNoiseGrid.SelectedIndex == 1;
 
             return true;
         }
 
-        private void RunPerlinNoise(Map map, int octaves, decimal persistence)
+        private void RunPerlinNoise(Map map, int octaves, decimal persistence, decimal frequency, decimal amplitude, bool useComplexGrid)
         {
             map.UpdateMap += UpdateMapHandler;
             map.ColorStyle = MapParser.ColorMapStyle.Exact;
-            map.MapColorMap = ColorMap.RGB256;
-            map.FillPerlinNoise(octaves, persistence);
+            map.MapColorMap = ColorMap.GetGrayScale256Bits();
+            map.FillPerlinNoise(octaves, persistence, frequency, amplitude, useComplexGrid);
             
             // for debug purposes only
             //UpdateStatus(map.ToString());
 
             DrawMap(map);
+            pctPreview.Tag = map;
         }
 
         private bool ValidateRandomDungeonFields(out int width, out int height, out int numOfRooms, out Tuple<int, int> minSizeOfRooms, out Tuple<int, int> maxSizeOfRooms)
@@ -487,10 +497,10 @@ namespace TRW.Apps.MapGenerator
 
         private void uxGeneratePerlinNoise_Click(object sender, EventArgs e)
         {
-            if (ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence))
+            if (ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude, out bool useComplexGrid))
             {
                 Map m = new Map(width, height);
-                StartTaskInNewThread(() => { RunPerlinNoise(m, octaves, persistence); });
+                StartTaskInNewThread(() => { RunPerlinNoise(m, octaves, persistence, frequency, amplitude, useComplexGrid); });
             }
         }
     }

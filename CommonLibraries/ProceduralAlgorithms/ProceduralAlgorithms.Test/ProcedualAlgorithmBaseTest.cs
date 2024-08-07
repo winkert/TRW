@@ -122,7 +122,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
 
             ProceduralAlgorithms.PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell> pn = new ProceduralAlgorithms.PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
             PrivateObject pnPO = new PrivateObject(pn, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
-            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", 16, 0.5d));
+            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", 16, 0.5m, 8m, 128m, false));
             Assert.IsTrue(paramsValid, "PerlinNoiseAlgorithm failed");
             paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", false));
             Assert.IsFalse(paramsValid, "PerlinNoiseAlgorithm failed");
@@ -145,7 +145,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
             ca.DoAlgorithm(new CellularAutomataRulesSet<bool>(), 1, true, false);
 
             ProceduralAlgorithms.PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell> pn = new PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            pn.DoAlgorithm(2, .5d);
+            pn.DoAlgorithm(2, .5m, 8m, 128m, false);
 
         }
     }

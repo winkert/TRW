@@ -9,28 +9,107 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         {
         }
 
-        public override int NumberOfParamters => 2;
-
-        public override Type[] TypesOfParameters => new Type[] { typeof(int), typeof(decimal) };
+        private static ProceduralAlgorithmParameterCollection _parameters;
+        public override ProceduralAlgorithmParameterCollection Parameters
+        {
+            get
+            {
+                if (_parameters == null)
+                {
+                    _parameters = new ProceduralAlgorithmParameterCollection(5)
+                    {
+                        new ProceduralAlgorithmParameter<int>(),
+                        new ProceduralAlgorithmParameter<decimal>(),
+                        new ProceduralAlgorithmParameter<decimal>(),
+                        new ProceduralAlgorithmParameter<decimal>(),
+                        new ProceduralAlgorithmParameter<bool>()
+                    };
+                }
+                return _parameters;
+            }
+        }
 
         internal int[] Permutations { get; set; }
-        internal readonly decimal[][] GradientGrid = new decimal[][] {
-            new decimal[] { 0, 1 },
-            new decimal[] { 1, 0 },
-            new decimal[] { -1, 0 },
-            new decimal[] { 0, -1 },
-            new decimal[] { 0.707106781m, 0.707106781m },
-            new decimal[] { 0.707106781m, -0.707106781m },
-            new decimal[] { -0.707106781m, 0.707106781m },
-            new decimal[] { -0.707106781m, -0.707106781m }
-        };
+
+        internal static decimal[][] GradientGrid { get; private set; }
+
+        private static decimal[][] _gradientGridComplex;
+        /// <summary>
+        /// In Perlin noise, gradient vectors represent the direction of change at each grid point.
+        /// </summary>
+        internal static decimal[][] GradientGridComplex
+        {
+            get
+            {
+                if (_gradientGridComplex == null)
+                {
+                    _gradientGridComplex = new decimal[][] {
+                        new decimal[] { 0, 1 },     // up
+                        new decimal[] { 1, 0 },     // right
+                        new decimal[] { -1, 0 },    // down
+                        new decimal[] { 0, -1 },    // left
+                        new decimal[] { 0.707106781m, 0.707106781m },       // diagonal intermediate vector
+                        new decimal[] { 0.707106781m, -0.707106781m },      // diagonal intermediate vector
+                        new decimal[] { -0.707106781m, 0.707106781m },      // diagonal intermediate vector
+                        new decimal[] { -0.707106781m, -0.707106781m },      // diagonal intermediate vector
+                        new decimal[] { 0.230219016m, 0.230219016m },       // diagonal intermediate vector
+                        new decimal[] { 0.230219016m, -0.230219016m },      // diagonal intermediate vector
+                        new decimal[] { -0.230219016m, 0.230219016m },      // diagonal intermediate vector
+                        new decimal[] { -0.230219016m, -0.230219016m }      // diagonal intermediate vector
+                    };
+                }
+                return _gradientGridComplex;
+            }
+        }
+
+        private static decimal[][] _gradientGridSimple;
+        internal static decimal[][] GradientGridSimple
+        {
+            get
+            {
+                if (_gradientGridSimple == null)
+                {
+                    _gradientGridSimple = new decimal[][] {
+                        new decimal[] { 0, 1 },     // up
+                        new decimal[] { 1, 0 },     // right
+                        new decimal[] { -1, 0 },    // down
+                        new decimal[] { 0, -1 }    // left
+                    };
+                }
+                return _gradientGridSimple;
+            }
+        }
+
+        /// <summary>
+        /// The number of iterations to do - impacts smoothness
+        /// </summary>
         internal int Octaves { get; set; }
-        internal decimal Persistence {  get; set; }
+
+        /// <summary>
+        /// 0 to 1 value indicating how the slope changes between iterations (octaves)
+        /// </summary>
+        internal decimal Persistence { get; set; }
+        /// <summary>
+        /// The frequency determines how rapidly the noise oscillates or repeats.
+        /// </summary>
+        internal decimal Frequency { get; set; }
+        /// <summary>
+        /// The amplitude represents the strength or magnitude of the noise.
+        /// </summary>
+        internal decimal Amplitude { get; set; }
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            Octaves = Convert.ToInt32(args[0]);
-            Persistence = Convert.ToDecimal(args[1]);
+            Octaves = Parameters.GetParameterValue<int>(args, 0);
+            Persistence = Parameters.GetParameterValue<decimal>(args, 1);
+            Frequency = Parameters.GetParameterValue<decimal>(args, 2);
+            Amplitude = Parameters.GetParameterValue<decimal>(args, 3);
+
+            bool useComplexGrid = Parameters.GetParameterValue<bool>(args, 4);
+            if (useComplexGrid)
+                GradientGrid = GradientGridComplex;
+            else
+                GradientGrid = GradientGridSimple;
 
             // define the permutations at run time to use Random
             Permutations = new int[256];
@@ -49,18 +128,16 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             _grid.First();
             do
             {
-                _grid.Current.Content = Math.Abs((int)(GetNoise(_grid.Current.Position) * 255m));
+                _grid.Current.Content = Math.Abs((int)(GetNoise(_grid.Current.Position.X, _grid.Current.Position.Y, Frequency, Amplitude) * 255m));
             } while (_grid.Next());
         }
 
-        private decimal GetNoise(Position p)
+        private decimal GetNoise(int x, int y, decimal frequency, decimal amplitude)
         {
-            decimal pX = p.X / 100m;
-            decimal pY = p.Y / 100m;
+            decimal pX = x / 100m;
+            decimal pY = y / 100m;
 
             decimal total = 0;
-            decimal frequency = 8;
-            decimal amplitude = 128;
             decimal maxAmplitude = 0;
 
             for (int i = 0; i < Octaves; i++)
@@ -71,7 +148,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
                 frequency *= 2;
             }
 
-            return total / maxAmplitude ;
+            return total / maxAmplitude;
         }
 
         private decimal InterpolateNoise(decimal x, decimal y)
