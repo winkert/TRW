@@ -13,6 +13,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
     }
 
     public delegate void ProceduralAlgorithmCallbackEvent(object sender, ProceduralAlgorithmCallbackEventArgs e);
+
     public abstract class ProceduralAlgorithmBase<M, C> where C : ICell where M : IMatrix<C>
     {
         private object _sender;
@@ -75,20 +76,11 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         protected bool ValidParameters(params object[] args)
         {
-            if (args.Count() != NumberOfParamters)
-                return false;
-            for (int i = 0; i < NumberOfParamters; i++)
-            {
-                object arg = args[i];
-                if (!(arg.GetType().Equals(TypesOfParameters[i])))
-                    return false;
-            }
-            return true;
+            return Parameters.ParametersMatch(args);
         }
 
         #region Abstract
-        public abstract int NumberOfParamters { get; }
-        public abstract Type[] TypesOfParameters { get; }
+        public abstract ProceduralAlgorithmParameterCollection Parameters { get; }
         protected abstract void DoAlgorithmInternal(params object[] args);
 
         #endregion

@@ -9,13 +9,29 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         {
         }
 
-        public override int NumberOfParamters => 5;
-
-        public override Type[] TypesOfParameters => new Type[] { typeof(int), typeof(decimal), typeof(decimal), typeof(decimal), typeof(bool) };
+        private static ProceduralAlgorithmParameterCollection _parameters;
+        public override ProceduralAlgorithmParameterCollection Parameters
+        {
+            get
+            {
+                if (_parameters == null)
+                {
+                    _parameters = new ProceduralAlgorithmParameterCollection(5)
+                    {
+                        new ProceduralAlgorithmParameter<int>(),
+                        new ProceduralAlgorithmParameter<decimal>(),
+                        new ProceduralAlgorithmParameter<decimal>(),
+                        new ProceduralAlgorithmParameter<decimal>(),
+                        new ProceduralAlgorithmParameter<bool>()
+                    };
+                }
+                return _parameters;
+            }
+        }
 
         internal int[] Permutations { get; set; }
 
-        internal static decimal[][] GradientGrid { get;private set; }
+        internal static decimal[][] GradientGrid { get; private set; }
 
         private static decimal[][] _gradientGridComplex;
         /// <summary>
@@ -72,7 +88,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         /// <summary>
         /// 0 to 1 value indicating how the slope changes between iterations (octaves)
         /// </summary>
-        internal decimal Persistence {  get; set; }
+        internal decimal Persistence { get; set; }
         /// <summary>
         /// The frequency determines how rapidly the noise oscillates or repeats.
         /// </summary>
@@ -84,12 +100,13 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            Octaves = Convert.ToInt32(args[0]);
-            Persistence = Convert.ToDecimal(args[1]);
-            Frequency = Convert.ToDecimal(args[2]);
-            Amplitude = Convert.ToDecimal(args[3]);
+            Octaves = Parameters.GetParameterValue<int>(args, 0);
+            Persistence = Parameters.GetParameterValue<decimal>(args, 1);
+            Frequency = Parameters.GetParameterValue<decimal>(args, 2);
+            Amplitude = Parameters.GetParameterValue<decimal>(args, 3);
 
-            if (Convert.ToBoolean(args[4]))
+            bool useComplexGrid = Parameters.GetParameterValue<bool>(args, 4);
+            if (useComplexGrid)
                 GradientGrid = GradientGridComplex;
             else
                 GradientGrid = GradientGridSimple;
@@ -131,7 +148,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
                 frequency *= 2;
             }
 
-            return total / maxAmplitude ;
+            return total / maxAmplitude;
         }
 
         private decimal InterpolateNoise(decimal x, decimal y)

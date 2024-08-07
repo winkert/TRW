@@ -9,16 +9,29 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 {
     public class RandomWalkAlgorithm<M, C> : ProceduralAlgorithmBase<M, C> where C : ICell where M : IMatrix<C>
     {
-        private readonly Type[] parameterTypes = new Type[] { typeof(Position), typeof(int), typeof(bool), typeof(bool) };
-
         public RandomWalkAlgorithm(object sender, M grid, int xDim, int yDim) : base(sender, grid, xDim, yDim)
         {
 
         }
 
-        public override int NumberOfParamters => 4;
-
-        public override Type[] TypesOfParameters => parameterTypes;
+        private static ProceduralAlgorithmParameterCollection _parameters;
+        public override ProceduralAlgorithmParameterCollection Parameters
+        {
+            get
+            {
+                if (_parameters == null)
+                {
+                    _parameters = new ProceduralAlgorithmParameterCollection(4)
+                    {
+                        new ProceduralAlgorithmParameter<Position>(),
+                        new ProceduralAlgorithmParameter<int>(),
+                        new ProceduralAlgorithmParameter<bool>(),
+                        new ProceduralAlgorithmParameter<bool>()
+                    };
+                }
+                return _parameters;
+            }
+        }
 
         public Position[] RandomWalkToTarget(Position startPosition, Position endPosition, int maxIterations)
         {
@@ -53,10 +66,10 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            Position startPosition = args[0] as Position;
-            int iterations = Convert.ToInt32(args[1]);
-            bool avoidEdges = Convert.ToBoolean(args[2]);
-            bool avoidClusters = Convert.ToBoolean(args[3]);
+            Position startPosition = Parameters.GetParameterValue<Position>(args, 0);
+            int iterations = Parameters.GetParameterValue<int>(args, 1);
+            bool avoidEdges = Parameters.GetParameterValue<bool>(args, 2);
+            bool avoidClusters = Parameters.GetParameterValue<bool>(args, 3);
 
             // go to the selected position and set the cell to "On"
             ICell cell = _grid[startPosition.X, startPosition.Y];
