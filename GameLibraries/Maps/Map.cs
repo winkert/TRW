@@ -151,13 +151,13 @@ namespace TRW.GameLibraries.Maps
             cellAutomata.DoAlgorithm(neighborhoodRules, iterations, avoidEdges, makeSquare);
         }
 
-        public void FillPerlinNoise(int octaves, decimal persistence, decimal frequency, decimal amplitude)
+        public void FillPerlinNoise(int octaves, decimal persistence, decimal frequency, decimal amplitude, bool useComplexGrid)
         {
             PerlinNoiseAlgorithm<CellCollection, Cell> perlinNoise = new PerlinNoiseAlgorithm<CellCollection, Cell>(this, Grid.Cells, _xDimension, _yDimension);
             if (UpdateMap != null)
                 perlinNoise.Callback += UpdateMap;
 
-            perlinNoise.DoAlgorithm(octaves, persistence, frequency, amplitude);
+            perlinNoise.DoAlgorithm(octaves, persistence, frequency, amplitude, useComplexGrid);
         }
 
         public List<MapComponentBase> GenerateRandomDungeon(int numOfRooms, Tuple<int, int> minSizeOfRooms, Tuple<int, int> maxSizeOfRooms, HallCreationModes hallCreationMode, RoomShapes roomShape, bool allowIntersectingRooms)

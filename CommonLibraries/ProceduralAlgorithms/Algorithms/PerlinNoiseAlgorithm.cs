@@ -9,36 +9,60 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         {
         }
 
-        public override int NumberOfParamters => 4;
+        public override int NumberOfParamters => 5;
 
-        public override Type[] TypesOfParameters => new Type[] { typeof(int), typeof(decimal), typeof(decimal), typeof(decimal) };
+        public override Type[] TypesOfParameters => new Type[] { typeof(int), typeof(decimal), typeof(decimal), typeof(decimal), typeof(bool) };
 
         internal int[] Permutations { get; set; }
 
+        internal static decimal[][] GradientGrid { get;private set; }
+
+        private static decimal[][] _gradientGridComplex;
         /// <summary>
         /// In Perlin noise, gradient vectors represent the direction of change at each grid point.
         /// </summary>
-        internal readonly decimal[][] GradientGrid = new decimal[][] {
-            new decimal[] { 0, 1 },     // up
-            new decimal[] { 1, 0 },     // right
-            new decimal[] { -1, 0 },    // down
-            new decimal[] { 0, -1 },    // left
-            new decimal[] { 0.707106781m, 0.707106781m },       // diagonal intermediate vector
-            new decimal[] { 0.707106781m, -0.707106781m },      // diagonal intermediate vector
-            new decimal[] { -0.707106781m, 0.707106781m },      // diagonal intermediate vector
-            new decimal[] { -0.707106781m, -0.707106781m },      // diagonal intermediate vector
-            new decimal[] { 0.230219016m, 0.230219016m },       // diagonal intermediate vector
-            new decimal[] { 0.230219016m, -0.230219016m },      // diagonal intermediate vector
-            new decimal[] { -0.230219016m, 0.230219016m },      // diagonal intermediate vector
-            new decimal[] { -0.230219016m, -0.230219016m }      // diagonal intermediate vector
-        };
+        internal static decimal[][] GradientGridComplex
+        {
+            get
+            {
+                if (_gradientGridComplex == null)
+                {
+                    _gradientGridComplex = new decimal[][] {
+                        new decimal[] { 0, 1 },     // up
+                        new decimal[] { 1, 0 },     // right
+                        new decimal[] { -1, 0 },    // down
+                        new decimal[] { 0, -1 },    // left
+                        new decimal[] { 0.707106781m, 0.707106781m },       // diagonal intermediate vector
+                        new decimal[] { 0.707106781m, -0.707106781m },      // diagonal intermediate vector
+                        new decimal[] { -0.707106781m, 0.707106781m },      // diagonal intermediate vector
+                        new decimal[] { -0.707106781m, -0.707106781m },      // diagonal intermediate vector
+                        new decimal[] { 0.230219016m, 0.230219016m },       // diagonal intermediate vector
+                        new decimal[] { 0.230219016m, -0.230219016m },      // diagonal intermediate vector
+                        new decimal[] { -0.230219016m, 0.230219016m },      // diagonal intermediate vector
+                        new decimal[] { -0.230219016m, -0.230219016m }      // diagonal intermediate vector
+                    };
+                }
+                return _gradientGridComplex;
+            }
+        }
 
-        internal readonly decimal[][] GradientGridSimple = new decimal[][] {
-            new decimal[] { 0, 1 },     // up
-            new decimal[] { 1, 0 },     // right
-            new decimal[] { -1, 0 },    // down
-            new decimal[] { 0, -1 }    // left
-        };
+        private static decimal[][] _gradientGridSimple;
+        internal static decimal[][] GradientGridSimple
+        {
+            get
+            {
+                if (_gradientGridSimple == null)
+                {
+                    _gradientGridSimple = new decimal[][] {
+                        new decimal[] { 0, 1 },     // up
+                        new decimal[] { 1, 0 },     // right
+                        new decimal[] { -1, 0 },    // down
+                        new decimal[] { 0, -1 }    // left
+                    };
+                }
+                return _gradientGridSimple;
+            }
+        }
 
         /// <summary>
         /// The number of iterations to do - impacts smoothness
@@ -64,6 +88,11 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             Persistence = Convert.ToDecimal(args[1]);
             Frequency = Convert.ToDecimal(args[2]);
             Amplitude = Convert.ToDecimal(args[3]);
+
+            if (Convert.ToBoolean(args[4]))
+                GradientGrid = GradientGridComplex;
+            else
+                GradientGrid = GradientGridSimple;
 
             // define the permutations at run time to use Random
             Permutations = new int[256];

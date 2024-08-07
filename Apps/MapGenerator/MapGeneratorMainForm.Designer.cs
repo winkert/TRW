@@ -107,6 +107,8 @@
             copyToolStripMenuItem = new ToolStripMenuItem();
             MainSplitContainer = new SplitContainer();
             SettingsSplitContainer = new SplitContainer();
+            uxPerlinNoiseGrid = new ComboBox();
+            label26 = new Label();
             ((System.ComponentModel.ISupportInitialize)pctPreview).BeginInit();
             tabGenSettings.SuspendLayout();
             tabPgFromFile.SuspendLayout();
@@ -599,6 +601,8 @@
             // 
             // tabProcPN
             // 
+            tabProcPN.Controls.Add(label26);
+            tabProcPN.Controls.Add(uxPerlinNoiseGrid);
             tabProcPN.Controls.Add(label25);
             tabProcPN.Controls.Add(uxPerlinNoiseAmp);
             tabProcPN.Controls.Add(label24);
@@ -740,7 +744,7 @@
             // uxGeneratePerlinNoise
             // 
             uxGeneratePerlinNoise.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            uxGeneratePerlinNoise.Location = new Point(114, 233);
+            uxGeneratePerlinNoise.Location = new Point(113, 260);
             uxGeneratePerlinNoise.Margin = new Padding(4, 3, 4, 3);
             uxGeneratePerlinNoise.Name = "uxGeneratePerlinNoise";
             uxGeneratePerlinNoise.Size = new Size(88, 27);
@@ -1002,6 +1006,25 @@
             SettingsSplitContainer.SplitterWidth = 5;
             SettingsSplitContainer.TabIndex = 0;
             // 
+            // uxPerlinNoiseGrid
+            // 
+            uxPerlinNoiseGrid.FormattingEnabled = true;
+            uxPerlinNoiseGrid.Items.AddRange(new object[] { "Simple (4)", "Complex (12)" });
+            uxPerlinNoiseGrid.Location = new Point(113, 194);
+            uxPerlinNoiseGrid.Name = "uxPerlinNoiseGrid";
+            uxPerlinNoiseGrid.Size = new Size(88, 23);
+            uxPerlinNoiseGrid.TabIndex = 6;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(19, 197);
+            label26.Margin = new Padding(4, 0, 4, 0);
+            label26.Name = "label26";
+            label26.Size = new Size(75, 15);
+            label26.TabIndex = 30;
+            label26.Text = "Gradient Size";
+            // 
             // MapGeneratorMainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1134,6 +1157,8 @@
         private Label label25;
         private NumericUpDown uxPerlinNoiseAmp;
         private Label label24;
+        private Label label26;
+        private ComboBox uxPerlinNoiseGrid;
     }
 }
 
