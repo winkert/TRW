@@ -26,20 +26,43 @@ namespace TRW.CommonLibraries.Audio
 
         public static Intervals GetInterval(Pitch keyFrom, Pitch keyTo)
         {
+            return GetInterval(keyFrom, keyTo, TemperamentStyles.EqualTemperament);
+        }
+        public static Intervals GetInterval(Pitch keyFrom, Pitch keyTo, TemperamentStyles temperament)
+        {
             Intervals interval = Intervals.Unknown;
-
             int steps;
-            if (keyFrom == keyTo)
-                steps = 0;
-            else if (keyFrom < keyTo)
-                steps = keyTo - keyFrom;
-            else
-                steps = keyTo - keyFrom + 12;
-            
-            if (Enum.IsDefined(typeof(Intervals), (short)steps))
-                interval = (Intervals)steps; // should work
+
+            switch (temperament)
+            {
+                case TemperamentStyles.EqualTemperament:
+                case TemperamentStyles.PythagoreanTuning:
+                    steps = GetSemitones(keyFrom, keyTo);
+
+                    if (Enum.IsDefined(typeof(Intervals), (short)steps))
+                        interval = (Intervals)steps; // should work
+                    break;
+                case TemperamentStyles.MeanToneTemperament:
+                    // for the most part this is the same, but MeanTone will consider augmented/diminshed intervals as well
+                    steps = GetSemitones(keyFrom, keyTo);
+                    
+                    break;
+                case TemperamentStyles.WerckmeisterTemperament:
+                    break;
+            }
 
             return interval;
+        }
+
+        public static int GetSemitones(Pitch keyFrom, Pitch keyTo)
+        {
+            if (keyFrom == keyTo)
+                return 0;
+            else if (keyFrom < keyTo)
+                return keyTo - keyFrom;
+            else
+                return keyTo - keyFrom + 12;
+
         }
     }
 

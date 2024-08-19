@@ -28,6 +28,9 @@ namespace TRW.CommonLibraries.Audio.Test
 
             result = target.GetFrequency(Pitches.A, 5);
             Assert.AreEqual(880.00000000000034d, result);
+
+            // test the crazy lady thing
+            target = new EqualTemperament(Pitches.A, 420d, 4);
         }
 
         [TestMethod]
@@ -170,7 +173,7 @@ namespace TRW.CommonLibraries.Audio.Test
         [TestMethod]
         public void PythagoreanTests()
         {
-            PythagoreanTemperament target = new PythagoreanTemperament(Pitches.A, 440d, 4);
+            PythagoreanTemperament target = new PythagoreanTemperament();
 
             Assert.AreEqual(220d, target.GetFrequency(Pitches.A, 3));
             Assert.AreEqual(440d, target.GetFrequency(Pitches.A, 4));
@@ -179,6 +182,16 @@ namespace TRW.CommonLibraries.Audio.Test
             Assert.AreEqual(55d, target.GetFrequency(Pitches.A, 1));
 
             Assert.AreEqual(660d, target.GetFrequency(Pitches.E, 4)); // A4 to E4 is a Fifth
+        }
+
+        [TestMethod]
+        public void MeantoneTemperamentTests()
+        {
+            MeanToneTemperament target = new MeanToneTemperament();
+
+            Assert.AreEqual(294.04d, target.GetFrequency(Pitches.D, 4));
+            Assert.AreEqual(328.75d, target.GetFrequency(Pitches.E, 4));
+            Assert.AreEqual(352.18d, target.GetFrequency(Pitches.F, 4));
         }
     }
 }

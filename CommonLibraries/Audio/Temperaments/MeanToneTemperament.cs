@@ -14,7 +14,7 @@ namespace TRW.CommonLibraries.Audio
         public int ReferenceOctave { get; }
 
         public MeanToneTemperament()
-            : this(Pitches.A, 440d, 4)
+            : this(Pitches.C, 327.04d, 4)
         {
 
         }
@@ -28,7 +28,30 @@ namespace TRW.CommonLibraries.Audio
 
         public double GetFrequency(Pitch pitch, int octave)
         {
-            throw new NotImplementedException();
+            /*
+             * Start with C:
+             *   The frequency of C is our reference point.
+             *   Major Third (C to E):
+             *   Multiply the frequency of C by the major third ratio (1.25, according to the harmonic series).
+             *   This gives us the frequency of E.
+             *   Major Second (D above C):
+             *   Divide the major third size by two (using the square root operation).
+             *   The square root of 1.25 is approximately 1.118033988749895.
+             *   Multiply the frequency of C by this value to find D.
+             *   Continue the Scale:
+             *   Multiply the frequency of D by the major second size to get E.
+             *   Calculate F by multiplying E by the major second size.
+             *   Complete the scale by finding G (major second above F) and A (major third above F).
+             */
+
+            Intervals interval = PitchEngine.GetInterval(ReferencePitch, pitch);
+            double octaveMultiplier = PitchEngine.GetOctaveMultiplier(ReferenceOctave, octave);
+
+            Interval thisInterval = Interval.GetInterval(interval, TemperamentStyles.MeanToneTemperament);
+
+            double intervalMultiplier = thisInterval.MeantoneRatio;
+
+            return ReferenceFrequency * intervalMultiplier * octaveMultiplier; ;
         }
     }
 }

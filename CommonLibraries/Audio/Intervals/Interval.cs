@@ -7,11 +7,16 @@ namespace TRW.CommonLibraries.Audio
     public abstract class Interval : IEquatable<Interval>
     {
         public abstract Intervals IntervalEnum { get; }
+        public virtual Intervals DiminishedInterval => (Intervals)(-1 * (int)IntervalEnum);
         public abstract double PythagoreanRatio { get; }
+        public abstract double MeantoneRatio { get; }
         public abstract bool Major { get; }
         public abstract bool Perfect { get; }
 
-        public int HalfSteps => (int)IntervalEnum;
+        /// <summary>
+        /// Semitones
+        /// </summary>
+        public virtual int HalfSteps => Math.Abs((int)IntervalEnum);
 
         public TemperamentStyles TemperamentStyle { get; set; }
 
@@ -75,7 +80,7 @@ namespace TRW.CommonLibraries.Audio
                 case Intervals.Octave:
                     return new OctaveInterval(temperament);
                 default:
-                    throw new ArgumentException($"Unexpected Interval [{intervals}]");
+                    throw new ArgumentException($"Unexpected Interval [{intervals}]", "intervals");
             }
         }
 

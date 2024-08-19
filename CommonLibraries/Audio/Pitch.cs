@@ -8,11 +8,19 @@ namespace TRW.CommonLibraries.Audio
     {
         public string Name { get; }
         public int HalfStep { get; }
+        public int Octave { get; }
 
         public Pitch(string name, int halfStep)
+            :this(name, halfStep%12, halfStep/12)
         {
-            Name = name;
-            HalfStep = halfStep % 12;
+
+        }
+
+        public Pitch(string name, int halfStep, int octave)
+        {
+            Name=name;
+            HalfStep = halfStep;
+            Octave = octave;
         }
 
         public override bool Equals(object obj)
