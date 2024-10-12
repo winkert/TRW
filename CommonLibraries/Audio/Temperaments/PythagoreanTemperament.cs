@@ -39,5 +39,9 @@ namespace TRW.CommonLibraries.Audio
             return ReferenceFrequency * intervalMultiplier * octaveMultiplier;;
         }
 
+        public double GetCents(Interval interval)
+        {
+            return Math.Log(interval.PythagoreanRatio, 2d) * 1200;
+        }
     }
 }

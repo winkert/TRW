@@ -7,12 +7,11 @@ namespace TRW.CommonLibraries.Audio
     public abstract class Interval : IEquatable<Interval>
     {
         public abstract Intervals IntervalEnum { get; }
-        public virtual Intervals DiminishedInterval => (Intervals)(-1 * (int)IntervalEnum);
         public abstract double PythagoreanRatio { get; }
         public abstract double MeantoneRatio { get; }
         public abstract bool Major { get; }
         public abstract bool Perfect { get; }
-
+        public double Cents { get; }
         /// <summary>
         /// Semitones
         /// </summary>
@@ -20,11 +19,22 @@ namespace TRW.CommonLibraries.Audio
 
         public TemperamentStyles TemperamentStyle { get; set; }
 
+        private ITemperament _temperamentObj;
+        protected ITemperament TemperamentObj
+        {
+            get
+            {
+                if (_temperamentObj == null)
+                    _temperamentObj = TemperamentFactory.GetTemperament(TemperamentStyle);
+                return _temperamentObj;
+            }
+        }
+
         public Interval(TemperamentStyles temperament)
         {
             TemperamentStyle = temperament;
+            Cents = TemperamentObj.GetCents(this);
         }
-
 
         public override bool Equals(object obj)
         {

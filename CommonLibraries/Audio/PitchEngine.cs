@@ -64,6 +64,30 @@ namespace TRW.CommonLibraries.Audio
                 return keyTo - keyFrom + 12;
 
         }
+
+        public static double GetFrequency(Pitch key, TemperamentStyles temperament, int octave)
+        {
+            ITemperament t = TemperamentFactory.GetTemperament(temperament);
+            // frequency = startFrequency * 2^(intervalcents/1200)
+
+            Interval i = Interval.GetInterval(GetInterval(t.ReferencePitch, key), temperament);
+
+            double f = t.ReferenceFrequency * Math.Pow(2, (i.Cents / 1200));
+
+            // transpose the frequence if needed
+            return Transpose(f, t.ReferenceOctave, octave);
+        }
+
+        public static double Transpose(double frequency, int startOctave, int targetOctave)
+        {
+            if (startOctave == targetOctave)
+                return frequency;
+            else if (startOctave < targetOctave)
+                return frequency * (2 * (targetOctave - startOctave));
+            else
+                return frequency / (2 * (targetOctave - startOctave));
+
+        }
     }
 
 }

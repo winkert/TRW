@@ -62,13 +62,7 @@ namespace TRW.CommonLibraries.Audio
                 case TemperamentStyles.EqualTemperament:
                     return GetPitchName(halfStep);
                 case TemperamentStyles.MeanToneTemperament:
-                    if(halfStep > 0)
-                        return GetPitchName(halfStep);
-                    else
-                    {
-
-                    }
-                    break;
+                    throw new System.NotImplementedException();
                 case TemperamentStyles.WerckmeisterTemperament:
                     throw new System.NotImplementedException();
             }

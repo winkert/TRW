@@ -31,5 +31,9 @@ namespace TRW.CommonLibraries.Audio
             throw new NotImplementedException();
         }
 
+        public double GetCents(Interval interval)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -9,6 +9,8 @@ namespace TRW.CommonLibraries.Audio
     /// </summary>
     public class MeanToneTemperament : ITemperament
     {
+        internal const double SyntonicComma = 21.506d;
+
         public double ReferenceFrequency { get; }
         public Pitch ReferencePitch { get; }
         public int ReferenceOctave { get; }
@@ -44,7 +46,7 @@ namespace TRW.CommonLibraries.Audio
              *   Complete the scale by finding G (major second above F) and A (major third above F).
              */
 
-            Intervals interval = PitchEngine.GetInterval(ReferencePitch, pitch);
+            Intervals interval = PitchEngine.GetInterval(ReferencePitch, pitch, TemperamentStyles.MeanToneTemperament);
             double octaveMultiplier = PitchEngine.GetOctaveMultiplier(ReferenceOctave, octave);
 
             Interval thisInterval = Interval.GetInterval(interval, TemperamentStyles.MeanToneTemperament);
@@ -52,6 +54,11 @@ namespace TRW.CommonLibraries.Audio
             double intervalMultiplier = thisInterval.MeantoneRatio;
 
             return ReferenceFrequency * intervalMultiplier * octaveMultiplier; ;
+        }
+
+        public double GetCents(Interval interval)
+        {
+            return (interval.MeantoneRatio * 100d) * (SyntonicComma/4d);
         }
     }
 }

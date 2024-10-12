@@ -11,5 +11,6 @@ namespace TRW.CommonLibraries.Audio
         int ReferenceOctave { get; }
 
         double GetFrequency(Pitch pitch, int octave);
+        double GetCents(Interval interval);
     }
 }

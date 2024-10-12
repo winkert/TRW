@@ -43,5 +43,11 @@ namespace TRW.CommonLibraries.Audio
 
             return octaveBase - distanceFromRef + 1;
         }
+
+        double ITemperament.GetCents(Interval interval)
+        {
+            // Equal Temperament will always be 100 cents per interval/step
+            return (double)interval.IntervalEnum * 100d;
+        }
     }
 }
