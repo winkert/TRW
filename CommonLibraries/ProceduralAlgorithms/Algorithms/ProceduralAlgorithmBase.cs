@@ -16,6 +16,32 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
     public abstract class ProceduralAlgorithmBase<M, C> where C : ICell where M : IMatrix<C>
     {
+        #region Constants
+        // Perlin Noise
+        internal const string OctavesParamName = "Octaves";
+        internal const string PersistenceParamName = "Persistence";
+        internal const string FrequencyParamName = "Frequency";
+        internal const string AmplitudeParamName = "Amplitude";
+        internal const string UseComplexGridParamName = "UseComplexGrid";
+
+        // Cellular Automata
+        internal const string CellularAutomataRulesParamName = "CellularAutomataRules";
+        internal const string IterationsParamName = "Iterations";
+        internal const string AvoidEdgesParamName = "AvoidEdges";
+        internal const string MakeSquareParamName = "MakeSquare";
+
+        // Diamond Square
+        internal const string CenterXParamName = "CenterX";
+        internal const string CenterYParamName = "CenterY";
+        internal const string StepParamName = "Step";
+        internal const string SpreadParamName = "Spread";
+
+        // Random Walke
+        internal const string StartPositionParamName = "StartPosition";
+        internal const string AvoidClustersParamName = "AvoidClusters";
+
+        #endregion
+
         private object _sender;
         protected M _grid;
         protected int _xDimension;

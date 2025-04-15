@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TRW.CommonLibraries.Core;
 
 namespace TRW.CommonLibraries.ProceduralAlgorithms
@@ -23,10 +21,10 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
                 {
                     _parameters = new ProceduralAlgorithmParameterCollection(4)
                     {
-                        new ProceduralAlgorithmParameter<Position>(),
-                        new ProceduralAlgorithmParameter<int>(),
-                        new ProceduralAlgorithmParameter<bool>(),
-                        new ProceduralAlgorithmParameter<bool>()
+                        new ProceduralAlgorithmParameter<Position>(StartPositionParamName),
+                        new ProceduralAlgorithmParameter<int>(IterationsParamName),
+                        new ProceduralAlgorithmParameter<bool>(AvoidEdgesParamName),
+                        new ProceduralAlgorithmParameter<bool>(AvoidClustersParamName)
                     };
                 }
                 return _parameters;
@@ -66,10 +64,10 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            Position startPosition = Parameters.GetParameterValue<Position>(args, 0);
-            int iterations = Parameters.GetParameterValue<int>(args, 1);
-            bool avoidEdges = Parameters.GetParameterValue<bool>(args, 2);
-            bool avoidClusters = Parameters.GetParameterValue<bool>(args, 3);
+            Position startPosition = Parameters.GetParameterValue<Position>(args, StartPositionParamName);
+            int iterations = Parameters.GetParameterValue<int>(args, IterationsParamName);
+            bool avoidEdges = Parameters.GetParameterValue<bool>(args, AvoidEdgesParamName);
+            bool avoidClusters = Parameters.GetParameterValue<bool>(args, AvoidClustersParamName);
 
             // go to the selected position and set the cell to "On"
             ICell cell = _grid[startPosition.X, startPosition.Y];

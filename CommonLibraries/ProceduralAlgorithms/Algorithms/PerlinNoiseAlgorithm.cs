@@ -18,11 +18,11 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
                 {
                     _parameters = new ProceduralAlgorithmParameterCollection(5)
                     {
-                        new ProceduralAlgorithmParameter<int>(),
-                        new ProceduralAlgorithmParameter<decimal>(),
-                        new ProceduralAlgorithmParameter<decimal>(),
-                        new ProceduralAlgorithmParameter<decimal>(),
-                        new ProceduralAlgorithmParameter<bool>()
+                        new ProceduralAlgorithmParameter<int>(OctavesParamName),
+                        new ProceduralAlgorithmParameter<decimal>(PersistenceParamName),
+                        new ProceduralAlgorithmParameter<decimal>(FrequencyParamName),
+                        new ProceduralAlgorithmParameter<decimal>(AmplitudeParamName),
+                        new ProceduralAlgorithmParameter<bool>(UseComplexGridParamName)
                     };
                 }
                 return _parameters;
@@ -100,12 +100,12 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            Octaves = Parameters.GetParameterValue<int>(args, 0);
-            Persistence = Parameters.GetParameterValue<decimal>(args, 1);
-            Frequency = Parameters.GetParameterValue<decimal>(args, 2);
-            Amplitude = Parameters.GetParameterValue<decimal>(args, 3);
+            Octaves = Parameters.GetParameterValue<int>(args, OctavesParamName);
+            Persistence = Parameters.GetParameterValue<decimal>(args, PersistenceParamName);
+            Frequency = Parameters.GetParameterValue<decimal>(args, FrequencyParamName);
+            Amplitude = Parameters.GetParameterValue<decimal>(args, AmplitudeParamName);
 
-            bool useComplexGrid = Parameters.GetParameterValue<bool>(args, 4);
+            bool useComplexGrid = Parameters.GetParameterValue<bool>(args, UseComplexGridParamName);
             if (useComplexGrid)
                 GradientGrid = GradientGridComplex;
             else

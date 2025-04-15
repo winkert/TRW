@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TRW.CommonLibraries.Core;
 
 namespace TRW.CommonLibraries.ProceduralAlgorithms
@@ -23,10 +19,10 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
                 {
                     _parameters = new ProceduralAlgorithmParameterCollection(4)
                     {
-                        new ProceduralAlgorithmParameter<int>(),
-                        new ProceduralAlgorithmParameter<int>(),
-                        new ProceduralAlgorithmParameter<int>(),
-                        new ProceduralAlgorithmParameter<decimal>()
+                        new ProceduralAlgorithmParameter<int>(CenterXParamName),
+                        new ProceduralAlgorithmParameter<int>(CenterYParamName),
+                        new ProceduralAlgorithmParameter<int>(StepParamName),
+                        new ProceduralAlgorithmParameter<decimal>(SpreadParamName)
                     };
                 }
                 return _parameters;
@@ -35,10 +31,10 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            int cx = Parameters.GetParameterValue<int>(args, 0);
-            int cy = Parameters.GetParameterValue<int>(args, 1);
-            int step = Parameters.GetParameterValue<int>(args, 2);
-            decimal spread = Parameters.GetParameterValue<decimal>(args, 3);
+            int cx = Parameters.GetParameterValue<int>(args, CenterXParamName);
+            int cy = Parameters.GetParameterValue<int>(args, CenterYParamName);
+            int step = Parameters.GetParameterValue<int>(args, StepParamName);
+            decimal spread = Parameters.GetParameterValue<decimal>(args, SpreadParamName);
 
             if (cx > _xDimension || cy > _yDimension)
                 return;
