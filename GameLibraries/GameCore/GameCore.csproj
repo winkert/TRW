@@ -1,37 +1,27 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <AssemblyName>GameLibraries.GameCore</AssemblyName>
     <RootNamespace>TRW.GameLibraries.GameCore</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="GameCore.Test\**" />
     <EmbeddedResource Remove="GameCore.Test\**" />
     <None Remove="GameCore.Test\**" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="GameCore.csproj.vspscc" />
   </ItemGroup>
-
   <ItemGroup>
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-    <PackageReference Include="System.Linq" Version="4.3.0" />
-    <PackageReference Include="System.Linq.Expressions" Version="4.3.0" />
-    <PackageReference Include="System.Linq.Queryable" Version="4.3.0" />
+    <PackageReference Include="System.Drawing.Common" Version="8.0.15" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
   </ItemGroup>
-
 </Project>

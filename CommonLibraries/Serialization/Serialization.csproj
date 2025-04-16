@@ -1,27 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
-
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-	  <AssemblyName>CommonLibraries.Serlialization</AssemblyName>
-	  <RootNamespace>TRW.CommonLibraries.Serialization</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>CommonLibraries.Serlialization</AssemblyName>
+    <RootNamespace>TRW.CommonLibraries.Serialization</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Remove="Serialization.Test\**" />
     <EmbeddedResource Remove="Serialization.Test\**" />
     <None Remove="Serialization.Test\**" />
   </ItemGroup>
-
   <ItemGroup>
     <None Remove="Serialization.csproj.vspscc" />
     <None Remove="Serialization_Net.csproj.vspscc" />
   </ItemGroup>
-
 </Project>
