@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TRW.CommonLibraries.Serialization;
 
 namespace TRW.GameLibraries.Character
 {
@@ -26,7 +28,7 @@ namespace TRW.GameLibraries.Character
     }
 
     [Serializable]
-    public class ProficiencyCollection<T> : ICollection<T> where T : Proficiency
+    public class ProficiencyCollection<T> : ICollection<T> where T : Proficiency, new()
     {
         #region Fields
         protected List<T> _proficiencies;
@@ -113,6 +115,37 @@ namespace TRW.GameLibraries.Character
                 return string.Format("Choose {0} from {1}", _totalProficienciesAllowed, proficiencyList);
             else
                 return proficiencyList.ToString();
+        }
+
+
+        public byte[] ToByteArray()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter bw = new BinaryWriter(ms))
+            {
+                WriteTo(bw);
+                return ms.ToArray();
+            }
+        }
+
+        public void FromByteArray(byte[] data)
+        {
+            using (MemoryStream ms = new MemoryStream(data))
+            using (BinaryReader br = new BinaryReader(ms))
+            {
+                ReadFrom(br);
+            }
+        }
+
+        public void WriteTo(BinaryWriter bw)
+        {
+            BinarySerializationRoutines.WriteCollection(bw, this.Count, this);
+        }
+
+        public void ReadFrom(BinaryReader reader)
+        {
+            int count = reader.ReadInt32();
+            BinarySerializationRoutines.ReadCollection(reader, count, this);
         }
         #endregion
 

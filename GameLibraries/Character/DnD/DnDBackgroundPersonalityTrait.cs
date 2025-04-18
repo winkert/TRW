@@ -9,6 +9,7 @@ namespace TRW.GameLibraries.Character.DnD
     [Serializable]
     public class DnDBackgroundPersonalityTrait : Feature
     {
+        public DnDBackgroundPersonalityTrait():base() { }
         public DnDBackgroundPersonalityTrait(string name, string description) : base(name, description)
         {
         }

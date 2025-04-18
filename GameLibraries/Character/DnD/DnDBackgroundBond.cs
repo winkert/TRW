@@ -9,6 +9,7 @@ namespace TRW.GameLibraries.Character.DnD
     [Serializable]
     public class DnDBackgroundBond : Feature
     {
+        public DnDBackgroundBond():base() { }
         public DnDBackgroundBond(string name, string description) : base(name, description)
         {
         }

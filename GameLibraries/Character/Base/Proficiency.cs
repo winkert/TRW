@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +47,20 @@ namespace TRW.GameLibraries.Character
                 return string.Format("Any {0}",_type);
             else
                 return _name.Replace('_',' ');
+        }
+
+        public override void WriteTo(BinaryWriter writer)
+        {
+            writer.Write((int)_type);
+
+            WriteToBase(writer);
+        }
+
+        public override void ReadFrom(BinaryReader reader)
+        {
+            _type = (ProficiencyTypes)reader.ReadInt32();
+
+            ReadFromBase(reader);
         }
         #endregion
 

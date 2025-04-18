@@ -15,6 +15,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
+    <ProjectReference Include="..\..\CommonLibraries\Serialization\Serialization.csproj" />
     <ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
     <ProjectReference Include="..\GameCore\GameCore.csproj" />
   </ItemGroup>

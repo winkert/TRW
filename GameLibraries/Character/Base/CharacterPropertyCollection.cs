@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TRW.CommonLibraries.Core;
 
 namespace TRW.GameLibraries.Character
 {
     public class CharacterPropertyCollection<T>: IEnumerable<T>
-        where T:CharacterPropertyBase
+        where T:CharacterPropertyBase, new()
     {
         #region Fields
         private FilterableCollection<T> _collection = new FilterableCollection<T>();
@@ -65,6 +64,37 @@ namespace TRW.GameLibraries.Character
         public void Remove(T item)
         {
             _collection.Remove(item);
+        }
+
+        public byte[] ToByteArray()
+        {
+            using(MemoryStream ms = new MemoryStream())
+                using(BinaryWriter bw = new BinaryWriter(ms))
+            {
+                bw.Write(_collection.Count);
+                foreach (T item in _collection)
+                {
+                    byte[] bytes = item.ToByteArray();
+                    bw.Write(bytes);
+                }
+                return ms.ToArray();
+            }
+        }
+
+        public void FromByteArray(byte[] data)
+        {
+            using (MemoryStream ms = new MemoryStream(data))
+            using (BinaryReader br = new BinaryReader(ms))
+            {
+                int count = br.ReadInt32();
+                for(int i = 0; i < count; i++)
+                {
+
+                    T obj = new T();
+                    obj.ReadFrom(br);
+                    _collection.Add(obj);
+                }
+            }
         }
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.Serialization;
 
 namespace TRW.GameLibraries.GameCore
@@ -8,12 +9,12 @@ namespace TRW.GameLibraries.GameCore
     {
         public override int BaseValue => 100;
 
-        protected override void DeserializeObject(SerializationInfo info)
+        protected override void DeserializeObject(BinaryReader reader)
         {
             // add any serialized properties here
         }
 
-        protected override void SerializeObject(SerializationInfo info)
+        protected override void SerializeObject(BinaryWriter writer)
         {
             // add any serialized properties here
         }

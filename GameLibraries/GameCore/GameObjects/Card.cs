@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
+using System.Drawing;
+using System.IO;
+using TRW.CommonLibraries.Serialization;
 
 namespace TRW.GameLibraries.GameCore
 {
     [Serializable]
-    public class Card<T> : ISerializable where T : IComparable
+    public class Card<T> : IBinarySerializable where T : IComparable
     {
         public Card()
             : this(string.Empty, string.Empty, default)
@@ -27,20 +28,10 @@ namespace TRW.GameLibraries.GameCore
             Value = value;
         }
 
-        protected Card(SerializationInfo serializationInfo, StreamingContext streamingContext)
-        {
-            Title = serializationInfo.GetString("Title");
-            Description = serializationInfo.GetString("Description");
-            Value = (T)serializationInfo.GetValue("Value", typeof(T));
-
-            if(serializationInfo.GetBoolean("HasImage"))
-                Image = (System.Drawing.Bitmap)serializationInfo.GetValue("Image", typeof(System.Drawing.Bitmap));
-        }
-
-        public string Title { get; }
-        public string Description { get; }
-        public T Value { get; }
-        public System.Drawing.Bitmap Image { get; set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public T Value { get; private set; }
+        public Bitmap Image { get; set; }
 
         public override bool Equals(object obj)
         {
@@ -53,20 +44,44 @@ namespace TRW.GameLibraries.GameCore
             return -1937169414 + EqualityComparer<T>.Default.GetHashCode(Value);
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void WriteTo(BinaryWriter writer)
         {
-            info.AddValue("Title", Title);
-            info.AddValue("Description", Description);
-            info.AddValue("Value", Value);
+            writer.Write(Title);
+            writer.Write(Description);
+            // todo - figure out writing binary T where IComparable
+            writer.Write(Value.ToString());
 
-            info.AddValue("HasImage", Image != null);
-            if(Image != null)
-                info.AddValue("Image", Image);
+            writer.Write(Image != null);
+            if (Image != null)
+            {
+                Image.Save(writer.BaseStream, System.Drawing.Imaging.ImageFormat.Png);
+            }
         }
 
+        public void ReadFrom(BinaryReader reader)
+        {
+            Title = reader.ReadString();
+            Description = reader.ReadString();
+            // this may not be safe
+            Value = (T)Convert.ChangeType(reader.ReadString(), typeof(T));
+            if (reader.ReadBoolean())
+            {
+                Image = (Bitmap)Bitmap.FromStream(reader.BaseStream);
+            }
+        }
+        public byte[] ToByteArray()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter bw = new BinaryWriter(ms))
+            {
+                WriteTo(bw);
+                return ms.ToArray();
+            }
+        }
         public override string ToString()
         {
             return Title;
         }
+
     }
 }
