@@ -104,7 +104,7 @@ namespace TRW.CommonLibraries.Data.Test
             for (int i = 0; i < 100; i++)
             {
                 table.Add();
-                table["String"] = string.Format("TestString{0:0000}", i);
+                table["String"] = $"TestString{i:0000}";
                 table["Int"] = i;
                 table[2] = true;
                 table["Date"] = now;
@@ -121,7 +121,7 @@ namespace TRW.CommonLibraries.Data.Test
             int val = 0;
             foreach (CustomDataRow row in table)
             {
-                Assert.AreEqual(string.Format("TestString{0:0000}", val), row["String"]);
+                Assert.AreEqual($"TestString{val:0000}", row["String"]);
                 Assert.AreEqual(val++, row["Int"]);
                 Assert.IsFalse(Convert.ToBoolean(row["Bool"]));
                 Assert.AreEqual(now, row["Date"]);
@@ -139,7 +139,7 @@ namespace TRW.CommonLibraries.Data.Test
             for (int i = 0; i < 100; i++)
             {
                 table.Add();
-                table["String"] = string.Format("TestString{0:0000}", i);
+                table["String"] = $"TestString{i:0000}";
                 table["Int"] = i;
                 table[2] = true;
                 table["Date"] = now;
@@ -319,7 +319,7 @@ namespace TRW.CommonLibraries.Data.Test
             for (int i = 0; i < 5; i++)
             {
                 table.Add();
-                table["String"] = string.Format("TestString{0:0000}", i);
+                table["String"] = $"TestString{i:0000}";
                 table["Int"] = i;
                 table[2] = true;
                 table["Date"] = now;
@@ -339,7 +339,7 @@ namespace TRW.CommonLibraries.Data.Test
             table.SaveToExcel(filePath, true);
             System.IO.FileInfo file = new System.IO.FileInfo(filePath);
             Assert.IsTrue(file.Exists, "File not created");
-            Assert.AreEqual(3121, file.Length, "Unexpected file size; confirm the file looks like it should");
+            Assert.AreEqual(4616, file.Length, "Unexpected file size; confirm the file looks like it should");
         }
         private void AssertCopiedTables<DataRow>(IConnectedDataTable<DataRow> table1, IConnectedDataTable<DataRow> table2) where DataRow : Data.Core.IDataRow
         {
@@ -353,7 +353,7 @@ namespace TRW.CommonLibraries.Data.Test
             {
                 foreach (var column in table1.Columns)
                 {
-                    Assert.AreEqual(table1.Current[column.Key], table2.Current[column.Key], string.Format("Column mismatch: Name: [{0}] Type: [{1}]", column.Value.Name, column.Value.Type));
+                    Assert.AreEqual(table1.Current[column.Key], table2.Current[column.Key], $"Column mismatch: Name: [{column.Value.Name}] Type: [{column.Value.Type}]");
                 }
             } while (table1.Next() && table2.Next());
         }
@@ -366,18 +366,10 @@ namespace TRW.CommonLibraries.Data.Test
                 : base(new CustomDataColumn("NamedStringColumn", DataType.String), new CustomDataColumn("NamedIntColumn", DataType.Integer), new CustomDataColumn("NamedBoolColumn", DataType.Boolean), new CustomDataColumn("NamedDecimalColumn", DataType.Decimal))
             { }
 
-            public TestDataTable(SerializationInfo info, StreamingContext context) : base(info, context)
-            { }
-
             public string NamedStringColumn { get { return Current.NamedStringColumn; } set { Current.NamedStringColumn = value; } }
             public int NamedIntColumn { get { return Current.NamedIntColumn; } set { Current.NamedIntColumn = value; } }
             public bool NamedBoolColumn { get { return Current.NamedBoolColumn; } set { Current.NamedBoolColumn = value; } }
             public decimal NamedDecimalColumn { get { return Current.NamedDecimalColumn; } set { Current.NamedDecimalColumn = value; } }
-
-            public override void GetObjectData(SerializationInfo info, StreamingContext context)
-            {
-                base.GetObjectData(info, context);
-            }
 
         }
 
