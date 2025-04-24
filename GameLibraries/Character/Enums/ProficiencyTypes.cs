@@ -8,7 +8,7 @@ namespace TRW.GameLibraries.Character
         Weapon,
         Armor,
         Tool,
-        [Description("Musical Instrumen")]
+        [Description("Musical Instrument")]
         Musical_Instrument,
         Skill,
         Language,

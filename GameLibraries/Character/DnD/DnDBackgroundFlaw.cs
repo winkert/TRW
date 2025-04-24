@@ -9,6 +9,7 @@ namespace TRW.GameLibraries.Character.DnD
     [Serializable]
     public class DnDBackgroundFlaw : Feature
     {
+        public DnDBackgroundFlaw() :base() { }
         public DnDBackgroundFlaw(string name, string description) : base(name, description)
         {
         }

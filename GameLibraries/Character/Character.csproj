@@ -1,21 +1,22 @@
 <Project Sdk="Microsoft.NET.Sdk">
-<PropertyGroup Label="Globals">
-<SccProjectName>SAK</SccProjectName>
-<SccProvider>SAK</SccProvider>
-<SccAuxPath>SAK</SccAuxPath>
-<SccLocalPath>SAK</SccLocalPath>
-</PropertyGroup>
-<PropertyGroup>
-<TargetFramework>netstandard2.0</TargetFramework>
-<AssemblyName>GameLibraries.Character</AssemblyName>
-<RootNamespace>TRW.GameLibraries.Character</RootNamespace>
-</PropertyGroup>
-<ItemGroup>
-  <None Remove="Character.csproj.vspscc" />
-</ItemGroup>
-<ItemGroup>
-  <ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
-  <ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
-  <ProjectReference Include="..\GameCore\GameCore.csproj" />
-</ItemGroup>
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>GameLibraries.Character</AssemblyName>
+    <RootNamespace>TRW.GameLibraries.Character</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Character.csproj.vspscc" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
+    <ProjectReference Include="..\..\CommonLibraries\Serialization\Serialization.csproj" />
+    <ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
+    <ProjectReference Include="..\GameCore\GameCore.csproj" />
+  </ItemGroup>
 </Project>

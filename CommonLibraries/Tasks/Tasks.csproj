@@ -1,20 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup Label="Globals">
     <SccProjectName>SAK</SccProjectName>
     <SccProvider>SAK</SccProvider>
     <SccAuxPath>SAK</SccAuxPath>
     <SccLocalPath>SAK</SccLocalPath>
   </PropertyGroup>
-
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-	  <AssemblyName>CommonLibraries.Tasks</AssemblyName>
-	  <RootNamespace>TRW.CommonLibraries.Tasks</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>CommonLibraries.Tasks</AssemblyName>
+    <RootNamespace>TRW.CommonLibraries.Tasks</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Tasks.csproj.vspscc" />
   </ItemGroup>
-
 </Project>

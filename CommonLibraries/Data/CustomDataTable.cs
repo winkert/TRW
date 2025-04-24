@@ -28,10 +28,6 @@ namespace TRW.CommonLibraries.Data
             : base(columns)
         { }
 
-        protected CustomDataTable(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        { }
-
         public CustomDataTable(DAL.DataConnector connector)
             : base(connector)
         { }
@@ -45,8 +41,12 @@ namespace TRW.CommonLibraries.Data
         { }
     }
 
+    /// <summary>
+    /// Base Custom Data Table with connection information
+    /// </summary>
+    /// <typeparam name="DataRow"></typeparam>
     [Serializable]
-    public class CustomDataTable<DataRow> : CustomDataTableBase<DataRow>, IConnectedDataTable<DataRow>, ISerializable where DataRow : CustomDataRow, new()
+    public class CustomDataTable<DataRow> : CustomDataTableBase<DataRow>, IConnectedDataTable<DataRow> where DataRow : CustomDataRow, new()
     {
         #region Fields
         protected DAL.DataConnector _dataConnection;
@@ -66,11 +66,6 @@ namespace TRW.CommonLibraries.Data
             _dataConnection = null;
             _rowEnum = new CustomDataRowEnumerator<DataRow>(this);
             _columns = new CustomDataColumnCollection();
-        }
-
-        protected CustomDataTable(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
         }
 
         public CustomDataTable(params string[] columnNames)
@@ -122,7 +117,7 @@ namespace TRW.CommonLibraries.Data
 
         public void SaveToExcel(string filePath, bool includeHeaders)
         {
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.License.SetNonCommercialPersonal("Thaddeus R. Winker");
             using (ExcelPackage package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Table");

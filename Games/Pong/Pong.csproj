@@ -1,26 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
     <RootNamespace>TRW.Games.Pong</RootNamespace>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="Images\PongBall.gif" />
     <None Remove="Images\PongPaddle.gif" />
   </ItemGroup>
-
   <ItemGroup>
     <EmbeddedResource Include="Images\PongBall.gif" />
     <EmbeddedResource Include="Images\PongPaddle.gif" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
     <ProjectReference Include="..\..\GameLibraries\GameCore\GameCore.csproj" />
   </ItemGroup>
-
 </Project>

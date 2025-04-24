@@ -1,8 +1,4 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TRW.CommonLibraries.Core;
-
-namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
+﻿namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
 {
     [TestClass]
     public class ProcedualAlgorithmBaseTest : UnitTesting.UnitTestBase

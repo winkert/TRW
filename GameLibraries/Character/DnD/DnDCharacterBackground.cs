@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using TRW.CommonLibraries.Serialization;
 using TRW.CommonLibraries.Xml;
 using TRW.GameLibraries.GameCore;
 
@@ -33,27 +35,7 @@ namespace TRW.GameLibraries.Character.DnD
         {
             InternalInitialize();
         }
-        /// <summary>
-        /// ISerializable Constructor
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        public DnDCharacterBackground(SerializationInfo info, StreamingContext context)
-            : this()
-        {
-            _languages = (LanguageCollection)info.GetValue("Languages", typeof(LanguageCollection));
-            _skills = (SkillCollection)info.GetValue("Skills", typeof(SkillCollection));
-            _proficiences = (ProficiencyCollection)info.GetValue("Proficiencies", typeof(ProficiencyCollection));
-            _features = (List<Feature>)info.GetValue("Features", typeof(List<Feature>));
-            _traits = (List<DnDBackgroundPersonalityTrait>)info.GetValue("Traits", typeof(List<DnDBackgroundPersonalityTrait>));
-            _bonds = (List<DnDBackgroundBond>)info.GetValue("Bonds", typeof(List<DnDBackgroundBond>));
-            _ideals = (List<DnDBackgroundIdeal>)info.GetValue("Ideals", typeof(List<DnDBackgroundIdeal>));
-            _flaws = (List<DnDBackgroundFlaw>)info.GetValue("Flaws", typeof(List<DnDBackgroundFlaw>));
-
-            _name = info.GetString("Name");
-            _description = info.GetString("Description");
-            _category = info.GetString("Category");
-        }
+        
         #endregion
 
         #region Properties
@@ -272,20 +254,54 @@ namespace TRW.GameLibraries.Character.DnD
             }
         }
 
+        public override void WriteTo(BinaryWriter writer)
+        {
+            writer.Write(_languages.ToByteArray());
+            writer.Write(_skills.ToByteArray());
+            writer.Write(_proficiences.ToByteArray());
+            BinarySerializationRoutines.WriteCollection(writer, _features.Count, _features);
+
+            BinarySerializationRoutines.WriteCollection(writer, _traits.Count, _traits);
+            BinarySerializationRoutines.WriteCollection(writer, _bonds.Count, _bonds);
+            BinarySerializationRoutines.WriteCollection(writer, _ideals.Count, _ideals);
+            BinarySerializationRoutines.WriteCollection(writer, _flaws.Count, _flaws);
+
+            WriteToBase(writer);
+        }
+
+        public override void ReadFrom(BinaryReader reader)
+        {
+            _languages = new LanguageCollection();
+            _languages.ReadFrom(reader);
+            _skills = new SkillCollection();
+            _skills.ReadFrom(reader);
+            _proficiences = new ProficiencyCollection();
+            _proficiences.ReadFrom(reader);
+            int count = reader.ReadInt32();
+            _features = new List<Feature>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _features);
+
+            count = reader.ReadInt32();
+            _traits = new List<DnDBackgroundPersonalityTrait>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _traits);
+
+            count = reader.ReadInt32();
+            _bonds = new List<DnDBackgroundBond>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _bonds);
+
+            count = reader.ReadInt32();
+            _ideals = new List<DnDBackgroundIdeal>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _ideals);
+
+            count = reader.ReadInt32();
+            _flaws = new List<DnDBackgroundFlaw>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _flaws);
+
+            ReadFromBase(reader);
+        }
         public override void GetObjectData(SerializationInfo info, StreamingContext context)
         {
-            info.AddValue("Languages", _languages);
-            info.AddValue("Skills", _skills);
-            info.AddValue("Proficiencies", _proficiences);
-            info.AddValue("Features", _features);
-            info.AddValue("Traits", _traits);
-            info.AddValue("Bonds", _bonds);
-            info.AddValue("Ideals", _ideals);
-            info.AddValue("Flaws", _flaws);
-
-            info.AddValue("Name", _name);
-            info.AddValue("Description", _description);
-            info.AddValue("Category", _category);
+            
         }
 
         public override void Create(string name, LanguageCollection languages, SkillCollection skills, ProficiencyCollection proficiencies, List<Feature> features)
@@ -339,6 +355,7 @@ namespace TRW.GameLibraries.Character.DnD
             _ideals = new List<DnDBackgroundIdeal>();
             _flaws = new List<DnDBackgroundFlaw>();
         }
+
         #endregion
     }
 }

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using TRW.CommonLibraries.Serialization;
 
 namespace TRW.GameLibraries.Character
 {
     [Serializable]
-    public abstract class CharacterBase : GameCore.IGameObject, ISerializable
+    public abstract class CharacterBase : GameCore.IGameObject, IBinarySerializable
     {
         #region Fields
         protected string _name;
@@ -22,17 +24,6 @@ namespace TRW.GameLibraries.Character
             _attributes = new Dictionary<Attributes, int>(TotalAttributes);
         }
 
-        /// <summary>
-        /// ISerializable Constructor
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        protected CharacterBase(SerializationInfo info, StreamingContext context)
-            : this()
-        {
-            this._name = info.GetString("Name");
-            this.CharacterHitPoints = info.GetInt32("CharacterHitPoints");
-        }
         #endregion
 
         #region Properties
@@ -60,10 +51,24 @@ namespace TRW.GameLibraries.Character
         #endregion
 
         #region Methods
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
+        public byte[] ToByteArray()
         {
-            info.AddValue("Name", _name);
-            info.AddValue("CharacterHitPoints", CharacterHitPoints);
+            using (var ms = new MemoryStream())
+            using (var writer = new BinaryWriter(ms))
+            {
+                WriteTo(writer);
+                return ms.ToArray(); // Return serialized data as byte array
+            }
+        }
+        public virtual void WriteTo(BinaryWriter writer)
+        {
+            writer.Write(Name);
+            writer.Write(CharacterHitPoints);
+        }
+        public virtual void ReadFrom(BinaryReader reader)
+        {
+            this._name = reader.ReadString();
+            this.CharacterHitPoints = reader.ReadInt32();
         }
 
         public int[] RollAttributes()
