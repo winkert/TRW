@@ -11,6 +11,11 @@ namespace TRW.GameLibraries.GameCore
     {
         private List<Card<T>> _cards;
 
+        public Deck()
+        {
+            _cards = new List<Card<T>>();
+        }
+
         public Deck(int size)
         {
             _cards = new List<Card<T>>(size);
