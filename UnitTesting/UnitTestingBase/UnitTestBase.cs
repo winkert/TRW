@@ -21,7 +21,7 @@ namespace TRW.UnitTesting
             {
                 if(string.IsNullOrEmpty(_unitTestTempFolder))
                 {
-                    _unitTestTempFolder = Path.Combine(Path.GetTempPath(), string.Format("UnitTest{0:yyyyMMddhhmmss}", DateTime.Now));
+                    _unitTestTempFolder = Path.Combine(Path.GetTempPath(), $"UnitTest{DateTime.Now:yyyyMMddhhmmss}");
                     if (!Directory.Exists(_unitTestTempFolder))
                         Directory.CreateDirectory(_unitTestTempFolder);
                 }
@@ -49,7 +49,7 @@ namespace TRW.UnitTesting
         {
             UnitTestExecutionFolder = Environment.CurrentDirectory;
 
-            UnitTestTempFolder = Path.Combine(Path.GetTempPath(), string.Format("UnitTest{0:yyyyMMddhhmmss}", DateTime.Now));
+            UnitTestTempFolder = Path.Combine(Path.GetTempPath(), $"UnitTest{DateTime.Now:yyyyMMddhhmmss}");
             if (!Directory.Exists(UnitTestTempFolder))
                 Directory.CreateDirectory(UnitTestTempFolder);
         }

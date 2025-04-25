@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Data;
-using System.Data.Common;
-using System.Runtime.Serialization;
+using System.IO;
+using TRW.CommonLibraries.Serialization;
 
 namespace TRW.CommonLibraries.Data.Core
 {
+    /// <summary>
+    /// In memory, serializable data table.
+    /// </summary>
+    /// <typeparam name="DataRow"></typeparam>
     [Serializable]
-    public abstract class CustomDataTableBase<DataRow> : IDataTable<DataRow>, ISerializable where DataRow : CustomDataRow, new()
+    public class CustomDataTableBase<DataRow> : IDataTable<DataRow>, IBinarySerializable where DataRow : CustomDataRow, new()
     {
         #region Fields
         protected CustomDataRowEnumerator<DataRow> _rowEnum;
@@ -49,20 +51,10 @@ namespace TRW.CommonLibraries.Data.Core
 
         #region Constructors
 
-        protected CustomDataTableBase()
+        public CustomDataTableBase()
         {
             _rowEnum = new CustomDataRowEnumerator<DataRow>(this);
             _columns = new CustomDataColumnCollection();
-        }
-
-        protected CustomDataTableBase(SerializationInfo info, StreamingContext context)
-            : this()
-        {
-            byte[] columns = (byte[])info.GetValue("Columns", typeof(byte[]));
-            _columns.Deserialize(columns);
-            _rowEnum.InitializeEnumerator(this);
-            string[] base64Table = (string[])info.GetValue("SerializedTable", typeof(string[]));
-            DeserializeTableRows(base64Table);
         }
 
         protected CustomDataTableBase(params string[] columnNames)
@@ -80,6 +72,112 @@ namespace TRW.CommonLibraries.Data.Core
         #endregion
 
         #region Public Methods
+
+        #region Serialization
+        public void WriteTo(BinaryWriter writer)
+        {
+            byte[] columnBytes = _columns.Serialize();
+            writer.Write(columnBytes.Length);
+            writer.Write(columnBytes, 0, columnBytes.Length);
+            string[] tableRows = SerializeTableRows();
+            writer.Write(tableRows.Length);
+            foreach (string row in tableRows)
+            {
+                writer.Write(row);
+            }
+        }
+
+        public void ReadFrom(BinaryReader reader)
+        {
+            int columnBytesLength = reader.ReadInt32();
+            byte[] columns = reader.ReadBytes(columnBytesLength);
+            _columns.Deserialize(columns);
+            _rowEnum.InitializeEnumerator(this);
+            int rowCount = reader.ReadInt32();
+            string[] base64Table = new string[rowCount];
+            for (int i = 0; i < rowCount; i++)
+            {
+                base64Table[i] = reader.ReadString();
+            }
+            DeserializeTableRows(base64Table);
+        }
+
+        public byte[] ToByteArray()
+        {
+            using (var ms = new MemoryStream())
+            using (var writer = new BinaryWriter(ms))
+            {
+                WriteTo(writer);
+                return ms.ToArray(); // Return serialized data as byte array
+            }
+        }
+
+        public void SerializeTable(string filePath)
+        {
+            SerializeTable(filePath, false);
+        }
+        public void SerializeTable(string filePath, bool useCompression)
+        {
+            Serialization.BinarySerializationRoutines.SerializeToFile(this, filePath, System.IO.FileMode.Create, useCompression);
+        }
+
+        public string SerializeTable()
+        {
+            string serializedData = TRW.CommonLibraries.Serialization.BinarySerializationRoutines.SerializeToString(this);
+            return serializedData;
+        }
+
+        public void DeserializeFromFile(string filePath)
+        {
+            DeserializeFromFile(filePath, false);
+        }
+
+        public void DeserializeFromFile(string filePath, bool useCompression)
+        {
+            using (System.IO.MemoryStream reader = new System.IO.MemoryStream(System.IO.File.ReadAllBytes(filePath)))
+            {
+                DeserializeFromFile(reader, useCompression);
+            }
+        }
+
+        public void DeserializeFromFile(System.IO.Stream stream, bool useCompression = false)
+        {
+            System.Diagnostics.Debug.WriteLine($"Deserializing Memory Stream at {DateTime.Now:t}.");
+            CustomDataTableBase<DataRow> table = TRW.CommonLibraries.Serialization.BinarySerializationRoutines.DeserializeStream<CustomDataTableBase<DataRow>>(stream, useCompression);
+            this.InitializeColumns(table.Columns.Values.ToArray());
+            this._rowEnum = table._rowEnum.Clone();
+            System.Diagnostics.Debug.WriteLine($"Completed Deserialization at {DateTime.Now:t}.");
+        }
+
+        public void DeserializeTable(string serializedData)
+        {
+            CustomDataTableBase<DataRow> table = TRW.CommonLibraries.Serialization.BinarySerializationRoutines.DeserializeFromString<CustomDataTableBase<DataRow>>(serializedData);
+            this.InitializeColumns(table.Columns.Values.ToArray());
+            this._rowEnum = table._rowEnum.Clone();
+        }
+
+        protected string[] SerializeTableRows()
+        {
+            string[] values = new string[this.Count];
+            for (int i = 0; i < this.Count; i++)
+            {
+                values[i] = _rowEnum._rows[i].SerializeRow();
+            }
+            return values;
+        }
+
+        protected void DeserializeTableRows(string[] serializedData)
+        {
+            foreach (string value in serializedData)
+            {
+                DataRow row = new DataRow();
+                row.DeserializeRow(this.Columns, value);
+                this.Add(row);
+            }
+        }
+
+        #endregion
+
         public bool First()
         {
             return _rowEnum.First();
@@ -155,12 +253,6 @@ namespace TRW.CommonLibraries.Data.Core
             return _rowEnum.Clone();
         }
 
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("Columns", _columns.Serialize());
-            info.AddValue("SerializedTable", SerializeTableRows());
-        }
-
         public bool GoTo(int index)
         {
             return _rowEnum.GoTo(index);
@@ -231,50 +323,6 @@ namespace TRW.CommonLibraries.Data.Core
             _rowEnum.SetIndex(new CustomDataTableIndex<DataRow>(this, columns));
         }
 
-        public void SerializeTable(string filePath)
-        {
-            SerializeTable(filePath, false);
-        }
-        public void SerializeTable(string filePath, bool useCompression)
-        {
-            Serialization.BinarySerializationRoutines.SerializeToFile(this, filePath, System.IO.FileMode.Create, useCompression);
-        }
-
-        public string SerializeTable()
-        {
-            string serializedData = TRW.CommonLibraries.Serialization.BinarySerializationRoutines.SerializeToString(this);
-            return serializedData;
-        }
-
-        public void DeserializeFromFile(string filePath)
-        {
-            DeserializeFromFile(filePath, false);
-        }
-
-        public void DeserializeFromFile(string filePath, bool useCompression)
-        {
-            using (System.IO.MemoryStream reader = new System.IO.MemoryStream(System.IO.File.ReadAllBytes(filePath)))
-            {
-                DeserializeFromFile(reader, useCompression);
-            }
-        }
-
-        public void DeserializeFromFile(System.IO.Stream stream, bool useCompression = false)
-        {
-            System.Diagnostics.Debug.WriteLine($"Deserializing Memory Stream at {DateTime.Now:t}.");
-            CustomDataTableBase<DataRow> table = TRW.CommonLibraries.Serialization.BinarySerializationRoutines.DeserializeStream<CustomDataTableBase<DataRow>>(stream, useCompression);
-            this.InitializeColumns(table.Columns.Values.ToArray());
-            this._rowEnum = table._rowEnum.Clone();
-            System.Diagnostics.Debug.WriteLine($"Completed Deserialization at {DateTime.Now:t}.");
-        }
-
-        public void DeserializeTable(string serializedData)
-        {
-            CustomDataTableBase<DataRow> table = TRW.CommonLibraries.Serialization.BinarySerializationRoutines.DeserializeFromString<CustomDataTableBase<DataRow>>(serializedData);
-            this.InitializeColumns(table.Columns.Values.ToArray());
-            this._rowEnum = table._rowEnum.Clone();
-        }
-
         public override bool Equals(object obj)
         {
             // TODO: Make Equals
@@ -319,33 +367,6 @@ namespace TRW.CommonLibraries.Data.Core
                 _columns[i] = columns[i];
         }
 
-        protected string[] SerializeTableRows()
-        {
-            string[] values = new string[this.Count];
-            for (int i = 0; i < this.Count; i++)
-            {
-                values[i] = _rowEnum._rows[i].SerializeRow();
-            }
-            return values;
-        }
-
-        protected void DeserializeTableRows(string[] serializedData)
-        {
-            foreach (string value in serializedData)
-            {
-                DataRow row = new DataRow();
-                row.DeserializeRow(this.Columns, value);
-                this.Add(row);
-            }
-        }
-
-        private string GetSaveChangesCommand()
-        {
-            StringBuilder commandBuilder = new StringBuilder();
-
-
-            return commandBuilder.ToString();
-        }
         #endregion
     }
 

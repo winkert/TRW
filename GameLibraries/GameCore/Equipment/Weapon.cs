@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.Serialization;
 using TRW.CommonLibraries.Xml;
 
@@ -28,12 +29,6 @@ namespace TRW.GameLibraries.GameCore
             WeaponType = weaponType;
         }
 
-        protected Weapon(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-
-        }
-
         public override string EquipmentType => "Weapon";
         public Dice DamageDice { get; private set; }
         public int DamageDiceCount { get; private set; }
@@ -45,22 +40,22 @@ namespace TRW.GameLibraries.GameCore
             return DamageDice.Roll(DamageDiceCount);
         }
 
-        protected override void SerializeObject(SerializationInfo info)
+        protected override void SerializeObject(BinaryWriter writer)
         {
-            info.AddValue("DamageDice", this.DamageDice.DiceSides);
-            info.AddValue("DamageDiceCount", this.DamageDiceCount);
-            info.AddValue("AttackBonus", this.AttackBonus);
-            info.AddValue("WeaponType", (int)this.WeaponType);
-            base.SerializeObject(info);
+            writer.Write(DamageDice.DiceSides);
+            writer.Write(DamageDiceCount);
+            writer.Write(AttackBonus);
+            writer.Write((int)WeaponType);
+            base.SerializeObject(writer);
         }
 
-        protected override void DeserializeObject(SerializationInfo info)
+        protected override void DeserializeObject(BinaryReader reader)
         {
-            this.DamageDice = new Dice(info.GetInt32("DamageDice"));
-            this.DamageDiceCount = info.GetInt32("DamageDiceCount");
-            this.AttackBonus = info.GetInt32("AttackBonus");
-            this.WeaponType = (WeaponTypes)info.GetInt32("WeaponType");
-            base.DeserializeObject(info);
+            this.DamageDice = new Dice(reader.ReadInt32());
+            this.DamageDiceCount = reader.ReadInt32();
+            this.AttackBonus = reader.ReadInt32();
+            this.WeaponType = (WeaponTypes)reader.ReadInt32();
+            base.DeserializeObject(reader);
         }
 
         protected override void ReadXmlToItem(XmlParser xmlParser)

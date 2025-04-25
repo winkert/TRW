@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace TRW.GameLibraries.Character
         #endregion
 
         #region Constructors
+        public DnDAttributeBonus() : base() { }
         public DnDAttributeBonus(Attributes attribute, int bonus, bool required)
             : base(string.Format("{0}{1} to {2}", bonus > 0 ? "+" : "-", bonus, attribute), string.Empty)
         {
@@ -44,6 +47,24 @@ namespace TRW.GameLibraries.Character
         public override string ToString()
         {
             return string.Format("{0}{1} to {2}", _bonus > 0 ? "+" : "-", _bonus, TRW.CommonLibraries.Core.EnumExtensions.GetDescription(_attribute));
+        }
+
+        public override void WriteTo(BinaryWriter writer)
+        {
+            writer.Write((int)_attribute);
+            writer.Write(_bonus);
+            writer.Write(_required);
+
+            WriteToBase(writer);
+        }
+
+        public override void ReadFrom(BinaryReader reader)
+        {
+            _attribute = (Attributes)reader.ReadInt32();
+            _bonus = reader.ReadInt32();
+            _required = reader.ReadBoolean();
+
+            ReadFromBase(reader);
         }
         #endregion
 

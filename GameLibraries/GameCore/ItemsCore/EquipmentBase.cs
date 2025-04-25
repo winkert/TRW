@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.Serialization;
 using TRW.CommonLibraries.Xml;
 
@@ -17,23 +18,17 @@ namespace TRW.GameLibraries.GameCore
             this.Value = value;
         }
         
-        protected EquipmentBase(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-
-        }
-
         public int Value { get; set; }
         public abstract string EquipmentType { get; }
 
-        protected override void SerializeObject(SerializationInfo info)
+        protected override void SerializeObject(BinaryWriter writer)
         {
-            info.AddValue("Value", this.Value);
+            writer.Write(Value);
         }
 
-        protected override void DeserializeObject(SerializationInfo info)
+        protected override void DeserializeObject(BinaryReader reader)
         {
-            this.Value = info.GetInt32("Value");
+            this.Value = reader.ReadInt32();
         }
 
 

@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using TRW.CommonLibraries.Serialization;
 using TRW.GameLibraries.GameCore;
 
 namespace DungeonGenerator
 {
     [Serializable]
-    public class DungeonNpc : IDungeonComponentBase, ISerializable
+    public class DungeonNpc : IDungeonComponentBase, IBinarySerializable
     {
         private Guid _uniqueId;
 
@@ -46,11 +42,6 @@ namespace DungeonGenerator
             Notes = objs[6];
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("SerializedInfo", Serialize());
-        }
-
         public string Serialize()
         {
             string serialized = $"{Name}|{UniqueIdentifier}|{Race}|{Class}|{ChallengeRating}|{(int)Hostility}|{Notes}";
@@ -58,9 +49,23 @@ namespace DungeonGenerator
             return serialized;
         }
 
-        protected DungeonNpc(SerializationInfo serializationInfo, StreamingContext streamingContext)
+        public void WriteTo(BinaryWriter writer)
         {
-            Deserialize(serializationInfo.GetString("SerializedInfo"));
+            writer.Write(Serialize());
+        }
+        public void ReadFrom(BinaryReader reader)
+        {
+            Deserialize(reader.ReadString());
+        }
+
+        public byte[] ToByteArray()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter bw = new BinaryWriter(ms))
+            {
+                WriteTo(bw);
+                return ms.ToArray();
+            }
         }
 
         public static DungeonNpc GenerateRandom()

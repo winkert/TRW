@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Text;
 using TRW.CommonLibraries.Xml;
@@ -14,25 +15,19 @@ namespace TRW.GameLibraries.GameCore
             this.ArmorClass = ac;
         }
 
-        protected Armor(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            :base(serializationInfo, streamingContext)
-        {
-            
-        }
-
         public override string EquipmentType => "Armor";
         public int ArmorClass { get; private set; }
 
-        protected override void SerializeObject(SerializationInfo info)
+        protected override void SerializeObject(BinaryWriter writer)
         {
-            info.AddValue("ArmorClass", this.ArmorClass);
-            base.SerializeObject(info);
+            writer.Write(ArmorClass);
+            base.SerializeObject(writer);
         }
 
-        protected override void DeserializeObject(SerializationInfo info)
+        protected override void DeserializeObject(BinaryReader reader)
         {
-            this.ArmorClass = info.GetInt32("ArmorClass");
-            base.DeserializeObject(info);
+            this.ArmorClass = reader.ReadInt32();
+            base.DeserializeObject(reader);
         }
 
         protected override void ReadXmlToItem(XmlParser xmlParser)

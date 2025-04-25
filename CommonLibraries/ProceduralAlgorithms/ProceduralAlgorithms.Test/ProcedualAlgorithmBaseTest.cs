@@ -1,9 +1,4 @@
-﻿using System;
-using System.Reflection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TRW.CommonLibraries.Core;
-
-namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
+﻿namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
 {
     [TestClass]
     public class ProcedualAlgorithmBaseTest : UnitTesting.UnitTestBase
@@ -93,44 +88,41 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
         [TestMethod]
         public void ValidateParametersTests()
         {
-            Type typeAlgorithmBase = typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>);
-            MethodInfo invokableValidParameters = typeAlgorithmBase.GetMethod("ValidParameters", BindingFlags.NonPublic | BindingFlags.Instance);
-            Assert.IsNotNull(invokableValidParameters, "Failed to find method information");
-
             RectangularCollection<Cell> map = new RectangularCollection<Cell>(5, 5);
-            
             ProceduralAlgorithms.DiamondSquareAlgorithm<RectangularCollection<Cell>, Cell> ds = new ProceduralAlgorithms.DiamondSquareAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            bool paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(ds, new object[] { 1, 1, 1, 1.0m }));
+            PrivateObject dsPO = new PrivateObject(ds, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
+            bool paramsValid = Convert.ToBoolean(dsPO.Invoke("ValidParameters", 1, 1, 1, 1.0m));
             Assert.IsTrue(paramsValid, "DiamondSquareAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(ds, new object[] { false }));
+            paramsValid = Convert.ToBoolean(dsPO.Invoke("ValidParameters", false));
             Assert.IsFalse(paramsValid, "DiamondSquareAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(ds, new object[] { 1, 1, true, true }));
+            paramsValid = Convert.ToBoolean(dsPO.Invoke("ValidParameters", 1, 1, true, true));
             Assert.IsFalse(paramsValid, "DiamondSquareAlgorithm failed");
 
             ProceduralAlgorithms.RandomWalkAlgorithm<RectangularCollection<Cell>, Cell> rw = new ProceduralAlgorithms.RandomWalkAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(rw, new object[] { new TRW.CommonLibraries.Core.Position(1, 1), 1, false, false }));
+            PrivateObject rwPO = new PrivateObject(rw, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
+            paramsValid = Convert.ToBoolean(rwPO.Invoke("ValidParameters", new TRW.CommonLibraries.Core.Position(1, 1), 1, false, false));
             Assert.IsTrue(paramsValid, "RandomWalkAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(rw, new object[] { false }));
+            paramsValid = Convert.ToBoolean(rwPO.Invoke("ValidParameters", false));
             Assert.IsFalse(paramsValid, "RandomWalkAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(rw, new object[] { 1, new TRW.CommonLibraries.Core.Position(1, 1), false }));
+            paramsValid = Convert.ToBoolean(rwPO.Invoke("ValidParameters", 1, new TRW.CommonLibraries.Core.Position(1, 1), false));
             Assert.IsFalse(paramsValid, "RandomWalkAlgorithm failed");
 
             ProceduralAlgorithms.CellularAutomataAlgorithm< RectangularCollection<Cell>, Cell> ca = new ProceduralAlgorithms.CellularAutomataAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(ca, new object[] { new CellularAutomataRulesSet<bool>(), 1, true, false }));
+            PrivateObject caPO = new PrivateObject(ca, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
+            paramsValid = Convert.ToBoolean(caPO.Invoke("ValidParameters", new CellularAutomataRulesSet<bool>(), 1, true, false));
             Assert.IsTrue(paramsValid, "CellularAutomataAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(ca, new object[] { false }));
+            paramsValid = Convert.ToBoolean(caPO.Invoke("ValidParameters", false));
             Assert.IsFalse(paramsValid, "CellularAutomataAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(ca, new object[] { true, false, 1, new CellularAutomataRulesSet<bool>() }));
+            paramsValid = Convert.ToBoolean(caPO.Invoke("ValidParameters", true, false, 1, new CellularAutomataRulesSet<bool>()));
             Assert.IsFalse(paramsValid, "CellularAutomataAlgorithm failed");
 
             ProceduralAlgorithms.PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell> pn = new ProceduralAlgorithms.PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(pn, new object[] { 16, 0.5m, 8m, 128m, false }));
+            PrivateObject pnPO = new PrivateObject(pn, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
+            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", 16, 0.5m, 8m, 128m, false));
             Assert.IsTrue(paramsValid, "PerlinNoiseAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(pn, new object[] { false }));
+            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", false));
             Assert.IsFalse(paramsValid, "PerlinNoiseAlgorithm failed");
-            paramsValid = Convert.ToBoolean(invokableValidParameters.Invoke(pn, new object[] { true, false, 1, new CellularAutomataRulesSet<bool>() }));
+            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", true, false, 1, new CellularAutomataRulesSet<bool>()));
             Assert.IsFalse(paramsValid, "PerlinNoiseAlgorithm failed");
         }
 

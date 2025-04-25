@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+using TRW.CommonLibraries.Serialization;
 
 namespace TRW.GameLibraries.Character.DnD
 {
@@ -10,9 +12,9 @@ namespace TRW.GameLibraries.Character.DnD
     public class DnDCharacter : CharacterBase
     {
         #region Fields
-        private readonly DnDCharacterRace _race;
-        private readonly DnDCharacterClass _class;
-        private readonly DnDCharacterBackground _background;
+        private DnDCharacterRace _race;
+        private DnDCharacterClass _class;
+        private DnDCharacterBackground _background;
 
         private int _level;
 
@@ -61,23 +63,7 @@ namespace TRW.GameLibraries.Character.DnD
             base.CharacterHitPoints = this.CharacterMaxHitPoints;
             _deathSaves = new List<bool>();
         }
-        /// <summary>
-        /// ISerializable Constructor
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        protected DnDCharacter(SerializationInfo info, StreamingContext context)
-            : base(info, context)
-        {
-            _race = (DnDCharacterRace)info.GetValue("Race", typeof(DnDCharacterRace));
-            _class = (DnDCharacterClass)info.GetValue("Class", typeof(DnDCharacterClass));
-            _background = (DnDCharacterBackground)info.GetValue("Background", typeof(DnDCharacterBackground));
-            _level = info.GetInt32("Level");
-            CharacterMaxHitPoints = info.GetInt32("HitPoints");
-            _attributes = (Dictionary<Attributes, int>)info.GetValue("Attributes", typeof(Dictionary<Attributes, int>));
-            _deathSaves = new List<bool>();
 
-        }
         #endregion
 
         #region Properties
@@ -243,17 +229,38 @@ namespace TRW.GameLibraries.Character.DnD
 
 
         #region Overrides
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void ReadFrom(BinaryReader reader)
         {
-            base.GetObjectData(info, context);
-            info.AddValue("Race", _race);
-            info.AddValue("Class", _class);
-            info.AddValue("Background", _background);
-            info.AddValue("Level", _level);
-            info.AddValue("HitPoints", CharacterMaxHitPoints);
-            info.AddValue("Attributes", _attributes);
+            base.ReadFrom(reader);
+            _race.ReadFrom(reader);
+            _class.ReadFrom(reader);
+            _background.ReadFrom(reader);
+            _level = reader.ReadInt32();
+            CharacterMaxHitPoints = reader.ReadInt32();
+            int count = reader.ReadInt32();
+            _attributes = new Dictionary<Attributes, int>();
+            for (int i = 0; i < count; i++)
+            {
+                Attributes a = (Attributes)reader.ReadInt32();
+                int v = reader.ReadInt32();
+                _attributes.Add(a, v);
+            }
         }
-
+        public override void WriteTo(BinaryWriter writer)
+        {
+            base.WriteTo(writer);
+            _race.WriteTo(writer);
+            _class.WriteTo(writer);
+            _background.WriteTo(writer);
+            writer.Write(_level);
+            writer.Write(CharacterMaxHitPoints);
+            writer.Write(_attributes.Count);
+            foreach (var attribute in _attributes)
+            {
+                writer.Write((int)attribute.Key);
+                writer.Write(attribute.Value);
+            }
+        }
         public override string ToString()
         {
             return base.ToString();

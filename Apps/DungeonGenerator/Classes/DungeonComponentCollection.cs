@@ -1,46 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using TRW.CommonLibraries.Serialization;
 
 namespace DungeonGenerator
 {
     [Serializable]
-    public class DungeonComponentCollection<T> : List<T>, ISerializable where T : IDungeonComponentBase, new()
+    public class DungeonComponentCollection<T> : List<T>, IBinarySerializable where T : IDungeonComponentBase, IBinarySerializable, new()
     {
         protected Random _r = new Random();
 
         public DungeonComponentCollection() : base() { }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void WriteTo(BinaryWriter writer)
         {
-            info.AddValue("Count", this.Count);
-            for (int i = 0; i < Count; i++)
+            BinarySerializationRoutines.WriteCollection(writer, this.Count, this);
+        }
+        public void ReadFrom(BinaryReader reader)
+        {
+            BinarySerializationRoutines.ReadCollection(reader, reader.ReadInt32(), this);
+        }
+
+        public byte[] ToByteArray()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter bw = new BinaryWriter(ms))
             {
-                info.AddValue($"Item{i}", this[i].Serialize());
+                WriteTo(bw);
+                return ms.ToArray();
             }
         }
 
-        protected DungeonComponentCollection(SerializationInfo serializationInfo, StreamingContext streamingContext)
-        {
-            int count = serializationInfo.GetInt32("Count");
-            for (int i = 0; i < count; i++)
-            {
-                T obj = new T();
-                obj.Deserialize(serializationInfo.GetString($"Item{i}"));
-                this.Add(obj);
-            }
-        }
     }
     [Serializable]
     internal class DungeonLootCollection : DungeonComponentCollection<DungeonLoot>
     {
         public DungeonLootCollection() : base() { }
-        protected DungeonLootCollection(SerializationInfo serializationInfo, StreamingContext streamingContext) : base(serializationInfo, streamingContext)
-        {
-        }
+        
 
         public DungeonLoot GetRandom(decimal maxValue = decimal.MaxValue)
         {
@@ -61,9 +58,6 @@ namespace DungeonGenerator
     internal class DungeonNpcCollection : DungeonComponentCollection<DungeonNpc>
     {
         public DungeonNpcCollection() : base() { }
-        protected DungeonNpcCollection(SerializationInfo serializationInfo, StreamingContext streamingContext) : base(serializationInfo, streamingContext)
-        {
-        }
 
         public DungeonNpc GetRandom(int maxCR = int.MaxValue)
         {
