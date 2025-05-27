@@ -4,12 +4,13 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using TRW.CommonLibraries.Serialization;
 using TRW.CommonLibraries.Xml;
 
 namespace TRW.GameLibraries.Character
 {
     [Serializable]
-    public abstract class CharacterClassBase : CharacterPropertyBase, IXmlData, ISerializable
+    public abstract class CharacterClassBase : CharacterPropertyBase, IXmlData, IBinarySerializable
     {
         #region Constructors
         public CharacterClassBase() : base(string.Empty, string.Empty)
@@ -49,8 +50,6 @@ namespace TRW.GameLibraries.Character
         public abstract void ReadXml(string filePath);
 
         public abstract void WriteXml(string filePath);
-
-        public abstract void GetObjectData(SerializationInfo info, StreamingContext context);
 
         public abstract void Create(string name, GameCore.Dice hitDie, Attributes primaryAttribute, Attributes secondaryAttribute, Attributes spellCastingAbility
             , LanguageCollection languages, SkillCollection skills, ProficiencyCollection proficiencies, List<Feature> features);

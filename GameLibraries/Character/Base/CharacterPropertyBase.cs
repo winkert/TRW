@@ -1,11 +1,15 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection.PortableExecutable;
+using TRW.CommonLibraries.Serialization;
 using TRW.CommonLibraries.Xml;
 
 namespace TRW.GameLibraries.Character
 {
     [Serializable]
-    public abstract class CharacterPropertyBase : IComparable<CharacterPropertyBase>
+    public abstract class CharacterPropertyBase : IComparable<CharacterPropertyBase>, IBinarySerializable
     {
         #region Constants
         protected const string XmlNameElement = "Name";
@@ -62,6 +66,7 @@ namespace TRW.GameLibraries.Character
         #endregion
 
         #region Constructors
+        internal CharacterPropertyBase() : this(string.Empty, string.Empty) { }
         public CharacterPropertyBase(string name, string description)
         {
             this._name = name;
@@ -124,6 +129,31 @@ namespace TRW.GameLibraries.Character
         {
             return (Name + Category).CompareTo((other.Name + other.Category));
         }
+
+        public byte[] ToByteArray()
+        {
+            using (var ms = new MemoryStream())
+            using (var writer = new BinaryWriter(ms))
+            {
+                WriteTo(writer);
+                return ms.ToArray(); // Return serialized data as byte array
+            }
+        }
+        public abstract void WriteTo(BinaryWriter writer);
+        public abstract void ReadFrom(BinaryReader reader);
         #endregion
+
+        protected internal void WriteToBase(BinaryWriter writer)
+        {
+            writer.Write(_name);
+            writer.Write(_description);
+            writer.Write(_category);
+        }
+        protected internal void ReadFromBase(BinaryReader reader)
+        {
+            _name = reader.ReadString();
+            _description = reader.ReadString();
+            _category = reader.ReadString();
+        }
     }
 }

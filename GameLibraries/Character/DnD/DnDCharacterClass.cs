@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using TRW.CommonLibraries.Serialization;
 using TRW.CommonLibraries.Xml;
 using TRW.GameLibraries.GameCore;
 
@@ -35,28 +37,7 @@ namespace TRW.GameLibraries.Character.DnD
         {
             InternalInitialize();
         }
-        /// <summary>
-        /// ISerializable Constructor
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        public DnDCharacterClass(SerializationInfo info, StreamingContext context)
-            : this()
-        {
-            _languages = (LanguageCollection)info.GetValue("Languages", typeof(LanguageCollection));
-            _skills = (SkillCollection)info.GetValue("Skills", typeof(SkillCollection));
-            _proficiences = (ProficiencyCollection)info.GetValue("Proficiencies", typeof(ProficiencyCollection));
-            _features = (List<Feature>)info.GetValue("Features", typeof(List<Feature>));
-            _hitDie = (GameCore.Dice)info.GetValue("HitDie", typeof(GameCore.Dice));
-            _savingThrows = (ProficiencyCollection<DnDSavingThrowProficiency>)info.GetValue("SavingThrows", typeof(ProficiencyCollection<DnDSavingThrowProficiency>));
-            _primaryAttribute = (Attributes)info.GetValue("PrimaryAttribute", typeof(Attributes));
-            _secondaryAttribute = (Attributes)info.GetValue("SecondaryAttribute", typeof(Attributes));
-            _spellCastingAbility = (Attributes)info.GetValue("SpellCastingAbility", typeof(Attributes));
-
-            _name = info.GetString("Name");
-            _description = info.GetString("Description");
-            _category = info.GetString("Category");
-        }
+       
         #endregion
 
         #region Properties
@@ -252,23 +233,49 @@ namespace TRW.GameLibraries.Character.DnD
             }
         }
 
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void WriteTo(BinaryWriter writer)
         {
-            info.AddValue("Languages", _languages);
-            info.AddValue("Skills", _skills);
-            info.AddValue("Proficiencies", _proficiences);
-            info.AddValue("Features", _features);
-            info.AddValue("HitDie", _hitDie);
-            info.AddValue("SavingThrows", _savingThrows);
-            info.AddValue("PrimaryAttribute", _primaryAttribute);
-            info.AddValue("SecondaryAttribute", _secondaryAttribute);
-            info.AddValue("SpellCastingAbility", _spellCastingAbility);
+            writer.Write(_languages.ToByteArray());
+            writer.Write(_skills.ToByteArray());
+            writer.Write(_proficiences.ToByteArray());
+            BinarySerializationRoutines.WriteCollection(writer, _features.Count, _features);
 
-            info.AddValue("Name", _name);
-            info.AddValue("Description", _description);
-            info.AddValue("Category", _category);
+            writer.Write(_hitDie.DiceSides);
+
+            writer.Write(_savingThrows.Count);
+            BinarySerializationRoutines.WriteCollection(writer, _savingThrows.Count, _savingThrows);
+
+            writer.Write((int)_primaryAttribute);
+            writer.Write((int)_secondaryAttribute);
+            writer.Write((int)_spellCastingAbility);
+
+            WriteToBase(writer);
         }
 
+        public override void ReadFrom(BinaryReader reader)
+        {
+            _languages = new LanguageCollection();
+            _languages.ReadFrom(reader);
+            _skills = new SkillCollection();
+            _skills.ReadFrom(reader);
+            _proficiences = new ProficiencyCollection();
+            _proficiences.ReadFrom(reader);
+            int count = reader.ReadInt32();
+            _features = new List<Feature>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _features);
+
+            _hitDie = new Dice(reader.ReadInt32());
+            
+            int savingThrows = reader.ReadInt32();
+            _savingThrows = new ProficiencyCollection<DnDSavingThrowProficiency>();
+            BinarySerializationRoutines.ReadCollection(reader, savingThrows, _savingThrows);
+
+            _primaryAttribute = (Attributes)reader.ReadInt32();
+            _secondaryAttribute = (Attributes)reader.ReadInt32();
+            _spellCastingAbility = (Attributes)reader.ReadInt32();
+
+            ReadFromBase(reader);
+        }
         public override void Create(string name, GameCore.Dice hitDie, Attributes primaryAttribute, Attributes secondaryAttribute, Attributes spellCastingAbility, LanguageCollection languages, SkillCollection skills, ProficiencyCollection proficiencies, List<Feature> features)
         {
             Create(name, hitDie, primaryAttribute, secondaryAttribute, spellCastingAbility, new ProficiencyCollection<DnDSavingThrowProficiency>(), languages, skills, proficiencies, features);
@@ -320,6 +327,7 @@ namespace TRW.GameLibraries.Character.DnD
             _proficiences = new ProficiencyCollection(0);
             _features = new List<Feature>();
         }
+
         #endregion
     }
 }

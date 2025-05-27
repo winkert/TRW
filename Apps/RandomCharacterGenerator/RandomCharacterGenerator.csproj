@@ -1,52 +1,45 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup Label="Globals">
-		<SccProjectName>SAK</SccProjectName>
-		<SccProvider>SAK</SccProvider>
-		<SccAuxPath>SAK</SccAuxPath>
-		<SccLocalPath>SAK</SccLocalPath>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<Nullable>enable</Nullable>
-		<UseWindowsForms>true</UseWindowsForms>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<RootNamespace>TRW.Apps.RandomCharacterGenerator</RootNamespace>
-	</PropertyGroup>
-
-	<ItemGroup>
-		<None Remove="RandomCharacterGenerator.csproj.vspscc" />
-		<None Remove="Resources\AddButton.png" />
-		<None Remove="Resources\CancelButton.png" />
-		<None Remove="Resources\CopyButton.png" />
-		<None Remove="Resources\DeleteButton.png" />
-		<None Remove="Resources\EditButton.png" />
-		<None Remove="Resources\SaveButton.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<EmbeddedResource Include="Resources\AddButton.png" />
-		<EmbeddedResource Include="Resources\CancelButton.png" />
-		<EmbeddedResource Include="Resources\CopyButton.png" />
-		<EmbeddedResource Include="Resources\DeleteButton.png" />
-		<EmbeddedResource Include="Resources\EditButton.png" />
-		<EmbeddedResource Include="Resources\SaveButton.png" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="PdfSharpCore" Version="1.3.32" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
-		<ProjectReference Include="..\..\CommonLibraries\Pdf\Pdf.csproj" />
-		<ProjectReference Include="..\..\CommonLibraries\Serialization\Serialization.csproj" />
-		<ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
-		<ProjectReference Include="..\..\GameLibraries\Character\Character.csproj" />
-		<ProjectReference Include="..\..\GameLibraries\GameCore\GameCore.csproj" />
-		<ProjectReference Include="..\TrwAppsBase\TrwAppsBase.csproj" />
-	</ItemGroup>
-
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>TRW.Apps.RandomCharacterGenerator</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="RandomCharacterGenerator.csproj.vspscc" />
+    <None Remove="Resources\AddButton.png" />
+    <None Remove="Resources\CancelButton.png" />
+    <None Remove="Resources\CopyButton.png" />
+    <None Remove="Resources\DeleteButton.png" />
+    <None Remove="Resources\EditButton.png" />
+    <None Remove="Resources\SaveButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AddButton.png" />
+    <EmbeddedResource Include="Resources\CancelButton.png" />
+    <EmbeddedResource Include="Resources\CopyButton.png" />
+    <EmbeddedResource Include="Resources\DeleteButton.png" />
+    <EmbeddedResource Include="Resources\EditButton.png" />
+    <EmbeddedResource Include="Resources\SaveButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="PdfSharpCore" Version="1.3.32" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
+    <ProjectReference Include="..\..\CommonLibraries\Pdf\Pdf.csproj" />
+    <ProjectReference Include="..\..\CommonLibraries\Serialization\Serialization.csproj" />
+    <ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
+    <ProjectReference Include="..\..\GameLibraries\Character\Character.csproj" />
+    <ProjectReference Include="..\..\GameLibraries\GameCore\GameCore.csproj" />
+    <ProjectReference Include="..\TrwAppsBase\TrwAppsBase.csproj" />
+  </ItemGroup>
 </Project>

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using TRW.CommonLibraries.Serialization;
 using TRW.CommonLibraries.Xml;
 
 namespace TRW.GameLibraries.Character.DnD
@@ -42,32 +44,6 @@ namespace TRW.GameLibraries.Character.DnD
             : base(name, description)
         {
             InternalInitialize();
-        }
-        /// <summary>
-        /// ISerializable Constructor
-        /// </summary>
-        /// <param name="info"></param>
-        /// <param name="context"></param>
-        public DnDCharacterRace(SerializationInfo info, StreamingContext context)
-            :this()
-        {
-            _attributeBonuses = (DnDAttributeBonusCollection)info.GetValue("AttributeBonuses", typeof(DnDAttributeBonusCollection));
-            _languages = (LanguageCollection)info.GetValue("Languages", typeof(LanguageCollection));
-            _skills = (SkillCollection)info.GetValue("Skills", typeof(SkillCollection));
-            _proficiences = (ProficiencyCollection)info.GetValue("Proficiencies", typeof(ProficiencyCollection));
-            _features = (List<Feature>)info.GetValue("Features", typeof(List<Feature>));
-            _walkingSpeed = info.GetInt32("WalkingSpeed");
-            _climbingSpeed = info.GetInt32("ClimbingSpeed");
-            _flyingSpeed = info.GetInt32("FlyingSpeed");
-            _swimmingSpeed = info.GetInt32("SwimmingSpeed");
-            _amphibious = info.GetBoolean("Amphibious");
-            _visionType = (VisionTypes)info.GetValue("VisionType", typeof(VisionTypes));
-            _sunlightSensitive = info.GetBoolean("SunlightSensitive");
-            _hitPointBonus = info.GetInt32("HitPointBonus");
-
-            _name = info.GetString("Name");
-            _description = info.GetString("Description");
-            _category = info.GetString("Category");
         }
         #endregion
 
@@ -312,25 +288,47 @@ namespace TRW.GameLibraries.Character.DnD
             }
         }
         
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        public override void WriteTo(BinaryWriter writer)
         {
-            info.AddValue("AttributeBonuses", _attributeBonuses);
-            info.AddValue("Languages", _languages);
-            info.AddValue("Skills", _skills);
-            info.AddValue("Proficiencies", _proficiences);
-            info.AddValue("Features", _features);
-            info.AddValue("WalkingSpeed", _walkingSpeed);
-            info.AddValue("ClimbingSpeed", _climbingSpeed);
-            info.AddValue("FlyingSpeed", _flyingSpeed);
-            info.AddValue("SwimmingSpeed", _swimmingSpeed);
-            info.AddValue("Amphibious", _amphibious);
-            info.AddValue("VisionType", _visionType);
-            info.AddValue("SunlightSensitive", _sunlightSensitive);
-            info.AddValue("HitPointBonus", _hitPointBonus);
-
-            info.AddValue("Name", _name);
-            info.AddValue("Description", _description);
-            info.AddValue("Category", _category);
+            BinarySerializationRoutines.WriteCollection(writer, _attributeBonuses.Count, _attributeBonuses);
+            writer.Write(_languages.ToByteArray());
+            writer.Write(_skills.ToByteArray());
+            writer.Write(_proficiences.ToByteArray());
+            BinarySerializationRoutines.WriteCollection(writer, _features.Count, _features);
+            writer.Write(_walkingSpeed);
+            writer.Write(_climbingSpeed);
+            writer.Write(_flyingSpeed);
+            writer.Write(_swimmingSpeed);
+            writer.Write(_amphibious);
+            writer.Write((int)_visionType);
+            writer.Write(_sunlightSensitive);
+            writer.Write(_hitPointBonus);
+            WriteToBase(writer);
+        }
+        public override void ReadFrom(BinaryReader reader)
+        {
+            int totalBonuses = reader.ReadInt32();
+            _attributeBonuses = new DnDAttributeBonusCollection(totalBonuses);
+            BinarySerializationRoutines.ReadCollection(reader, totalBonuses, _attributeBonuses);
+            _languages = new LanguageCollection();
+            _languages.ReadFrom(reader);
+            _skills = new SkillCollection();
+            _skills.ReadFrom(reader);
+            _proficiences = new ProficiencyCollection();
+            _proficiences.ReadFrom(reader);
+            int count = reader.ReadInt32();
+            _features = new List<Feature>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _features);
+            _walkingSpeed = reader.ReadInt32();
+            _climbingSpeed = reader.ReadInt32();
+            _flyingSpeed = reader.ReadInt32();
+            _swimmingSpeed = reader.ReadInt32();
+            _amphibious = reader.ReadBoolean();
+            _visionType = (VisionTypes)reader.ReadInt32();
+            _sunlightSensitive = reader.ReadBoolean();
+            _hitPointBonus = reader.ReadInt32();
+            
+            ReadFromBase(reader);
         }
 
         public override void Create(string name, Sizes size, DnDAttributeBonusCollection attributeBonuses, int walkingSpeed, int climbingSpeed, int flyingSpeed, int swimmingSpeed, VisionTypes vision, bool amphibious, bool sunlightSensitive

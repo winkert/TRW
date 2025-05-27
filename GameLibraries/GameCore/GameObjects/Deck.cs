@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
+using System.IO;
+using TRW.CommonLibraries.Serialization;
 
 namespace TRW.GameLibraries.GameCore
 {
     [Serializable]
-    public class Deck<T> : ISerializable, IEnumerable<Card<T>> where T : IComparable
+    public class Deck<T> : IBinarySerializable, IEnumerable<Card<T>> where T : IComparable
     {
         private List<Card<T>> _cards;
+
+        public Deck()
+        {
+            _cards = new List<Card<T>>();
+        }
 
         public Deck(int size)
         {
@@ -23,11 +29,6 @@ namespace TRW.GameLibraries.GameCore
         public Deck(params Card<T>[] cards)
         {
             _cards = new List<Card<T>>(cards);
-        }
-
-        protected Deck(SerializationInfo serializationInfo, StreamingContext streamingContext)
-        {
-            _cards = (List<Card<T>>)serializationInfo.GetValue("Cards", typeof(List<Card<T>>));
         }
 
         private Random _r;
@@ -181,9 +182,25 @@ namespace TRW.GameLibraries.GameCore
             return _cards.GetEnumerator();
         }
 
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        public void WriteTo(BinaryWriter writer)
         {
-            info.AddValue("Cards", _cards);
+            BinarySerializationRoutines.WriteCollection(writer, _cards.Count, _cards);
+        }
+
+        public void ReadFrom(BinaryReader reader)
+        {
+            int count = reader.ReadInt32();
+            _cards = new List<Card<T>>();
+            BinarySerializationRoutines.ReadCollection(reader, count, _cards);
+        }
+        public byte[] ToByteArray()
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (BinaryWriter bw = new BinaryWriter(ms))
+            {
+                WriteTo(bw);
+                return ms.ToArray();
+            }
         }
 
         public class DefaultCardComparer : IComparer<Card<T>>

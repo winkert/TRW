@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
 using TRW.GameLibraries.GameCore;
 
 namespace DungeonGenerator
 {
     [Serializable]
-    public class DungeonLoot : TRW.GameLibraries.GameCore.ItemBase, IDungeonComponentBase
+    public class DungeonLoot : ItemBase, IDungeonComponentBase
     {
         private Guid _uniqueId;
 
@@ -56,24 +52,18 @@ namespace DungeonGenerator
         {
             string serialized = $"{Name}|{UniqueIdentifier}|{Description}|{Weight}|{Value}";
 
-
             return serialized;
         }
 
-        protected override void DeserializeObject(SerializationInfo info)
+        protected override void DeserializeObject(BinaryReader reader)
         {
-            Deserialize(info.GetString("SerializedInfo"));
+            Deserialize(reader.ReadString());
         }
 
-        protected override void SerializeObject(SerializationInfo info)
+        protected override void SerializeObject(BinaryWriter writer)
         {
-            info.AddValue("SerializedInfo", Serialize());
+            writer.Write(Serialize());
         }
 
-        protected DungeonLoot(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            :base(serializationInfo, streamingContext)
-        {
-            
-        }
     }
 }

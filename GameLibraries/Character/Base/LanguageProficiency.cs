@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,16 @@ namespace TRW.GameLibraries.Character
         #endregion
 
         #region Public Methods
-
+        public override void WriteTo(BinaryWriter writer)
+        {
+            writer.Write((int)_language);
+            base.WriteTo(writer);
+        }
+        public override void ReadFrom(BinaryReader reader)
+        {
+            _language = (Languages)reader.ReadInt32();
+            base.ReadFrom(reader);
+        }
         #endregion
 
         #region Private Methods

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace TRW.Apps.NPCGenerator
 {
     internal class NpcCharacter : TRW.GameLibraries.Character.CharacterBase
