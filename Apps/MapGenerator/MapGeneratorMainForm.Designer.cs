@@ -1142,8 +1142,6 @@
         private System.Windows.Forms.TextBox uxDungeonWidth;
         private System.Windows.Forms.CheckBox chkRandomWalkAvoidClusters;
         private TabPage tabProcPN;
-        private CheckBox checkBox1;
-        private CheckBox checkBox2;
         private NumericUpDown uxPerlinNoiseOctaves;
         private Label label20;
         private NumericUpDown uxPerlinNoiseFreq;

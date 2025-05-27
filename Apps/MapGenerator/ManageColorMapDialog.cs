@@ -220,13 +220,13 @@ namespace TRW.Apps.MapGenerator
                             if (System.IO.File.Exists(file))
                                 System.IO.File.Delete(file);
                         }
-                        catch (System.IO.IOException ioEx)
+                        catch (System.IO.IOException)
                         {
                             continue;
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
-
+                            
                         }
                     }
                     SerializeColorMaps(_colorMapFilePath, _colorMaps.ToArray());

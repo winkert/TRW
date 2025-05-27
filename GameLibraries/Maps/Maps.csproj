@@ -24,5 +24,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj" />
     <ProjectReference Include="..\..\CommonLibraries\ProceduralAlgorithms\ProceduralAlgorithms.csproj" />
+    <ProjectReference Include="..\..\CommonLibraries\Serialization\Serialization.csproj" />
   </ItemGroup>
 </Project>

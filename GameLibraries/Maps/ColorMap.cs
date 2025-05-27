@@ -2,15 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using TRW.CommonLibraries.Serialization;
 
 namespace TRW.GameLibraries.Maps
 {
     [Serializable]
-    public class ColorMap : Dictionary<decimal, Color>, IComparable
+    public class ColorMap : Dictionary<decimal, Color>, IComparable, IBinarySerializable
     {
         #region Internal Subs
         internal enum DungeonColorMap
@@ -72,6 +74,7 @@ namespace TRW.GameLibraries.Maps
 
         private decimal _lowerBound;
         private Color _baseColor;
+        public ColorMap():base(){}
 
         public ColorMap(string name)
             : base()
@@ -82,14 +85,7 @@ namespace TRW.GameLibraries.Maps
             _baseColor = Color.Empty;
         }
 
-        protected ColorMap(SerializationInfo serializationInfo, StreamingContext streamingContext)
-            : base(serializationInfo, streamingContext)
-        {
-            Name = serializationInfo.GetString("Name");
-            RefreshOrder();
-        }
-
-        public string Name { get; }
+        public string Name { get; private set; }
 
         #region Public Methods
         public Color GetColor(decimal key, MapParser.ColorMapStyle style)
@@ -158,12 +154,6 @@ namespace TRW.GameLibraries.Maps
             return this.Name.CompareTo(((ColorMap)obj).Name);
         }
 
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            base.GetObjectData(info, context);
-            info.AddValue("Name", Name);
-        }
-
         public static ColorMap GetGrayScale256Bits()
         {
             ColorMap gray256 = new ColorMap("256 Bit Grayscale");
@@ -186,6 +176,50 @@ namespace TRW.GameLibraries.Maps
                 fullColor.Add(i, $"#{i:X6}");
 
             return fullColor;
+        }
+
+        public byte[] ToByteArray()
+        {
+            using(MemoryStream ms = new MemoryStream())
+                using (BinaryWriter bw = new BinaryWriter(ms))
+            {
+                this.WriteTo(bw);
+                return ms.ToArray();
+            }
+        }
+
+        public void WriteTo(BinaryWriter writer)
+        {
+            writer.Write(Name);
+
+            writer.Write(this.Count);
+            foreach (KeyValuePair<decimal, Color> key in this)
+            {
+                writer.Write(key.Key);
+                writer.Write(key.Value.A);
+                writer.Write(key.Value.R);
+                writer.Write(key.Value.B);
+                writer.Write(key.Value.G);
+            }
+        }
+
+        public void ReadFrom(BinaryReader reader)
+        {
+            Name = reader.ReadString();
+
+            int count = reader.ReadInt32();
+            for (int i = 0; i < count; i++)
+            {
+                decimal a = reader.ReadDecimal();
+                byte al = reader.ReadByte();
+                byte r = reader.ReadByte();
+                byte b = reader.ReadByte();
+                byte g = reader.ReadByte();
+                Color v = Color.FromArgb(al, r, b, g);
+                this.Add(a, v);
+            }
+
+            RefreshOrder();
         }
     }
 }
