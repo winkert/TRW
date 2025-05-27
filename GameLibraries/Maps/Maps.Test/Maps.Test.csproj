@@ -1,24 +1,24 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup Label="Globals">
-    <SccProjectName>SAK</SccProjectName>
-    <SccProvider>SAK</SccProvider>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccLocalPath>SAK</SccLocalPath>
-  </PropertyGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <AssemblyName>Maps.Test</AssemblyName>
-    <RootNamespace>Maps.Test</RootNamespace>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
+
   <ItemGroup>
-    <None Remove="Maps.Test.csproj.vspscc" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
+    <PackageReference Include="MSTest" Version="3.6.4" />
   </ItemGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\..\..\CommonLibraries\Core\Core.csproj" />
-    <ProjectReference Include="..\..\..\CommonLibraries\ProceduralAlgorithms\ProceduralAlgorithms.csproj" />
-    <ProjectReference Include="..\..\..\UnitTesting\UnitTestingBase\UnitTestingBase.csproj" />
     <ProjectReference Include="..\Maps.csproj" />
   </ItemGroup>
+
   <ItemGroup>
+    <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
+
 </Project>

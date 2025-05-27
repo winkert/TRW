@@ -1,11 +1,10 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TRW.CommonLibraries.Core;
 
 namespace TRW.GameLibraries.Maps.Test
 {
     [TestClass]
-    public class MapInstantiationAndFillTests:UnitTesting.UnitTestBase
+    public class MapInstantiationAndFillTests
     {
         private const int MapSize = 50;
 
@@ -62,7 +61,7 @@ namespace TRW.GameLibraries.Maps.Test
             Position a = new Position(0, 0);
             Position b = new Position(10, 10);
             map.Grid.ConnectPoints(a, b, true);
-            for(int i = 0; i < 11; i++)
+            for (int i = 0; i < 11; i++)
             {
                 Assert.IsTrue(map.Grid.Cells[i, i].BitState, $"{i},{i} not TRUE");
             }
@@ -81,7 +80,7 @@ namespace TRW.GameLibraries.Maps.Test
             a = new Position(4, 10);
             b = new Position(20, 10);
             map.Grid.ConnectPoints(a, b, true);
-            for(int i = 4; i<=20; i++)
+            for (int i = 4; i <= 20; i++)
             {
                 Assert.IsTrue(map.Grid.Cells[i, 10].BitState, $"{i},10 not TRUE");
             }
@@ -115,7 +114,7 @@ namespace TRW.GameLibraries.Maps.Test
             Assert.IsTrue(map.Grid.Cells[25, 20].BitState, $"Expected TRUE on Cell 25,20; got FALSE");
             Assert.IsTrue(map.Grid.Cells[30, 25].BitState, $"Expected TRUE on Cell 30,25; got FALSE");
             Assert.IsTrue(map.Grid.Cells[25, 30].BitState, $"Expected TRUE on Cell 25,30; got FALSE");
-            
+
             // test how we handle out of bounds
             map.FillMap(false);
             map.AddSquare(10, 10, 25, true);
@@ -123,7 +122,7 @@ namespace TRW.GameLibraries.Maps.Test
             Assert.IsTrue(map.Grid.Cells[10, 0].BitState, $"Expected TRUE on Cell 10,0; got FALSE");
             Assert.IsTrue(map.Grid.Cells[22, 10].BitState, $"Expected TRUE on Cell 22,10; got FALSE");
             Assert.IsTrue(map.Grid.Cells[10, 22].BitState, $"Expected TRUE on Cell 10,22; got FALSE");
-            
+
             map.AddSquare(40, 40, 25, true);
             Assert.IsTrue(map.Grid.Cells[28, 40].BitState, $"Expected TRUE on Cell 28,40; got FALSE");
             Assert.IsTrue(map.Grid.Cells[40, 28].BitState, $"Expected TRUE on Cell 40,28; got FALSE");

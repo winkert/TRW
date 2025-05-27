@@ -1,10 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-
-namespace TRW.GameLibraries.Maps.Test
+﻿namespace TRW.GameLibraries.Maps.Test
 {
     [TestClass]
-    public class MapComponentsTest : TRW.UnitTesting.UnitTestBase
+    public class MapComponentsTest
     {
         [TestMethod, Ignore]
         public void IntersectsAndContainsTest()

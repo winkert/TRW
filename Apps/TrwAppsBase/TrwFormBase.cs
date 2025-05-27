@@ -17,60 +17,85 @@ namespace TRW.Apps.TrwAppsBase
         private readonly string _logFilePath;
         private readonly string _applicationPath;
 
+        private static Image _addButton;
+        private static Image _cancelButton;
+        private static Image _copyButton;
+        private static Image _deleteButton;
+        private static Image _editButton;
+        private static Image _saveButton;
+        private static Image _closeButton;
+        private static Image _closeButtonGrey;
+
         public static Image AddButtonImage 
         { 
             get 
             {
-                return Properties.Resources.AddButton;
+                if (_addButton == null)
+                    _addButton = Bitmap.FromStream(new MemoryStream(Properties.Resources.AddButton));
+                return _addButton;
             } 
         }
         public static Image CancelButtonImage
         {
             get
             {
-                return Properties.Resources.CancelButton;
+                if (_cancelButton == null)
+                    _cancelButton = Bitmap.FromStream(new MemoryStream( Properties.Resources.CancelButton));
+                return _cancelButton;
             }
         }
         public static Image CopyButtonImage
         {
             get
             {
-                return Properties.Resources.CopyButton;
+                if (_copyButton == null)
+                    _copyButton = Bitmap.FromStream(new MemoryStream(Properties.Resources.CopyButton));
+                return _copyButton;
             }
         }
         public static Image DeleteButtonImage
         {
             get
             {
-                return Properties.Resources.DeleteButton;
+                if (_deleteButton == null)
+                    _deleteButton = Bitmap.FromStream(new MemoryStream(Properties.Resources.DeleteButton));
+                return _deleteButton;
             }
         }
         public static Image EditButtonImage
         {
             get
             {
-                return Properties.Resources.EditButton;
+                if (_editButton == null)
+                    _editButton = Bitmap.FromStream(new MemoryStream(Properties.Resources.EditButton));
+                return _editButton;
             }
         }
         public static Image SaveButtonImage
         {
             get
             {
-                return Properties.Resources.SaveButton;
+                if (_saveButton == null)
+                    _saveButton = Bitmap.FromStream(new MemoryStream(Properties.Resources.SaveButton));
+                return _saveButton;
             }
         }
         public static Image CloseButtonImage
         {
             get
             {
-                return Properties.Resources.CloseButton;
+                if (_closeButton == null)
+                    _closeButton = Bitmap.FromStream(new MemoryStream(Properties.Resources.CloseButton));
+                return _closeButton;
             }
         }
         public static Image CloseButtonGreyImage
         {
             get
             {
-                return Properties.Resources.CloseButtonGrey;
+                if (_closeButtonGrey == null)
+                    _closeButtonGrey = Bitmap.FromStream(new MemoryStream(Properties.Resources.CloseButton_Grey));
+                return _closeButtonGrey;
             }
         }
 

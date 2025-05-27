@@ -22,10 +22,10 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
                 {
                     _parameters = new ProceduralAlgorithmParameterCollection(4)
                     {
-                        new ProceduralAlgorithmParameter<CellularAutomataRulesSet<bool>>(),
-                        new ProceduralAlgorithmParameter<int>(),
-                        new ProceduralAlgorithmParameter<bool>(),
-                        new ProceduralAlgorithmParameter<bool>()
+                        new ProceduralAlgorithmParameter<CellularAutomataRulesSet<bool>>(CellularAutomataRulesParamName),
+                        new ProceduralAlgorithmParameter<int>(IterationsParamName),
+                        new ProceduralAlgorithmParameter<bool>(AvoidEdgesParamName),
+                        new ProceduralAlgorithmParameter<bool>(MakeSquareParamName)
                     };
                 }
                 return _parameters;
@@ -34,10 +34,10 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            CellularAutomataRulesSet<bool> neighborhoodRules = Parameters.GetParameterValue<CellularAutomataRulesSet<bool>>(args, 0);
-            int iterations = Parameters.GetParameterValue<int>(args, 1);
-            bool avoidEdges = Parameters.GetParameterValue<bool>(args, 2);
-            bool makeSquare = Parameters.GetParameterValue<bool>(args, 3);
+            CellularAutomataRulesSet<bool> neighborhoodRules = Parameters.GetParameterValue<CellularAutomataRulesSet<bool>>(args, CellularAutomataRulesParamName);
+            int iterations = Parameters.GetParameterValue<int>(args, IterationsParamName);
+            bool avoidEdges = Parameters.GetParameterValue<bool>(args, AvoidEdgesParamName);
+            bool makeSquare = Parameters.GetParameterValue<bool>(args, MakeSquareParamName);
             for (int i = 0; i < iterations; i++)
             {
                 CellLifeCycle(neighborhoodRules, avoidEdges);

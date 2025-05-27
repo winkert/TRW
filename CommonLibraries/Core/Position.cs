@@ -269,6 +269,11 @@ namespace TRW.CommonLibraries.Core
                 return a.X.CompareTo(b.X);
             }
         }
+
+        /// <summary>
+        /// Empty Position object
+        /// </summary>
+        public readonly static Position Null = new Position(int.MinValue, int.MinValue);
         #endregion
 
         #region Operators

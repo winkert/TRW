@@ -1,26 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
-	<PropertyGroup Label="Globals">
-		<SccProjectName>SAK</SccProjectName>
-		<SccProvider>SAK</SccProvider>
-		<SccAuxPath>SAK</SccAuxPath>
-		<SccLocalPath>SAK</SccLocalPath>
-	</PropertyGroup>
-
-	<PropertyGroup>
-		<OutputType>WinExe</OutputType>
-		<TargetFramework>net6.0-windows</TargetFramework>
-		<Nullable>enable</Nullable>
-		<UseWindowsForms>true</UseWindowsForms>
-		<ImplicitUsings>enable</ImplicitUsings>
-		<RootNamespace>MapGenerator</RootNamespace>
-		<AssemblyName>MapGenerator</AssemblyName>
-	</PropertyGroup>
-
-	<ItemGroup>
-	  <None Remove="MapGenerator.csproj.vspscc" />
-	</ItemGroup>
-
+  <PropertyGroup Label="Globals">
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MapGenerator</RootNamespace>
+    <AssemblyName>MapGenerator</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="MapGenerator.csproj.vspscc" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\CommonLibraries\Core\Core.csproj">
       <Project>{703375af-8bec-48fb-9d44-af9c9fea0765}</Project>

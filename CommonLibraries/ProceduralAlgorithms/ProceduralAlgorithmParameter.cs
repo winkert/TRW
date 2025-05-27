@@ -9,6 +9,8 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
     {
         public bool Required { get; set; }
         public abstract Type ParameterType { get; }
+        public string ParameterName { get; protected set; }
+        protected internal int ParameterIndex { get; set; }
         public abstract int CompareTo(ProceduralAlgorithmParameter other);
     }
     public class ProceduralAlgorithmParameter<T> : ProceduralAlgorithmParameter
@@ -17,15 +19,17 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         public override Type ParameterType => typeof(T);
 
+        public ProceduralAlgorithmParameter(string name) : this(true, default, name)
+        { }
+
         public ProceduralAlgorithmParameter() : this(true, default)
-        {
+        { }
 
-        }
-
-        public ProceduralAlgorithmParameter(bool required, T defaultValue)
+        public ProceduralAlgorithmParameter(bool required, T defaultValue, string parameterName = "Default")
         {
             Required = required;
             DefaultValue = defaultValue;
+            ParameterName = parameterName;
         }
 
         public override int CompareTo(ProceduralAlgorithmParameter other)
@@ -44,6 +48,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         {
             return obj is ProceduralAlgorithmParameter<T> parameter &&
                    Required == parameter.Required &&
+                   ParameterName == parameter.ParameterName &&
                    EqualityComparer<T>.Default.Equals(DefaultValue, parameter.DefaultValue);
         }
 
@@ -88,17 +93,18 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         public void Add(ProceduralAlgorithmParameter item)
         {
+            item.ParameterIndex = _objects.Count;
             ((ICollection<ProceduralAlgorithmParameter>)_objects).Add(item);
         }
 
         public void Add<T>()
         {
-            this.Add(new ProceduralAlgorithmParameter<T>());
+            this.Add(new ProceduralAlgorithmParameter<T>() { ParameterIndex = _objects.Count });
         }
 
         public void Add<T>(bool required, T defaultValue)
         {
-            this.Add(new ProceduralAlgorithmParameter<T>(required, defaultValue));
+            this.Add(new ProceduralAlgorithmParameter<T>(required, defaultValue) { ParameterIndex = _objects.Count });
         }
 
         public bool Contains(ProceduralAlgorithmParameter item)
@@ -113,9 +119,17 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
             ProceduralAlgorithmParameter matchedParam = _objects[index];
             if (matchedParam.ParameterType != typeof(T))
-                throw new ArgumentException();
+                throw new ArgumentException("Invalid parameter type", "index");
 
             return (T)args[index];
+        }
+
+        public T GetParameterValue<T>(object[] args, string name)
+        {
+            if(!_objects.Any(o=> o.ParameterName == name))
+                throw new ArgumentException("Unable to find argument", "name");
+
+            return GetParameterValue<T>(args, _objects.Where(o=> o.ParameterName == name).FirstOrDefault().ParameterIndex);
         }
 
         IEnumerator<ProceduralAlgorithmParameter> IEnumerable<ProceduralAlgorithmParameter>.GetEnumerator()

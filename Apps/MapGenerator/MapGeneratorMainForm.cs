@@ -125,7 +125,7 @@ namespace TRW.Apps.MapGenerator
             width = 0;
             height = 0;
             iterations = 0;
-            startPosition = null;
+            startPosition = Position.Null;
             avoidEdges = false;
             avoidClusters = false;
 
@@ -441,7 +441,7 @@ namespace TRW.Apps.MapGenerator
 
         private void btnRandomWalkGenerate_Click(object sender, EventArgs e)
         {
-            Position position = null;
+            Position position = Position.Null;
             bool avoidEdges = false;
             bool avoidClusters = false;
             if (ValidateRandomWalkFields(out int width, out int height, out int iterations, out position, out avoidEdges, out avoidClusters))

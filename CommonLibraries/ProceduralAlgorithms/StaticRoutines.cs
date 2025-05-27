@@ -30,7 +30,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             else if (angle >= Math.PI * (13d / 8d) && angle <= Math.PI * (15d / 8d)) // north west
                 direction = new Vector(-1, 1);
             else
-                throw new Exception(string.Format("Unexpected angle [{0}] generated from _r.NextDouble() * (2 * Math.PI)", angle));
+                throw new Exception($"Unexpected angle [{angle}] generated from _r.NextDouble() * (2 * Math.PI)");
 
             return direction;
         }
