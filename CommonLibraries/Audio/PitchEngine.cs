@@ -24,36 +24,6 @@ namespace TRW.CommonLibraries.Audio
             return Math.Pow(2, octaveTo - octaveFrom);
         }
 
-        public static Intervals GetInterval(Pitch keyFrom, Pitch keyTo)
-        {
-            return GetInterval(keyFrom, keyTo, TemperamentStyles.EqualTemperament);
-        }
-        public static Intervals GetInterval(Pitch keyFrom, Pitch keyTo, TemperamentStyles temperament)
-        {
-            Intervals interval = Intervals.Unknown;
-            int steps;
-
-            switch (temperament)
-            {
-                case TemperamentStyles.EqualTemperament:
-                case TemperamentStyles.PythagoreanTuning:
-                    steps = GetSemitones(keyFrom, keyTo);
-
-                    if (Enum.IsDefined(typeof(Intervals), (short)steps))
-                        interval = (Intervals)steps; // should work
-                    break;
-                case TemperamentStyles.MeanToneTemperament:
-                    // for the most part this is the same, but MeanTone will consider augmented/diminshed intervals as well
-                    steps = GetSemitones(keyFrom, keyTo);
-                    
-                    break;
-                case TemperamentStyles.WerckmeisterTemperament:
-                    break;
-            }
-
-            return interval;
-        }
-
         public static int GetSemitones(Pitch keyFrom, Pitch keyTo)
         {
             if (keyFrom == keyTo)
@@ -68,9 +38,8 @@ namespace TRW.CommonLibraries.Audio
         public static double GetFrequency(Pitch key, TemperamentStyles temperament, int octave)
         {
             ITemperament t = TemperamentFactory.GetTemperament(temperament);
-            // frequency = startFrequency * 2^(intervalcents/1200)
 
-            Interval i = Interval.GetInterval(GetInterval(t.ReferencePitch, key), temperament);
+            Interval i = t.GetInterval(t.ReferencePitch, key);
 
             double f = t.ReferenceFrequency * Math.Pow(2, (i.Cents / 1200));
 
@@ -87,6 +56,16 @@ namespace TRW.CommonLibraries.Audio
             else
                 return frequency / (2 * (targetOctave - startOctave));
 
+        }
+
+        public static Intervals GetInterval(Pitch a, Pitch b)
+        {
+            return GetInterval(a, b, TemperamentFactory.GetTemperament(TemperamentStyles.EqualTemperament));
+        }
+
+        public static Intervals GetInterval(Pitch a, Pitch b, ITemperament temperament)
+        {
+            return temperament.GetInterval(a, b).IntervalEnum;
         }
     }
 

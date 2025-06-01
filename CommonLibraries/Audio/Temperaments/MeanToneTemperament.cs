@@ -5,18 +5,19 @@ using System.Text;
 namespace TRW.CommonLibraries.Audio
 {
     /// <summary>
-    /// Mean Tone Temperament
+    /// Quarter-Comma Mean Tone Temperament
     /// </summary>
     public class MeanToneTemperament : ITemperament
     {
-        internal const double SyntonicComma = 21.506d;
+        internal readonly static double SyntonicComma = 1200 * Math.Log2(SyntonicCommaRatio);
+        internal const double SyntonicCommaRatio = 81d/80d;
 
         public double ReferenceFrequency { get; }
         public Pitch ReferencePitch { get; }
         public int ReferenceOctave { get; }
 
         public MeanToneTemperament()
-            : this(Pitches.C, 327.04d, 4)
+            : this(Pitches.C, 327.04d, 4) // Baroque/Bach
         {
 
         }
@@ -46,19 +47,41 @@ namespace TRW.CommonLibraries.Audio
              *   Complete the scale by finding G (major second above F) and A (major third above F).
              */
 
-            Intervals interval = PitchEngine.GetInterval(ReferencePitch, pitch, TemperamentStyles.MeanToneTemperament);
-            double octaveMultiplier = PitchEngine.GetOctaveMultiplier(ReferenceOctave, octave);
+            int halfStepDifference = (octave - ReferenceOctave) * 12 + (pitch.HalfStep - ReferencePitch.HalfStep);
+            double ratio = Math.Pow(2, halfStepDifference / 12.0) * Math.Pow(2, -SyntonicComma / 4800.0 * halfStepDifference);
+            return ReferenceFrequency * ratio;
 
-            Interval thisInterval = Interval.GetInterval(interval, TemperamentStyles.MeanToneTemperament);
-
-            double intervalMultiplier = thisInterval.MeantoneRatio;
-
-            return ReferenceFrequency * intervalMultiplier * octaveMultiplier; ;
         }
 
         public double GetCents(Interval interval)
         {
             return (interval.MeantoneRatio * 100d) * (SyntonicComma/4d);
         }
+
+        public double GetCents(Pitch from, Pitch to)
+        {
+            double freq1 = GetFrequency(from, from.Octave);
+            double freq2 = GetFrequency(to, to.Octave);
+
+            return 1200 * Math.Log2(freq1 / freq2);
+        }
+
+        public Interval GetInterval(Pitch pitchStart, Pitch pitchEnd)
+        {
+            Intervals interval = Intervals.Unknown;
+            int steps = PitchEngine.GetSemitones(pitchStart, pitchEnd);
+
+            if (Enum.IsDefined(typeof(Intervals), (short)steps))
+                interval = (Intervals)steps; // should work
+
+            /*
+             * Where Mean Tone differs from temperaments like Equal and Pythagorean is that in Mean Tone,
+             * Augmented and Diminished intervals may not be the same as Major and Minor intervals
+             */
+
+            return Interval.GetInterval(interval, TemperamentStyles.MeanToneTemperament);
+        }
+
+
     }
 }

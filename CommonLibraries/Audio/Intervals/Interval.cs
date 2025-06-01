@@ -15,7 +15,7 @@ namespace TRW.CommonLibraries.Audio
         /// <summary>
         /// Semitones
         /// </summary>
-        public virtual int HalfSteps => Math.Abs((int)IntervalEnum);
+        public virtual int HalfSteps => ((int)IntervalEnum)/10;
 
         public TemperamentStyles TemperamentStyle { get; set; }
 

@@ -85,25 +85,25 @@ namespace TRW.CommonLibraries.Audio
 
         public static Pitch operator -(Pitch left, Intervals right)
         {
-            int newHalfStep = left.HalfStep - (int)right;
+            int newHalfStep = left.HalfStep - ((int)right)/10;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 
         public static Pitch operator +(Pitch left, Intervals right)
         {
-            int newHalfStep = left.HalfStep + (int)right;
+            int newHalfStep = left.HalfStep + ((int)right) / 10;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 
         public static Pitch operator -(Pitch left, Interval right)
         {
-            int newHalfStep = left.HalfStep - (int)right.HalfSteps;
+            int newHalfStep = left.HalfStep - right.HalfSteps;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 
         public static Pitch operator +(Pitch left, Interval right)
         {
-            int newHalfStep = left.HalfStep + (int)right.HalfSteps;
+            int newHalfStep = left.HalfStep + right.HalfSteps;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 

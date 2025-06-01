@@ -11,45 +11,45 @@
     {
         Unknown = -1, 
         Unison = 0, 
-        DiminishedSecond = 0,
+        DiminishedSecond = 5,
         /// <summary>
         /// Diatonic Semitone
         /// </summary>
-        MinorSecond = 1, 
-        AugmentedUnison = 1,
-        MajorSecond = 2,
-        DiminishedThird = 2,
-        MinorThird = 3, 
+        MinorSecond = 10, 
+        AugmentedUnison = 15,
+        MajorSecond = 20,
+        DiminishedThird = 25,
+        MinorThird = 30, 
         /// <summary>
         /// Augmented Second is "sonically equivalent" to Minor Third in Equal Temperament
         /// </summary>
-        AugmentedSecond = 3,
-        MajorThird = 4, 
-        DiminishedFourth = 4,
-        Fourth = 5,
-        AugmentedThird = 5,
+        AugmentedSecond = 35,
+        MajorThird = 40, 
+        DiminishedFourth = 45,
+        Fourth = 50,
+        AugmentedThird = 55,
         /// <summary>
         /// Tritone
         /// </summary>
-        AugmentedFourth = 6, 
-        DiminishedFifth = 6,
-        DiminishedSixth = 7,
+        AugmentedFourth = 60, 
+        DiminishedFifth = 65,
+        DiminishedSixth = 75,
         /// <summary>
         /// Perfect Fifth
         /// </summary>
-        Fifth = 7, 
-        AugmentedFifth = 8,
-        MinorSixth = 8, 
+        Fifth = 70, 
+        AugmentedFifth = 85,
+        MinorSixth = 80, 
         /// <summary>
         /// Diminshed Seventh is "sonically equivalent" to Major Sixth in Equal Temperament
         /// </summary>
-        DiminishedSeventh = 9,
-        MajorSixth = 9,
-        MinorSeventh = 10, 
-        AugmentedSixth = 10,
-        MajorSeventh = 11, 
-        DiminishedOctave = 11,
-        Octave = 12,
-        AugmentedSeventh = 12
+        DiminishedSeventh = 95,
+        MajorSixth = 90,
+        MinorSeventh = 100, 
+        AugmentedSixth = 105,
+        MajorSeventh = 110, 
+        DiminishedOctave = 115,
+        Octave = 120,
+        AugmentedSeventh = 125
     }
 }

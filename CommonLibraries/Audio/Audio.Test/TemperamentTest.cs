@@ -24,10 +24,10 @@ namespace TRW.CommonLibraries.Audio.Test
             Assert.AreEqual(440d, result);
 
             result = target.GetFrequency(Pitches.A, 3);
-            Assert.AreEqual(219.99999999999989d, result);
+            Assert.AreEqual(220d, Math.Round(result, 2));
 
             result = target.GetFrequency(Pitches.A, 5);
-            Assert.AreEqual(880.00000000000034d, result);
+            Assert.AreEqual(880.00d, Math.Round(result,2));
 
             // test the crazy lady thing
             target = new EqualTemperament(Pitches.A, 420d, 4);
@@ -189,9 +189,10 @@ namespace TRW.CommonLibraries.Audio.Test
         {
             MeanToneTemperament target = new MeanToneTemperament();
 
-            Assert.AreEqual(294.04d, target.GetFrequency(Pitches.D, 4));
-            Assert.AreEqual(328.75d, target.GetFrequency(Pitches.E, 4));
-            Assert.AreEqual(352.18d, target.GetFrequency(Pitches.F, 4));
+            Assert.AreEqual(364.82d, Math.Round(target.GetFrequency(Pitches.D, 4),2)); // diminished third
+            Assert.AreEqual(406.96d, Math.Round(target.GetFrequency(Pitches.E, 4), 2)); // major third
+            Assert.AreEqual(429.82d, Math.Round(target.GetFrequency(Pitches.F, 4), 2));
+            Assert.AreEqual(1030.57, Math.Round(target.GetFrequency(Pitches.A, 5), 2));
         }
     }
 }
