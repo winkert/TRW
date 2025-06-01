@@ -13,6 +13,7 @@ namespace TRW.CommonLibraries.Audio
         public override Intervals IntervalEnum => Intervals.MinorThird;
 
         public override double PythagoreanRatio => Math.Pow(2, 5) / Math.Pow(3, 3);
+        public override double MeantoneRatio => 32d/27d;
 
         public override bool Major => false;
 

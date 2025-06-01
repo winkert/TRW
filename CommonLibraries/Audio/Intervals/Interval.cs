@@ -8,18 +8,33 @@ namespace TRW.CommonLibraries.Audio
     {
         public abstract Intervals IntervalEnum { get; }
         public abstract double PythagoreanRatio { get; }
+        public abstract double MeantoneRatio { get; }
         public abstract bool Major { get; }
         public abstract bool Perfect { get; }
-
-        public int HalfSteps => (int)IntervalEnum;
+        public double Cents { get; }
+        /// <summary>
+        /// Semitones
+        /// </summary>
+        public virtual int HalfSteps => ((int)IntervalEnum)/10;
 
         public TemperamentStyles TemperamentStyle { get; set; }
+
+        private ITemperament _temperamentObj;
+        protected ITemperament TemperamentObj
+        {
+            get
+            {
+                if (_temperamentObj == null)
+                    _temperamentObj = TemperamentFactory.GetTemperament(TemperamentStyle);
+                return _temperamentObj;
+            }
+        }
 
         public Interval(TemperamentStyles temperament)
         {
             TemperamentStyle = temperament;
+            Cents = TemperamentObj.GetCents(this);
         }
-
 
         public override bool Equals(object obj)
         {
@@ -75,7 +90,7 @@ namespace TRW.CommonLibraries.Audio
                 case Intervals.Octave:
                     return new OctaveInterval(temperament);
                 default:
-                    throw new ArgumentException($"Unexpected Interval [{intervals}]");
+                    throw new ArgumentException($"Unexpected Interval [{intervals}]", "intervals");
             }
         }
 

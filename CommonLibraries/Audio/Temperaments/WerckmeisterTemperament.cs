@@ -31,5 +31,19 @@ namespace TRW.CommonLibraries.Audio
             throw new NotImplementedException();
         }
 
+        public double GetCents(Interval interval)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double GetCents(Pitch from, Pitch to)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Interval GetInterval(Pitch pitchStart, Pitch pitchEnd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

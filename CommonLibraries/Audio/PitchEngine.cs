@@ -24,22 +24,48 @@ namespace TRW.CommonLibraries.Audio
             return Math.Pow(2, octaveTo - octaveFrom);
         }
 
-        public static Intervals GetInterval(Pitch keyFrom, Pitch keyTo)
+        public static int GetSemitones(Pitch keyFrom, Pitch keyTo)
         {
-            Intervals interval = Intervals.Unknown;
-
-            int steps;
             if (keyFrom == keyTo)
-                steps = 0;
+                return 0;
             else if (keyFrom < keyTo)
-                steps = keyTo - keyFrom;
+                return keyTo - keyFrom;
             else
-                steps = keyTo - keyFrom + 12;
-            
-            if (Enum.IsDefined(typeof(Intervals), (short)steps))
-                interval = (Intervals)steps; // should work
+                return keyTo - keyFrom + 12;
 
-            return interval;
+        }
+
+        public static double GetFrequency(Pitch key, TemperamentStyles temperament, int octave)
+        {
+            ITemperament t = TemperamentFactory.GetTemperament(temperament);
+
+            Interval i = t.GetInterval(t.ReferencePitch, key);
+
+            double f = t.ReferenceFrequency * Math.Pow(2, (i.Cents / 1200));
+
+            // transpose the frequence if needed
+            return Transpose(f, t.ReferenceOctave, octave);
+        }
+
+        public static double Transpose(double frequency, int startOctave, int targetOctave)
+        {
+            if (startOctave == targetOctave)
+                return frequency;
+            else if (startOctave < targetOctave)
+                return frequency * (2 * (targetOctave - startOctave));
+            else
+                return frequency / (2 * (targetOctave - startOctave));
+
+        }
+
+        public static Intervals GetInterval(Pitch a, Pitch b)
+        {
+            return GetInterval(a, b, TemperamentFactory.GetTemperament(TemperamentStyles.EqualTemperament));
+        }
+
+        public static Intervals GetInterval(Pitch a, Pitch b, ITemperament temperament)
+        {
+            return temperament.GetInterval(a, b).IntervalEnum;
         }
     }
 

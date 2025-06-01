@@ -39,5 +39,28 @@ namespace TRW.CommonLibraries.Audio
             return ReferenceFrequency * intervalMultiplier * octaveMultiplier;;
         }
 
+        public double GetCents(Interval interval)
+        {
+            return Math.Log(interval.PythagoreanRatio, 2d) * 1200;
+        }
+
+        public double GetCents(Pitch from, Pitch to)
+        {
+            double freq1 = GetFrequency(from, from.Octave);
+            double freq2 = GetFrequency(to, to.Octave);
+
+            return 1200 * Math.Log2(freq1 / freq2);
+        }
+
+        public Interval GetInterval(Pitch pitchStart, Pitch pitchEnd)
+        {
+            Intervals interval = Intervals.Unknown;
+            int steps = PitchEngine.GetSemitones(pitchStart, pitchEnd);
+
+            if (Enum.IsDefined(typeof(Intervals), (short)(steps * 10)))
+                interval = (Intervals)(steps * 10); // should work
+
+            return Interval.GetInterval(interval, TemperamentStyles.PythagoreanTuning);
+        }
     }
 }

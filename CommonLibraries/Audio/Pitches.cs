@@ -54,6 +54,22 @@ namespace TRW.CommonLibraries.Audio
             }
         }
 
+        public static string GetPitchName(int halfStep, TemperamentStyles temperament)
+        {
+            switch(temperament)
+            {
+                case TemperamentStyles.PythagoreanTuning:
+                case TemperamentStyles.EqualTemperament:
+                    return GetPitchName(halfStep);
+                case TemperamentStyles.MeanToneTemperament:
+                    throw new System.NotImplementedException();
+                case TemperamentStyles.WerckmeisterTemperament:
+                    throw new System.NotImplementedException();
+            }
+
+            throw new System.ArgumentException($"Unexpected TemparamentStyles [{temperament}]", "temperament");
+        }
+
         public static string GetPitchName(int halfStep)
         {
             int smallestHalfStep = halfStep % 12;

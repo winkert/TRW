@@ -8,11 +8,19 @@ namespace TRW.CommonLibraries.Audio
     {
         public string Name { get; }
         public int HalfStep { get; }
+        public int Octave { get; }
 
         public Pitch(string name, int halfStep)
+            :this(name, halfStep%12, halfStep/12)
         {
-            Name = name;
-            HalfStep = halfStep % 12;
+
+        }
+
+        public Pitch(string name, int halfStep, int octave)
+        {
+            Name=name;
+            HalfStep = halfStep;
+            Octave = octave;
         }
 
         public override bool Equals(object obj)
@@ -77,25 +85,25 @@ namespace TRW.CommonLibraries.Audio
 
         public static Pitch operator -(Pitch left, Intervals right)
         {
-            int newHalfStep = left.HalfStep - (int)right;
+            int newHalfStep = left.HalfStep - ((int)right)/10;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 
         public static Pitch operator +(Pitch left, Intervals right)
         {
-            int newHalfStep = left.HalfStep + (int)right;
+            int newHalfStep = left.HalfStep + ((int)right) / 10;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 
         public static Pitch operator -(Pitch left, Interval right)
         {
-            int newHalfStep = left.HalfStep - (int)right.HalfSteps;
+            int newHalfStep = left.HalfStep - right.HalfSteps;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 
         public static Pitch operator +(Pitch left, Interval right)
         {
-            int newHalfStep = left.HalfStep + (int)right.HalfSteps;
+            int newHalfStep = left.HalfStep + right.HalfSteps;
             return new Pitch(Pitches.GetPitchName(newHalfStep), newHalfStep);
         }
 

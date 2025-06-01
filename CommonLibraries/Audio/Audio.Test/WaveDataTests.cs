@@ -78,8 +78,10 @@ namespace TRW.CommonLibraries.Audio.Test
                 writer.WriteFormat(1, 16000, 16);
                 writer.WriteSampleDataHeader(1, 1, 16);
                 writer.WriteSample(16000, 440d, 1000);
-                writer.FinalizeSampleData(1, 1, 16);
-                writer.FinalizeWaveFile(1, 1, 16);
+                writer.WriteSample(16000, 2300d, 1000);
+                writer.WriteSample(16000, 5600d, 1000);
+                writer.FinalizeSampleData(1, 3, 16);
+                writer.FinalizeWaveFile(1, 1, 48);
             }
 
             Assert.IsTrue(System.IO.File.Exists(savePathTemp));
@@ -89,7 +91,7 @@ namespace TRW.CommonLibraries.Audio.Test
                 var details = reader.GetDetails();
                 Assert.AreEqual("WAVE", details.FileFormat);
                 Assert.AreEqual(1, details.AudioFormat);
-                Assert.AreEqual(16, details.Samples.Count);
+                Assert.AreEqual(48, details.Samples.Count);
             }
 
             // clean up
@@ -101,7 +103,7 @@ namespace TRW.CommonLibraries.Audio.Test
             string currentExecutingAssemblyPath = Assembly.GetExecutingAssembly().Location;
             // there is a better way to do this (loop through and go back until you get to where we want)
             System.IO.DirectoryInfo executionPath = new System.IO.DirectoryInfo(currentExecutingAssemblyPath);
-            string testAudioFile = System.IO.Path.Combine(executionPath.Parent.Parent.Parent.FullName, "TestFiles", "Diceroll.wav");
+            string testAudioFile = System.IO.Path.Combine(executionPath.Parent.FullName, "TestFiles", "Diceroll.wav");
             Assert.IsTrue(System.IO.File.Exists(testAudioFile), testAudioFile);
             return testAudioFile;
         }

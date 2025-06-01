@@ -4,16 +4,16 @@ using System.Text;
 
 namespace TRW.CommonLibraries.Audio
 {
-    public class UnisonInterval : Interval
+    public class DiminshedSecondInterval : Interval
     {
-        public UnisonInterval(TemperamentStyles temperament) : base(temperament)
+        public DiminshedSecondInterval(TemperamentStyles temperament) : base(temperament)
         {
         }
 
-        public override Intervals IntervalEnum => Intervals.Unison;
+        public override Intervals IntervalEnum => Intervals.DiminishedSecond;
 
         public override double PythagoreanRatio => 1d;
-        public override double MeantoneRatio => 1d;
+        public override double MeantoneRatio => 128d/125d;
 
         public override bool Major => true;
 
