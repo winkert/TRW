@@ -16,6 +16,7 @@ namespace TRW.Apps.MapGenerator
 {
     public partial class MapGeneratorMainForm : TrwFormBase
     {
+        Map _map;
 
         public MapGeneratorMainForm()
         {
@@ -115,9 +116,7 @@ namespace TRW.Apps.MapGenerator
             map.FillDiamondSquare(baseValue, spread);
             map.MapColorMap = colorMap;
             map.ColorStyle = colorMapStyle;
-
-            DrawMap(map);
-            pctPreview.Tag = map;
+            _map = map;
         }
 
         private bool ValidateRandomWalkFields(out int width, out int height, out int iterations, out Position startPosition, out bool avoidEdges, out bool avoidClusters)
@@ -182,7 +181,8 @@ namespace TRW.Apps.MapGenerator
             else
                 map.FillRandomWalk(position, iterations, avoidEdges, avoidClusters);
             UpdateStatus(map.ToString());
-            DrawMap(map);
+            
+            _map = map;
         }
 
         private bool ValidateCellAutomataFields(out int width, out int height, out int iterations, out bool avoidEdges)
@@ -246,7 +246,7 @@ namespace TRW.Apps.MapGenerator
             //rules.Add(4, false, true);
             map.FillCellAutomata(rules, iterations, avoidEdges, false);
 
-            DrawMap(map);
+            _map = map;
         }
 
         private bool ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude, out bool useComplexGrid)
@@ -293,8 +293,7 @@ namespace TRW.Apps.MapGenerator
             // for debug purposes only
             //UpdateStatus(map.ToString());
 
-            DrawMap(map);
-            pctPreview.Tag = map;
+            _map = map;
         }
 
         private bool ValidateRandomDungeonFields(out int width, out int height, out int numOfRooms, out Tuple<int, int> minSizeOfRooms, out Tuple<int, int> maxSizeOfRooms)
@@ -335,7 +334,7 @@ namespace TRW.Apps.MapGenerator
             map.GenerateRandomDungeon(numOfRooms, minSizeOfRooms, maxSizeOfRooms, HallCreationModes.SBend, RoomShapes.Rectangle, false);
             map.MapColorMap = ColorMap.Dungeon;
             map.ColorStyle = MapParser.ColorMapStyle.Exact;
-            DrawMap(map);
+            _map = map;
         }
 
         delegate void DrawMapDelegate(Map map);
@@ -369,6 +368,33 @@ namespace TRW.Apps.MapGenerator
             //pctPreview.Invoke(new DrawMapDelegate(DrawMap), map);
         }
 
+        private void MapGenerationComplete(Task task)
+        {
+            if (task.IsFaulted)
+            {
+                UpdateStatus("An error occurred while generating the map: " + task.Exception.Message);
+            }
+            else if (task.IsCanceled)
+            {
+                UpdateStatus("Map generation was canceled.");
+            }
+            else
+            {
+                if (_map != null)
+                {
+                    DrawMap(_map);
+                    pctPreview.Tag = _map;
+                    UpdateStatus("Map generation completed successfully.");
+                }
+                else
+                {
+                    UpdateStatus("Map generation completed, but no map was returned.");
+                }
+            }
+
+            this.BackgroundTaskComplete_Event -= MapGenerationComplete;
+        }
+
         private void btnGetMapFile_Click(object sender, EventArgs e)
         {
             string filePath;
@@ -399,9 +425,11 @@ namespace TRW.Apps.MapGenerator
 
             if (ValidateDiamondSquareFields(out width, out height, out baseValue, out spread))
             {
+                _map = null;
                 ColorMap colorMap = cmbColorMap.GetSelectedItem<ColorMap>();
                 MapParser.ColorMapStyle colorMapStyle = (MapParser.ColorMapStyle)cmbColorMapStyle.SelectedItem;
                 Map map = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunDiamondSquare(map, baseValue, spread, colorMap, colorMapStyle); });
             }
             else
@@ -446,7 +474,9 @@ namespace TRW.Apps.MapGenerator
             bool avoidClusters = false;
             if (ValidateRandomWalkFields(out int width, out int height, out int iterations, out position, out avoidEdges, out avoidClusters))
             {
+                _map = null;
                 Map m = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunRandomWalk(m, position, iterations, avoidEdges, avoidClusters); });
             }
         }
@@ -456,7 +486,9 @@ namespace TRW.Apps.MapGenerator
             bool avoidEdges = false;
             if (ValidateCellAutomataFields(out int width, out int height, out int iterations, out avoidEdges))
             {
+                _map = null;
                 Map m = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunCellAutomata(m, iterations, avoidEdges); });
             }
         }
@@ -483,7 +515,9 @@ namespace TRW.Apps.MapGenerator
             Tuple<int, int> maxSizeOfRooms;
             if (ValidateRandomDungeonFields(out x, out y, out numOfRooms, out minSizeOfRooms, out maxSizeOfRooms))
             {
+                _map = null;
                 Map map = new Map(x, y);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => RunRandomDungeonCreator(map, numOfRooms, minSizeOfRooms, maxSizeOfRooms));
             }
 
@@ -499,7 +533,9 @@ namespace TRW.Apps.MapGenerator
         {
             if (ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude, out bool useComplexGrid))
             {
+                _map = null;
                 Map m = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunPerlinNoise(m, octaves, persistence, frequency, amplitude, useComplexGrid); });
             }
         }
