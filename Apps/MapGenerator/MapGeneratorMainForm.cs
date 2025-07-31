@@ -22,6 +22,7 @@ namespace TRW.Apps.MapGenerator
         {
             InitializeComponent();
             InitializeComboBoxes();
+            InitializeToolTips();
         }
 
         protected override bool HasConfigFile => true;
@@ -39,6 +40,22 @@ namespace TRW.Apps.MapGenerator
             cmbColorMapStyle.Items.Add(MapParser.ColorMapStyle.Exact);
             cmbColorMapStyle.Items.Add(MapParser.ColorMapStyle.Between);
             cmbColorMapStyle.SelectedIndex = 2;
+        }
+
+        private void InitializeToolTips()
+        {
+            // diamond square
+            txtDiamondValueSpread.SetToolTip("Seed. Should be less than the max value of color map");
+            txtDiamondBaseValue.SetToolTip("Starting value of cells. Base on Color Map.");
+            txtDiamondMapWidth.SetToolTip("Width of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
+            txtDiamondMapHeight.SetToolTip("Height of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
+            // random walk
+
+            // cellular automata
+
+            // perlin noise
+
+            // random dungeon
         }
 
         private void GetColorMaps()
@@ -104,6 +121,12 @@ namespace TRW.Apps.MapGenerator
             }
             else if (!decimal.TryParse(txtDiamondValueSpread.Text, out spread))
             {
+                return false;
+            }
+
+            if(height != width || width < 3 || height < 3 || !height.IsPowerOfTwoPlusOne())
+            {
+                UpdateStatus("Width and height must be equal and a power of 2 + 1 (e.g. 33, 257, etc.).");
                 return false;
             }
 
@@ -181,7 +204,7 @@ namespace TRW.Apps.MapGenerator
             else
                 map.FillRandomWalk(position, iterations, avoidEdges, avoidClusters);
             UpdateStatus(map.ToString());
-            
+
             _map = map;
         }
 
@@ -261,15 +284,15 @@ namespace TRW.Apps.MapGenerator
 
             if (string.IsNullOrEmpty(uxPerlinNoiseWidth.Text))
                 return false;
-            if(string.IsNullOrEmpty(uxPerlinNoiseHeight.Text))
+            if (string.IsNullOrEmpty(uxPerlinNoiseHeight.Text))
                 return false;
 
-            if(!int.TryParse(uxPerlinNoiseWidth.Text, out width))
+            if (!int.TryParse(uxPerlinNoiseWidth.Text, out width))
                 return false;
-            if(!int.TryParse(uxPerlinNoiseHeight.Text, out height))
+            if (!int.TryParse(uxPerlinNoiseHeight.Text, out height))
                 return false;
 
-            if(uxPerlinNoiseGrid.SelectedIndex < 0)
+            if (uxPerlinNoiseGrid.SelectedIndex < 0)
                 return false;
 
             if (!decimal.TryParse(uxPerlinNoisePersistence.Text, out persistence))
@@ -289,7 +312,7 @@ namespace TRW.Apps.MapGenerator
             map.ColorStyle = MapParser.ColorMapStyle.Exact;
             map.MapColorMap = ColorMap.GetGrayScale256Bits();
             map.FillPerlinNoise(octaves, persistence, frequency, amplitude, useComplexGrid);
-            
+
             // for debug purposes only
             //UpdateStatus(map.ToString());
 
@@ -304,20 +327,11 @@ namespace TRW.Apps.MapGenerator
             minSizeOfRooms = null;
             maxSizeOfRooms = null;
 
-            if (string.IsNullOrWhiteSpace(uxDungeonWidth.Text))
+            if (string.IsNullOrWhiteSpace(uxDungeonWidth.Text) || !int.TryParse(uxDungeonWidth.Text, out width))
             {
                 return false;
             }
-            else if (string.IsNullOrWhiteSpace(uxDungeonHeight.Text))
-            {
-                return false;
-            }
-
-            if (!int.TryParse(uxDungeonWidth.Text, out width))
-            {
-                return false;
-            }
-            else if (!int.TryParse(uxDungeonHeight.Text, out height))
+            else if (string.IsNullOrWhiteSpace(uxDungeonHeight.Text) || !int.TryParse(uxDungeonHeight.Text, out height))
             {
                 return false;
             }
@@ -479,6 +493,10 @@ namespace TRW.Apps.MapGenerator
                 this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunRandomWalk(m, position, iterations, avoidEdges, avoidClusters); });
             }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
+            }
         }
 
         private void btnGenerateCellAutomata_Click(object sender, EventArgs e)
@@ -490,6 +508,10 @@ namespace TRW.Apps.MapGenerator
                 Map m = new Map(width, height);
                 this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunCellAutomata(m, iterations, avoidEdges); });
+            }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
             }
         }
 
@@ -520,6 +542,10 @@ namespace TRW.Apps.MapGenerator
                 this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => RunRandomDungeonCreator(map, numOfRooms, minSizeOfRooms, maxSizeOfRooms));
             }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
+            }
 
         }
 
@@ -537,6 +563,10 @@ namespace TRW.Apps.MapGenerator
                 Map m = new Map(width, height);
                 this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunPerlinNoise(m, octaves, persistence, frequency, amplitude, useComplexGrid); });
+            }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
             }
         }
     }

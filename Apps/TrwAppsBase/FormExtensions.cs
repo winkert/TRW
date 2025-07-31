@@ -69,6 +69,20 @@ namespace TRW.Apps.TrwAppsBase
         }
         #endregion
 
+        public static void SetToolTip(this Control control, string text)
+        {
+            if (control == null)
+                return;
+            ToolTip toolTip = new ToolTip
+            {
+                AutoPopDelay = 5000,
+                InitialDelay = 1000,
+                ReshowDelay = 500,
+                ShowAlways = true
+            };
+            toolTip.SetToolTip(control, text);
+        }
+
         public static F AddSubForm<F>(this Control mainForm)
             where F: Form, new()
         {

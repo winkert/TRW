@@ -29,6 +29,68 @@ namespace TRW.CommonLibraries.Core
         }
         #endregion
 
+        public static bool IsPowerOfTwo<T>(this T n) where T : IConvertible
+        {
+            switch (n.GetTypeCode())
+            {
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.UInt16:
+                    return GetIsPowerOfTwo(n);
+            }
+
+            throw new ArgumentException("Expected a whole numeric type", $"n({n.GetType()})");
+        }
+
+        public static bool IsPowerOfTwoPlusOne<T>(this T n) where T : IConvertible
+        {
+            switch (n.GetTypeCode())
+            {
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                case TypeCode.Int16:
+                case TypeCode.UInt16:
+                    return GetIsPowerOfTwoPlusOne(n);
+            }
+
+            throw new ArgumentException("Expected a whole numeric type", $"n({n.GetType()})");
+        }
+
+        public static bool GetIsPowerOfTwo(dynamic n)
+        {
+            if (n == null)
+                return false;
+
+            try
+            {
+                return (n & (n - 1)) == 0 && n > 1;
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Expected a whole numeric type", $"n({n.GetType()})", ex);
+            }
+        }
+
+        public static bool GetIsPowerOfTwoPlusOne(dynamic n)
+        {
+            if (n == null)
+                return false;
+
+            try
+            {
+                return IsPowerOfTwo(n - 1);
+            }
+            catch (Exception ex)
+            {
+                throw new ArgumentException("Expected a whole numeric type", $"n({n.GetType()})", ex);
+            }
+        }
+
         /// <summary>
         /// Determine if a value is between two other values
         /// </summary>
