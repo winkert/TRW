@@ -271,7 +271,7 @@ namespace TRW.CommonLibraries.Data
                         while (dataReader.Read())
                         {
                             DataRow newRow = new DataRow();
-                            newRow.InitializeRow(Columns);
+                            newRow.InitializeRow(Columns, this);
                             dataReader.GetValues(newRow.Items);
                             this.Add(newRow);
                             retrievedRowCount++;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TRW.CommonLibraries.Core;
 
 namespace TRW.CommonLibraries.Data.Core
 {
@@ -8,9 +9,10 @@ namespace TRW.CommonLibraries.Data.Core
     {
         protected internal int _deletedCount;
         protected internal List<DataRow> _rows;
+        protected internal CustomDataTableTree _nodeTree;
         private int _index;
         private CustomDataTableBase<DataRow> _table;
-        private CustomDataTableIndex<DataRow> _currentIndex;
+        protected internal CustomDataTableIndex<DataRow> _currentIndex;
         private bool _disposed = false;
 
         #region Properties
@@ -27,22 +29,14 @@ namespace TRW.CommonLibraries.Data.Core
             }
         }
 
-        object IEnumerator.Current
-        {
-            get
-            {
-                if (_index < _rows.Count && _index > -1)
-                    return _rows[_index];
-                else
-                    return null;
-            }
-        }
+        object IEnumerator.Current => Current;
         #endregion
 
         public CustomDataRowEnumerator()
         {
             _index = -1;
             _rows = new List<DataRow>();
+            _nodeTree = new CustomDataTableTree();
             _deletedCount = 0;
         }
 
@@ -79,6 +73,7 @@ namespace TRW.CommonLibraries.Data.Core
         {
             _rows.Add(row);
             _index = _rows.Count - 1;
+            _nodeTree.Insert(row);
         }
 
         /// <summary>
@@ -90,7 +85,7 @@ namespace TRW.CommonLibraries.Data.Core
         public void AppendRow(CustomDataRow row)
         {
             DataRow newRow = new DataRow();
-            newRow.InitializeRow(_table.Columns);
+            newRow.InitializeRow(_table.Columns, _table);
             foreach(var column in _table.Columns)
             {
                 if(row.Columns.HasColumn(column.Value))
@@ -104,6 +99,7 @@ namespace TRW.CommonLibraries.Data.Core
         public void Delete(DataRow row)
         {
             row.Delete();
+            _nodeTree.Remove(row);
             _deletedCount++;
             // this is probably going to mess with the Current and screw some stuff up
             // but, insert "You shouldn't alter a enumerable while enumerating through it"
@@ -117,6 +113,7 @@ namespace TRW.CommonLibraries.Data.Core
         public void Clear()
         {
             _rows.Clear();
+            _nodeTree = new CustomDataTableTree();
             Reset();
         }
 
@@ -136,6 +133,7 @@ namespace TRW.CommonLibraries.Data.Core
                 _currentIndex = null;
                 _rows.Clear();
                 _rows = null;
+                _nodeTree = null;
                 _index = -1;
             }
             _disposed = true;
@@ -241,12 +239,17 @@ namespace TRW.CommonLibraries.Data.Core
 
         public bool Seek(CustomDataTableIndex<DataRow> index, params object[] parameters)
         {
-            Reset();
-            while (MoveNext())
+            // using a node tree should short circuit the search if the item is not in the collection
+            if (_nodeTree.Contains(index.CreateParameterRow(parameters)))
             {
-                if (index.IsMatch(Current, parameters))
-                    return true;
+                Reset();
+                while (MoveNext())
+                {
+                    if (index.IsMatch(Current, parameters))
+                        return true;
+                }
             }
+
             return false;
         }
 
@@ -284,6 +287,7 @@ namespace TRW.CommonLibraries.Data.Core
         public void Sort()
         {
             _rows.Sort(_currentIndex);
+            RebuildNodeTree();
             Reset();
         }
 
@@ -291,7 +295,15 @@ namespace TRW.CommonLibraries.Data.Core
         {
             _table = table;
             foreach (DataRow row in _rows)
-                row.InitializeRow(_table.Columns);
+                row.InitializeRow(_table.Columns, table);
+
+            RebuildNodeTree();
+        }
+        internal void RebuildNodeTree()
+        {
+            _nodeTree = new CustomDataTableTree();
+            foreach (DataRow row in _rows)
+                _nodeTree.Insert(row);
         }
         #endregion
     }
