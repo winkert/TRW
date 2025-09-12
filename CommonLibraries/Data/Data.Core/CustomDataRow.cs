@@ -5,11 +5,12 @@ using System.Runtime.CompilerServices;
 
 namespace TRW.CommonLibraries.Data.Core
 {
-    
-    public class CustomDataRow : IDataRow, IComparable
+
+    public class CustomDataRow : IDataRow, IComparable<CustomDataRow>
     {
         #region Fields
         protected RowStates _rowState;
+        internal CustomDataTableBase<CustomDataRow> _parentTable;
         #endregion
         /// <summary>
         /// Parameterless constructor for Generic
@@ -19,10 +20,10 @@ namespace TRW.CommonLibraries.Data.Core
             _rowState = RowStates.Unknown;
         }
 
-        public CustomDataRow(CustomDataColumnCollection columns)
+        public CustomDataRow(CustomDataColumnCollection columns, CustomDataTableBase<CustomDataRow> parentTable)
             : this()
         {
-            InitializeRow(columns);
+            InitializeRow(columns, parentTable);
         }
 
         #region Properties
@@ -35,7 +36,7 @@ namespace TRW.CommonLibraries.Data.Core
                 if (col < 0 || col > Columns.Count)
                     throw new IndexOutOfRangeException();
 
-                if(Items[col] is DBNull)
+                if (Items[col] is DBNull)
                 {
                     return null;
                 }
@@ -244,19 +245,61 @@ namespace TRW.CommonLibraries.Data.Core
             return base.GetHashCode();
         }
 
-        public int CompareTo(object obj)
+        public int CompareTo(CustomDataRow obj)
         {
             if (this.Equals(obj))
                 return 0;
 
-            // TODO: Create CompareTo method
+            if (obj._parentTable == null || this._parentTable == null)
+            {
+                return CompareToRow(obj);
+            }
 
-            return this.GetHashCode().CompareTo(obj.GetHashCode());
+            if (this._parentTable._rowEnum._currentIndex != null || obj._parentTable._rowEnum._currentIndex != null)
+            {
+                // if either row is on an index, compare by the index in the BinaryTree of Enumerator
+                if (this._parentTable._rowEnum._currentIndex != null)
+                {
+                    return this._parentTable._rowEnum._currentIndex.Compare(this, obj);
+                }
+                else
+                {
+                    return obj._parentTable._rowEnum._currentIndex.Compare(obj, this) * -1;
+                }
+            }
+            else
+            {
+                return CompareToRow(obj);
+            }
         }
-        public void InitializeRow(CustomDataColumnCollection columns)
+
+        private int CompareToRow(CustomDataRow obj)
+        {
+            // compare the entire row
+            for (int i = 0; i < this.Items.Length; i++)
+            {
+                if (this.Items[i] == null && obj.Items[i] == null)
+                    continue;
+
+                if (this.Items[i] == null)
+                    return -1;
+                if(obj.Items[i] == null)
+                    return 1;
+
+                IComparable xValue = this.Items[i] as IComparable;
+                IComparable yValue = obj.Items[i] as IComparable;
+                int compareResult = xValue.CompareTo(yValue);
+                if (compareResult !=0)
+                    return compareResult;
+            }
+            return 0; // they are equal
+        }
+
+        public void InitializeRow<DataRow>(CustomDataColumnCollection columns, CustomDataTableBase<DataRow> parent) where DataRow : CustomDataRow, new()
         {
             Columns = columns;
             Items = new object[Columns.Count];
+            _parentTable = parent as CustomDataTableBase<CustomDataRow>;
         }
 
         public void SetRowState(RowStates rowState)

@@ -15,7 +15,7 @@ namespace TRW.CommonLibraries.Data.Core
     public class CustomDataTableBase<DataRow> : IDataTable<DataRow>, IBinarySerializable where DataRow : CustomDataRow, new()
     {
         #region Fields
-        protected CustomDataRowEnumerator<DataRow> _rowEnum;
+        protected internal CustomDataRowEnumerator<DataRow> _rowEnum;
         protected CustomDataColumnCollection _columns;
 
         protected static char[] ColumnDelimiters = new char[] { ',', '|' };
@@ -196,7 +196,7 @@ namespace TRW.CommonLibraries.Data.Core
         public DataRow Add()
         {
             DataRow newRow = new DataRow();
-            newRow.InitializeRow(Columns);
+            newRow.InitializeRow(Columns, this);
             newRow.SetRowState(CustomDataRow.RowStates.Insert);
             this.Add(newRow);
             return newRow;
