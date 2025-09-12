@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TRW.CommonLibraries.Core; // For NodeTree and Node
 
 namespace TRW.CommonLibraries.Data.Core
 {
-    public class CustomDataTableIndex<DataRow> : IComparer<DataRow> where DataRow : CustomDataRow, new()
+    public class CustomDataTableIndex<DataRow> : IComparer<DataRow> where DataRow : CustomDataRow, IComparable<DataRow>, new()
     {
         #region Fields
         private int[] _indexedColumnOrdinals;
@@ -92,6 +93,19 @@ namespace TRW.CommonLibraries.Data.Core
             }
 
             return 0;
+        }
+
+        public DataRow CreateParameterRow(params object[] parameters)
+        {
+            if (parameters.Length != _indexedColumnOrdinals.Length)
+                throw new ArgumentException();
+            DataRow row = new DataRow();
+            row.InitializeRow(_parentTable.Columns, _parentTable);
+            for (int i = 0; i < _indexedColumnOrdinals.Length; i++)
+            {
+                row[_indexedColumnOrdinals[i]] = parameters[i];
+            }
+            return row;
         }
         #endregion
 

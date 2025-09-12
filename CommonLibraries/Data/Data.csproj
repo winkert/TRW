@@ -27,6 +27,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\Serialization\Serialization.csproj" />
     <ProjectReference Include="..\Xml\Xml.csproj" />
     <ProjectReference Include="Data.Core\Data.Core.csproj" />
   </ItemGroup>
