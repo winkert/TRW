@@ -35,5 +35,32 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             return direction;
         }
 
+        public static IMatrix<T> CrossoverWith<T>(IMatrix<T> parent1, IMatrix<T> parent2, Random r)
+            where T : ICell
+        {
+            // Assuming the matrices have the same dimensions
+            int width = parent1.Width;
+            int height = parent1.Height;
+            IMatrix<T> offspring = parent1.CreateNewEmpty();
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    // Randomly choose between the two parents
+                    if (r.NextDouble() < 0.5)
+                    {
+                        offspring[x, y] = parent1[x, y]; // Take from this matrix
+                    }
+                    else
+                    {
+                        offspring[x, y] = parent2[x, y]; // Take from parent2
+                    }
+                }
+            }
+
+            return offspring;
+        }
+
     }
 }
