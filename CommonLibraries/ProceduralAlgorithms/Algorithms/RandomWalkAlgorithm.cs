@@ -33,8 +33,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         public Position[] RandomWalkToTarget(Position startPosition, Position endPosition, int maxIterations)
         {
-            HashSet<Position> points = new HashSet<Position>();
-            points.Add(startPosition);
+            HashSet<Position> points = [startPosition];
             ICell cell = _grid[startPosition.X, startPosition.Y];
             
             Position newPlace = MakeTurn(cell, true, 1, true);
@@ -109,7 +108,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         private Position MakeTurn(ICell cell, bool avoidEdges, int attempt = 1, bool avoidClustering = false)
         {
             // override to avoid stack overflow
-            if (attempt > 20)
+            if (attempt > 10)
             {
                 return GetValidNeighboringPosition(cell, avoidEdges, avoidClustering);
             }
@@ -127,44 +126,27 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         
         private Position GetValidNeighboringPosition(ICell cell, bool avoidEdges, bool avoidClustering)
         {
-            if (R.Next() % 2 == 0)
-            {
-                if (IncludeNeighbor(cell.NorthNeighbor, avoidEdges, avoidClustering))
-                    return cell.NorthNeighbor.Position;
-                if (IncludeNeighbor(cell.NorthEastNeighbor, avoidEdges, avoidClustering))
-                    return cell.NorthEastNeighbor.Position;
-                if (IncludeNeighbor(cell.EastNeighbor, avoidEdges, avoidClustering))
-                    return cell.EastNeighbor.Position;
-                if (IncludeNeighbor(cell.SouthEastNeighbor, avoidEdges, avoidClustering))
-                    return cell.SouthEastNeighbor.Position;
-                if (IncludeNeighbor(cell.SouthNeighbor, avoidEdges, avoidClustering))
-                    return cell.SouthNeighbor.Position;
-                if (IncludeNeighbor(cell.SouthWestNeighbor, avoidEdges, avoidClustering))
-                    return cell.SouthWestNeighbor.Position;
-                if (IncludeNeighbor(cell.WestNeighbor, avoidEdges, avoidClustering))
-                    return cell.WestNeighbor.Position;
-                if (IncludeNeighbor(cell.NorthWestNeighbor, avoidEdges, avoidClustering))
-                    return cell.NorthWestNeighbor.Position;
-            }
-            else
-            {
-                if (IncludeNeighbor(cell.NorthWestNeighbor, avoidEdges, avoidClustering))
-                    return cell.NorthWestNeighbor.Position;
-                if (IncludeNeighbor(cell.WestNeighbor, avoidEdges, avoidClustering))
-                    return cell.WestNeighbor.Position;
-                if (IncludeNeighbor(cell.SouthWestNeighbor, avoidEdges, avoidClustering))
-                    return cell.SouthWestNeighbor.Position;
-                if (IncludeNeighbor(cell.SouthNeighbor, avoidEdges, avoidClustering))
-                    return cell.SouthNeighbor.Position;
-                if (IncludeNeighbor(cell.SouthEastNeighbor, avoidEdges, avoidClustering))
-                    return cell.SouthEastNeighbor.Position;
-                if (IncludeNeighbor(cell.EastNeighbor, avoidEdges, avoidClustering))
-                    return cell.EastNeighbor.Position;
-                if (IncludeNeighbor(cell.NorthEastNeighbor, avoidEdges, avoidClustering))
-                    return cell.NorthEastNeighbor.Position;
-                if (IncludeNeighbor(cell.NorthNeighbor, avoidEdges, avoidClustering))
-                    return cell.NorthNeighbor.Position;
-            }
+            List<Position> positions = new List<Position>();
+
+            if (IncludeNeighbor(cell.NorthNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.NorthNeighbor.Position);
+            if (IncludeNeighbor(cell.NorthEastNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.NorthEastNeighbor.Position);
+            if (IncludeNeighbor(cell.EastNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.EastNeighbor.Position);
+            if (IncludeNeighbor(cell.SouthEastNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.SouthEastNeighbor.Position);
+            if (IncludeNeighbor(cell.SouthNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.SouthNeighbor.Position);
+            if (IncludeNeighbor(cell.SouthWestNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.SouthWestNeighbor.Position);
+            if (IncludeNeighbor(cell.WestNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.WestNeighbor.Position);
+            if (IncludeNeighbor(cell.NorthWestNeighbor, avoidEdges, avoidClustering))
+                positions.Add(cell.NorthWestNeighbor.Position);
+
+            if (positions.Count > 0)
+                return positions[R.Next(positions.Count)];
 
             throw new ArgumentException();
         }

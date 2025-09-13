@@ -85,7 +85,7 @@ namespace TRW.CommonLibraries.Core.Tests
             AssertFactorial(2, 2);
             AssertFactorial(5, 120);
             AssertFactorial(10, 3628800);
-            AssertFactorial(20, 2432902008176640000);
+            AssertFactorial(20L, 2432902008176640000);
         }
 
         private void AssertFactorial(int n, int expected)
@@ -145,6 +145,37 @@ namespace TRW.CommonLibraries.Core.Tests
             ti = tb.AddDays(1);
             Assert.IsTrue(ti.Between(ta, tb));
             Assert.IsTrue(ti.Between(tb, ta));
+        }
+
+        [TestMethod]
+        public void TestIsPowerOfTwo()
+        {
+            Assert.IsFalse(1.IsPowerOfTwo());
+            Assert.IsTrue(2.IsPowerOfTwo());
+            Assert.IsTrue(4.IsPowerOfTwo());
+            Assert.IsTrue(8.IsPowerOfTwo());
+            Assert.IsTrue(16.IsPowerOfTwo());
+            Assert.IsTrue(32.IsPowerOfTwo());
+            Assert.IsTrue(64.IsPowerOfTwo());
+            Assert.IsFalse(3.IsPowerOfTwo());
+            Assert.IsFalse(7.IsPowerOfTwo());
+            Assert.IsFalse(9.IsPowerOfTwo());
+            Assert.IsTrue(1024.IsPowerOfTwo());
+        }
+
+        [TestMethod]
+        public void TestIsPowerOfTwoPlusOne()
+        {
+            Assert.IsFalse(1.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(3.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(5.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(9.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(2.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(4.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(6.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(8.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(16.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(2049.IsPowerOfTwoPlusOne());
         }
     }
 }

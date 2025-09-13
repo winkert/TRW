@@ -104,18 +104,13 @@ namespace TRW.GameLibraries.Maps
         /// <param name="spread"></param>
         public void FillDiamondSquare(decimal baseValue, decimal spread)
         {
-            int step = _xDimension / 2;
-            // set corners to base value
-            Grid.Cells[0, 0].Value = baseValue + GetNextDecimal(spread);
-            Grid.Cells[0, _yDimension - 1].Value = baseValue + GetNextDecimal(spread);
-            Grid.Cells[_xDimension - 1, 0].Value = baseValue + GetNextDecimal(spread);
-            Grid.Cells[_xDimension - 1, _yDimension - 1].Value = baseValue + GetNextDecimal(spread);
-
+            int step = _xDimension - 1;
+            FillMap(baseValue);
             DiamondSquareAlgorithm<CellCollection, Cell> diamondSquare = new DiamondSquareAlgorithm<CellCollection, Cell>(this, Grid.Cells, _xDimension, _yDimension);
             if (UpdateMap != null)
                 diamondSquare.Callback += UpdateMap;
 
-            diamondSquare.DoAlgorithm(_xDimension, _yDimension, step, spread);
+            diamondSquare.DoAlgorithm(step, spread);
         }
 
         public void FillRandomWalk(int iterations, bool avoidEdges = false, bool avoidClusters = false)
@@ -158,6 +153,14 @@ namespace TRW.GameLibraries.Maps
                 perlinNoise.Callback += UpdateMap;
 
             perlinNoise.DoAlgorithm(octaves, persistence, frequency, amplitude, useComplexGrid);
+        }
+
+        public void FillTerrain(int octaves, decimal persistence, decimal frequency, decimal amplitude, bool useComplexGrid)
+        {
+            // fill Diamond Square first
+            FillDiamondSquare(0, _xDimension);
+            // then fill with Perlin Noise
+            FillPerlinNoise(octaves, persistence, frequency, amplitude, useComplexGrid);
         }
 
         public List<MapComponentBase> GenerateRandomDungeon(int numOfRooms, Tuple<int, int> minSizeOfRooms, Tuple<int, int> maxSizeOfRooms, HallCreationModes hallCreationMode, RoomShapes roomShape, bool allowIntersectingRooms)

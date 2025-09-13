@@ -56,6 +56,10 @@ namespace TRW.GameLibraries.Maps
             }
         }
         public decimal Value { get { return Convert.ToDecimal(Content); } set { Content = value; } }
+
+        /// <summary>
+        /// Returns true if the Content is non-null and either a bool with value true or any other non-null object.
+        /// </summary>
         public bool BitState
         {
             get
@@ -179,21 +183,21 @@ namespace TRW.GameLibraries.Maps
         public int GetNeighborsWithValue()
         {
             int activeNeighbors = 0;
-            if (NorthNeighbor != null && ((Cell)NorthNeighbor).Content != null)
+            if (NorthNeighbor != null && ((Cell)NorthNeighbor).BitState)
                 activeNeighbors++;
-            if (NorthEastNeighbor != null && ((Cell)NorthEastNeighbor).Content != null)
+            if (NorthEastNeighbor != null && ((Cell)NorthEastNeighbor).BitState)
                 activeNeighbors++;
-            if (EastNeighbor != null && ((Cell)EastNeighbor).Content != null)
+            if (EastNeighbor != null && ((Cell)EastNeighbor).BitState)
                 activeNeighbors++;
-            if (SouthEastNeighbor != null && ((Cell)SouthEastNeighbor).Content != null)
+            if (SouthEastNeighbor != null && ((Cell)SouthEastNeighbor).BitState)
                 activeNeighbors++;
-            if (SouthNeighbor != null && ((Cell)SouthNeighbor).Content != null)
+            if (SouthNeighbor != null && ((Cell)SouthNeighbor).BitState)
                 activeNeighbors++;
-            if (SouthWestNeighbor != null && ((Cell)SouthWestNeighbor).Content != null)
+            if (SouthWestNeighbor != null && ((Cell)SouthWestNeighbor).BitState)
                 activeNeighbors++;
-            if (WestNeighbor != null && ((Cell)WestNeighbor).Content != null)
+            if (WestNeighbor != null && ((Cell)WestNeighbor).BitState)
                 activeNeighbors++;
-            if (NorthWestNeighbor != null && ((Cell)NorthWestNeighbor).Content != null)
+            if (NorthWestNeighbor != null && ((Cell)NorthWestNeighbor).BitState)
                 activeNeighbors++;
 
             return activeNeighbors;

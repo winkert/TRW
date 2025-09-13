@@ -16,11 +16,13 @@ namespace TRW.Apps.MapGenerator
 {
     public partial class MapGeneratorMainForm : TrwFormBase
     {
+        Map _map;
 
         public MapGeneratorMainForm()
         {
             InitializeComponent();
             InitializeComboBoxes();
+            InitializeToolTips();
         }
 
         protected override bool HasConfigFile => true;
@@ -38,6 +40,45 @@ namespace TRW.Apps.MapGenerator
             cmbColorMapStyle.Items.Add(MapParser.ColorMapStyle.Exact);
             cmbColorMapStyle.Items.Add(MapParser.ColorMapStyle.Between);
             cmbColorMapStyle.SelectedIndex = 2;
+        }
+
+        private void InitializeToolTips()
+        {
+            // diamond square
+            txtDiamondValueSpread.SetToolTip("Seed. Should be less than the max value of color map");
+            txtDiamondBaseValue.SetToolTip("Starting value of cells. Base on Color Map.");
+            txtDiamondMapWidth.SetToolTip("Width of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
+            txtDiamondMapHeight.SetToolTip("Height of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
+            cmbColorMap.SetToolTip("Color map to use when rendering the map.");
+            cmbColorMapStyle.SetToolTip("How to apply the color map to the map values.");
+            // random walk
+            txtRandomWalkHeight.SetToolTip("Height of the map.");
+            txtRandomWalkWidth.SetToolTip("Width of the map.");
+            txtRandomWalkIterations.SetToolTip("Number of iterations to perform.");
+            txtRandomWalkStart.SetToolTip("Starting position in format x,y. If blank, a random position will be used.");
+            chkRandomWalkAvoidEdges.SetToolTip("Avoid edges of the map.");
+            chkRandomWalkAvoidClusters.SetToolTip("Avoid clusters of filled cells.");
+            // cellular automata
+            txtCellAutomataHeight.SetToolTip("Height of the map.");
+            txtCellAutomataWidth.SetToolTip("Width of the map.");
+            txtCellAutomataIterations.SetToolTip("Number of iterations to perform.");
+            chkCellAutomataAvoidEdges.SetToolTip("Avoid edges of the map.");
+            // perlin noise
+            uxPerlinNoiseHeight.SetToolTip("Height of the map.");
+            uxPerlinNoiseWidth.SetToolTip("Width of the map.");
+            uxPerlinNoiseOctaves.SetToolTip("The number of iterations to do - impacts smoothness");
+            uxPerlinNoisePersistence.SetToolTip("0 to 1 value indicating how the slope changes between iterations");
+            uxPerlinNoiseFreq.SetToolTip("The frequency determines how rapidly the noise oscillates or repeats.");
+            uxPerlinNoiseAmp.SetToolTip("The amplitude represents the strength or magnitude of the noise.");
+            uxPerlinNoiseGrid.SetToolTip("Type of grid to use.");
+            // random dungeon
+            uxDungeonHeight.SetToolTip("Height of the map.");
+            uxDungeonWidth.SetToolTip("Width of the map.");
+            uxNumOfRooms.SetToolTip("Number of rooms to create.");
+            uxMinXOfRooms.SetToolTip("Minimum width of rooms.");
+            uxMinYOfRooms.SetToolTip("Minimum height of rooms.");
+            uxMaxXOfRooms.SetToolTip("Maximum width of rooms.");
+            uxMaxYOfRooms.SetToolTip("Maximum height of rooms.");
         }
 
         private void GetColorMaps()
@@ -106,6 +147,12 @@ namespace TRW.Apps.MapGenerator
                 return false;
             }
 
+            if(height != width || width < 3 || height < 3 || !height.IsPowerOfTwoPlusOne())
+            {
+                UpdateStatus("Width and height must be equal and a power of 2 + 1 (e.g. 33, 257, etc.).");
+                return false;
+            }
+
             return true;
         }
 
@@ -115,9 +162,7 @@ namespace TRW.Apps.MapGenerator
             map.FillDiamondSquare(baseValue, spread);
             map.MapColorMap = colorMap;
             map.ColorStyle = colorMapStyle;
-
-            DrawMap(map);
-            pctPreview.Tag = map;
+            _map = map;
         }
 
         private bool ValidateRandomWalkFields(out int width, out int height, out int iterations, out Position startPosition, out bool avoidEdges, out bool avoidClusters)
@@ -177,12 +222,13 @@ namespace TRW.Apps.MapGenerator
         private void RunRandomWalk(Map map, Position position, int iterations, bool avoidEdges, bool avoidClusters)
         {
             map.UpdateMap += UpdateMapHandler;
-            if (position is null)
+            if (position == Position.Null)
                 map.FillRandomWalk(iterations, avoidEdges, avoidClusters);
             else
                 map.FillRandomWalk(position, iterations, avoidEdges, avoidClusters);
             UpdateStatus(map.ToString());
-            DrawMap(map);
+
+            _map = map;
         }
 
         private bool ValidateCellAutomataFields(out int width, out int height, out int iterations, out bool avoidEdges)
@@ -246,7 +292,7 @@ namespace TRW.Apps.MapGenerator
             //rules.Add(4, false, true);
             map.FillCellAutomata(rules, iterations, avoidEdges, false);
 
-            DrawMap(map);
+            _map = map;
         }
 
         private bool ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude, out bool useComplexGrid)
@@ -261,15 +307,15 @@ namespace TRW.Apps.MapGenerator
 
             if (string.IsNullOrEmpty(uxPerlinNoiseWidth.Text))
                 return false;
-            if(string.IsNullOrEmpty(uxPerlinNoiseHeight.Text))
+            if (string.IsNullOrEmpty(uxPerlinNoiseHeight.Text))
                 return false;
 
-            if(!int.TryParse(uxPerlinNoiseWidth.Text, out width))
+            if (!int.TryParse(uxPerlinNoiseWidth.Text, out width))
                 return false;
-            if(!int.TryParse(uxPerlinNoiseHeight.Text, out height))
+            if (!int.TryParse(uxPerlinNoiseHeight.Text, out height))
                 return false;
 
-            if(uxPerlinNoiseGrid.SelectedIndex < 0)
+            if (uxPerlinNoiseGrid.SelectedIndex < 0)
                 return false;
 
             if (!decimal.TryParse(uxPerlinNoisePersistence.Text, out persistence))
@@ -289,12 +335,11 @@ namespace TRW.Apps.MapGenerator
             map.ColorStyle = MapParser.ColorMapStyle.Exact;
             map.MapColorMap = ColorMap.GetGrayScale256Bits();
             map.FillPerlinNoise(octaves, persistence, frequency, amplitude, useComplexGrid);
-            
+
             // for debug purposes only
             //UpdateStatus(map.ToString());
 
-            DrawMap(map);
-            pctPreview.Tag = map;
+            _map = map;
         }
 
         private bool ValidateRandomDungeonFields(out int width, out int height, out int numOfRooms, out Tuple<int, int> minSizeOfRooms, out Tuple<int, int> maxSizeOfRooms)
@@ -305,20 +350,11 @@ namespace TRW.Apps.MapGenerator
             minSizeOfRooms = null;
             maxSizeOfRooms = null;
 
-            if (string.IsNullOrWhiteSpace(uxDungeonWidth.Text))
+            if (string.IsNullOrWhiteSpace(uxDungeonWidth.Text) || !int.TryParse(uxDungeonWidth.Text, out width))
             {
                 return false;
             }
-            else if (string.IsNullOrWhiteSpace(uxDungeonHeight.Text))
-            {
-                return false;
-            }
-
-            if (!int.TryParse(uxDungeonWidth.Text, out width))
-            {
-                return false;
-            }
-            else if (!int.TryParse(uxDungeonHeight.Text, out height))
+            else if (string.IsNullOrWhiteSpace(uxDungeonHeight.Text) || !int.TryParse(uxDungeonHeight.Text, out height))
             {
                 return false;
             }
@@ -335,7 +371,7 @@ namespace TRW.Apps.MapGenerator
             map.GenerateRandomDungeon(numOfRooms, minSizeOfRooms, maxSizeOfRooms, HallCreationModes.SBend, RoomShapes.Rectangle, false);
             map.MapColorMap = ColorMap.Dungeon;
             map.ColorStyle = MapParser.ColorMapStyle.Exact;
-            DrawMap(map);
+            _map = map;
         }
 
         delegate void DrawMapDelegate(Map map);
@@ -369,6 +405,33 @@ namespace TRW.Apps.MapGenerator
             //pctPreview.Invoke(new DrawMapDelegate(DrawMap), map);
         }
 
+        private void MapGenerationComplete(Task task)
+        {
+            if (task.IsFaulted)
+            {
+                UpdateStatus("An error occurred while generating the map: " + task.Exception.Message);
+            }
+            else if (task.IsCanceled)
+            {
+                UpdateStatus("Map generation was canceled.");
+            }
+            else
+            {
+                if (_map != null)
+                {
+                    DrawMap(_map);
+                    pctPreview.Tag = _map;
+                    UpdateStatus("Map generation completed successfully.");
+                }
+                else
+                {
+                    UpdateStatus("Map generation completed, but no map was returned.");
+                }
+            }
+
+            this.BackgroundTaskComplete_Event -= MapGenerationComplete;
+        }
+
         private void btnGetMapFile_Click(object sender, EventArgs e)
         {
             string filePath;
@@ -399,9 +462,11 @@ namespace TRW.Apps.MapGenerator
 
             if (ValidateDiamondSquareFields(out width, out height, out baseValue, out spread))
             {
+                _map = null;
                 ColorMap colorMap = cmbColorMap.GetSelectedItem<ColorMap>();
                 MapParser.ColorMapStyle colorMapStyle = (MapParser.ColorMapStyle)cmbColorMapStyle.SelectedItem;
                 Map map = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunDiamondSquare(map, baseValue, spread, colorMap, colorMapStyle); });
             }
             else
@@ -446,8 +511,14 @@ namespace TRW.Apps.MapGenerator
             bool avoidClusters = false;
             if (ValidateRandomWalkFields(out int width, out int height, out int iterations, out position, out avoidEdges, out avoidClusters))
             {
+                _map = null;
                 Map m = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunRandomWalk(m, position, iterations, avoidEdges, avoidClusters); });
+            }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
             }
         }
 
@@ -456,8 +527,14 @@ namespace TRW.Apps.MapGenerator
             bool avoidEdges = false;
             if (ValidateCellAutomataFields(out int width, out int height, out int iterations, out avoidEdges))
             {
+                _map = null;
                 Map m = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunCellAutomata(m, iterations, avoidEdges); });
+            }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
             }
         }
 
@@ -483,8 +560,14 @@ namespace TRW.Apps.MapGenerator
             Tuple<int, int> maxSizeOfRooms;
             if (ValidateRandomDungeonFields(out x, out y, out numOfRooms, out minSizeOfRooms, out maxSizeOfRooms))
             {
+                _map = null;
                 Map map = new Map(x, y);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => RunRandomDungeonCreator(map, numOfRooms, minSizeOfRooms, maxSizeOfRooms));
+            }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
             }
 
         }
@@ -499,8 +582,14 @@ namespace TRW.Apps.MapGenerator
         {
             if (ValidatePerlinNoiseFields(out int width, out int height, out int octaves, out decimal persistence, out decimal frequency, out decimal amplitude, out bool useComplexGrid))
             {
+                _map = null;
                 Map m = new Map(width, height);
+                this.BackgroundTaskComplete_Event += MapGenerationComplete;
                 StartTaskInNewThread(() => { RunPerlinNoise(m, octaves, persistence, frequency, amplitude, useComplexGrid); });
+            }
+            else
+            {
+                UpdateStatus("Unable to generate map from entered values. Please enter valid values in the fields.");
             }
         }
     }
