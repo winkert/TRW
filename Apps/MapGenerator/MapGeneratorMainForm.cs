@@ -49,13 +49,36 @@ namespace TRW.Apps.MapGenerator
             txtDiamondBaseValue.SetToolTip("Starting value of cells. Base on Color Map.");
             txtDiamondMapWidth.SetToolTip("Width of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
             txtDiamondMapHeight.SetToolTip("Height of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
+            cmbColorMap.SetToolTip("Color map to use when rendering the map.");
+            cmbColorMapStyle.SetToolTip("How to apply the color map to the map values.");
             // random walk
-
+            txtRandomWalkHeight.SetToolTip("Height of the map.");
+            txtRandomWalkWidth.SetToolTip("Width of the map.");
+            txtRandomWalkIterations.SetToolTip("Number of iterations to perform.");
+            txtRandomWalkStart.SetToolTip("Starting position in format x,y. If blank, a random position will be used.");
+            chkRandomWalkAvoidEdges.SetToolTip("Avoid edges of the map.");
+            chkRandomWalkAvoidClusters.SetToolTip("Avoid clusters of filled cells.");
             // cellular automata
-
+            txtCellAutomataHeight.SetToolTip("Height of the map.");
+            txtCellAutomataWidth.SetToolTip("Width of the map.");
+            txtCellAutomataIterations.SetToolTip("Number of iterations to perform.");
+            chkCellAutomataAvoidEdges.SetToolTip("Avoid edges of the map.");
             // perlin noise
-
+            uxPerlinNoiseHeight.SetToolTip("Height of the map.");
+            uxPerlinNoiseWidth.SetToolTip("Width of the map.");
+            uxPerlinNoiseOctaves.SetToolTip("The number of iterations to do - impacts smoothness");
+            uxPerlinNoisePersistence.SetToolTip("0 to 1 value indicating how the slope changes between iterations");
+            uxPerlinNoiseFreq.SetToolTip("The frequency determines how rapidly the noise oscillates or repeats.");
+            uxPerlinNoiseAmp.SetToolTip("The amplitude represents the strength or magnitude of the noise.");
+            uxPerlinNoiseGrid.SetToolTip("Type of grid to use.");
             // random dungeon
+            uxDungeonHeight.SetToolTip("Height of the map.");
+            uxDungeonWidth.SetToolTip("Width of the map.");
+            uxNumOfRooms.SetToolTip("Number of rooms to create.");
+            uxMinXOfRooms.SetToolTip("Minimum width of rooms.");
+            uxMinYOfRooms.SetToolTip("Minimum height of rooms.");
+            uxMaxXOfRooms.SetToolTip("Maximum width of rooms.");
+            uxMaxYOfRooms.SetToolTip("Maximum height of rooms.");
         }
 
         private void GetColorMaps()
@@ -199,7 +222,7 @@ namespace TRW.Apps.MapGenerator
         private void RunRandomWalk(Map map, Position position, int iterations, bool avoidEdges, bool avoidClusters)
         {
             map.UpdateMap += UpdateMapHandler;
-            if (position is null)
+            if (position == Position.Null)
                 map.FillRandomWalk(iterations, avoidEdges, avoidClusters);
             else
                 map.FillRandomWalk(position, iterations, avoidEdges, avoidClusters);

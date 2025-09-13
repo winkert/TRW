@@ -76,7 +76,7 @@ namespace TRW.Apps.TrwAppsBase
             ToolTip toolTip = new ToolTip
             {
                 AutoPopDelay = 5000,
-                InitialDelay = 1000,
+                InitialDelay = 500,
                 ReshowDelay = 500,
                 ShowAlways = true
             };
