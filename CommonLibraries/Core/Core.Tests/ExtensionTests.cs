@@ -146,5 +146,69 @@ namespace TRW.CommonLibraries.Core.Tests
             Assert.IsTrue(ti.Between(ta, tb));
             Assert.IsTrue(ti.Between(tb, ta));
         }
+
+        [TestMethod]
+        public void TestIsPowerOfTwo()
+        {
+            Assert.IsFalse(1.IsPowerOfTwo());
+            Assert.IsTrue(2.IsPowerOfTwo());
+            Assert.IsTrue(4.IsPowerOfTwo());
+            Assert.IsTrue(8.IsPowerOfTwo());
+            Assert.IsTrue(16.IsPowerOfTwo());
+            Assert.IsTrue(32.IsPowerOfTwo());
+            Assert.IsTrue(64.IsPowerOfTwo());
+            Assert.IsFalse(3.IsPowerOfTwo());
+            Assert.IsFalse(7.IsPowerOfTwo());
+            Assert.IsFalse(9.IsPowerOfTwo());
+            Assert.IsTrue(1024.IsPowerOfTwo());
+        }
+
+        [TestMethod]
+        public void TestIsPowerOfTwoPlusOne()
+        {
+            Assert.IsFalse(1.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(3.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(5.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(9.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(2.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(4.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(6.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(8.IsPowerOfTwoPlusOne());
+            Assert.IsFalse(16.IsPowerOfTwoPlusOne());
+            Assert.IsTrue(2049.IsPowerOfTwoPlusOne());
+        }
+
+        [TestMethod]
+        public void TestCast()
+        {
+            object o = 5;
+            int i = o.CastToType<int>();
+            Assert.AreEqual(5, i);
+            o = "Hello";
+            string s = o.CastToType<string>();
+            Assert.AreEqual("Hello", s);
+            
+            o = 5.3;
+            double d = o.CastToType<double>();
+            Assert.AreEqual(5.3, d);
+
+            float f = o.CastToType<float>();
+            Assert.AreEqual(5.3f, f);
+
+            long l = o.CastToType<long>();
+            Assert.AreEqual(5L, l);
+
+            i = o.CastToType<int>();
+            Assert.AreEqual(5, i);
+
+            o = "600";
+            i = o.CastToType<int>();
+            Assert.AreEqual(600, i);
+
+            o = new TestClassForCasting("A", "B");
+            TestClass tc = o.CastToType<TestClass>();
+            Assert.AreEqual("A", tc.Prop);
+            Assert.AreEqual("B", tc.OtherProp);
+        }
     }
 }

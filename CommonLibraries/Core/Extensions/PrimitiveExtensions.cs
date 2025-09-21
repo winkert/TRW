@@ -29,6 +29,32 @@ namespace TRW.CommonLibraries.Core
         }
         #endregion
 
+
+        public static bool IsPalindrome(this string input)
+        {
+            if (input.Length < 2)
+                throw new ArgumentException("not a valid input - must be 2 characters");
+
+            if (input == null)
+                throw new ArgumentNullException(nameof(input));
+
+            string cleanInput = input.Replace(" ", "").ToLowerInvariant();
+
+            int j = cleanInput.Length - 1;
+            for (int i = 0; i < cleanInput.Length / 2; i++)
+            {
+                if (cleanInput[i] != cleanInput[j--])
+                {
+                    Console.WriteLine($"{cleanInput[i]} != {cleanInput[j + 1]}");
+                    return false;
+                }
+            }
+
+            return true;
+
+        }
+
+
         /// <summary>
         /// Determine if a value is between two other values
         /// </summary>
@@ -78,6 +104,28 @@ namespace TRW.CommonLibraries.Core
             Buffer.BlockCopy(first, 0, bytes, 0, first.Length);
             Buffer.BlockCopy(second, 0, bytes, first.Length, second.Length);
             return bytes;
+        }
+
+        public static T CastToType<T>(this object o)
+        {
+            if (o is T typedO)
+                return typedO;
+
+            if (o is IConvertible)
+                return (T)Convert.ChangeType(o, typeof(T));
+
+            // Try direct cast - we are most likely dealing with a reference type
+            try
+            {
+                //unbox o for casting which should use any implicit operator that exists
+                dynamic oAsType = o;
+                return (T)(oAsType);
+            }
+            catch (InvalidCastException ex)
+            {
+                throw new ArgumentException($"Object is not of type {typeof(T)} and cannot be converted to that type.", nameof(o), ex);
+            }
+
         }
     }
 }

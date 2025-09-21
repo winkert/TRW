@@ -11,6 +11,7 @@ namespace TRW.CommonLibraries.Data.Core
         #region Fields
         protected RowStates _rowState;
         internal CustomDataTableBase<CustomDataRow> _parentTable;
+        internal int _myIndex = -1; // my index in the parent table
         #endregion
         /// <summary>
         /// Parameterless constructor for Generic
@@ -234,9 +235,8 @@ namespace TRW.CommonLibraries.Data.Core
 
         public override bool Equals(object obj)
         {
-            // TODO: Create equals method
             CustomDataRow other = (CustomDataRow)obj;
-            return this.Columns.Equals(other.Columns) && this.Items.Equals(other.Items);
+            return this.CompareTo(other) == 0;
         }
 
         public override int GetHashCode()
@@ -247,9 +247,6 @@ namespace TRW.CommonLibraries.Data.Core
 
         public int CompareTo(CustomDataRow obj)
         {
-            if (this.Equals(obj))
-                return 0;
-
             if (obj._parentTable == null || this._parentTable == null)
             {
                 return CompareToRow(obj);
@@ -257,7 +254,7 @@ namespace TRW.CommonLibraries.Data.Core
 
             if (this._parentTable._rowEnum._currentIndex != null || obj._parentTable._rowEnum._currentIndex != null)
             {
-                // if either row is on an index, compare by the index in the BinaryTree of Enumerator
+                // if either row is on an index, compare indexed columns
                 if (this._parentTable._rowEnum._currentIndex != null)
                 {
                     return this._parentTable._rowEnum._currentIndex.Compare(this, obj);

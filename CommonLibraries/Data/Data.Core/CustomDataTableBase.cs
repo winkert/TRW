@@ -237,9 +237,24 @@ namespace TRW.CommonLibraries.Data.Core
 
         public void Delete()
         {
-            if (this.Current != null)
+            this.Delete(false);
+        }
+
+        public void Delete(bool remove)
+        {
+            if (this.Current == null)
+            {
+                throw new InvalidOperationException("No current row to delete.");
+            }
+
+            this.Current.Delete();
+            if (remove)
                 _rowEnum.Delete(this.Current);
-            // should we throw an exception?
+        }
+
+        public void Pack()
+        {
+            _rowEnum.Pack();
         }
 
         public void Clear()
