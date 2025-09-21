@@ -14,5 +14,20 @@ namespace TRW.CommonLibraries.Data.Core
             TraversalStyle = TraversalStyles.InOrder;
         }
 
+        public CustomDataRow FoundRow { get; private set; }
+
+        public bool FindRow(CustomDataRow row, out int index)
+        {
+            index = -1;
+            if (Find(row, out Node<CustomDataRow> node))
+            {
+                FoundRow = node.Data;
+                index = FoundRow._myIndex;
+                return true;
+            }
+            FoundRow = null;
+            return false;
+        }
+
     }
 }

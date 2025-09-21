@@ -35,6 +35,31 @@ namespace TRW.CommonLibraries.Core.Tests
 
             return val;
         }
+
+    }
+
+    public class TestClassForCasting
+    {
+        public string Prop { get; set; }
+        public string OtherProp { get; set; }
+        public TestClassForCasting()
+        {
+            Prop = string.Empty;
+        }
+        public TestClassForCasting(string prop)
+        {
+            Prop = prop;
+        }
+        public TestClassForCasting(string prop, string otherProp)
+        {
+            Prop = prop;
+            OtherProp = otherProp;
+        }
+
+        public static implicit operator TestClass(TestClassForCasting t)
+        {
+            return new TestClass(t.Prop, t.OtherProp);
+        }
     }
 
 }

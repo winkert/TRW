@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TRW.CommonLibraries.Core; // For NodeTree and Node
 
 namespace TRW.CommonLibraries.Data.Core
 {
@@ -53,10 +49,21 @@ namespace TRW.CommonLibraries.Data.Core
         {
             bool isMatch = true;
             if (parameters.Length != _indexedColumnOrdinals.Length)
-                throw new ArgumentException();
+                throw new ArgumentException("Parameter count does not match indexed columns.");
 
             for(int i = 0; i < _indexedColumnOrdinals.Length; i++)
             {
+                object param = parameters[i];
+                switch (_parentTable.Columns[_indexedColumnOrdinals[i]].Type)
+                {
+                    case DataType.Integer:
+                        if (!(param is int))
+                            throw new ArgumentException($"Parameter {i} is not of type int.");
+                        break;
+                    default:
+                        break;
+                }
+
                 if (!row[_indexedColumnOrdinals[i]].Equals(parameters[i]))
                     isMatch = false;
 
@@ -65,13 +72,21 @@ namespace TRW.CommonLibraries.Data.Core
             return isMatch;
         }
 
+        /// <summary>
+        /// Slow regex match of a single column index
+        /// </summary>
+        /// <param name="row"></param>
+        /// <param name="regex"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentException"></exception>
         public bool IsMatch(DataRow row, System.Text.RegularExpressions.Regex regex)
         {
             bool isMatch = false;
 
             if (_indexedColumnOrdinals.Length != 1)
-                throw new NotImplementedException(); // do not support more than one column for this type of match
+                throw new ArgumentException("Regular Expression Match is only valid for single column indexes.");
             
+            // TODO: consider if there should be an argument exception for trying to use Regex on something like an int or datetime
             if (regex.IsMatch(row[_indexedColumnOrdinals[0]].ToString()))
                 isMatch = true;
 
@@ -107,6 +122,7 @@ namespace TRW.CommonLibraries.Data.Core
             }
             return row;
         }
+
         #endregion
 
         #region Privates

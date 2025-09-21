@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using TRW.CommonLibraries.Core;
+using System.Linq;
 
 namespace TRW.CommonLibraries.Data.Core
 {
     public class CustomDataRowEnumerator<DataRow> : IEnumerator<DataRow> where DataRow : CustomDataRow, new()
     {
-        protected internal int _deletedCount;
         protected internal List<DataRow> _rows;
         protected internal CustomDataTableTree _nodeTree;
         private int _index;
@@ -16,7 +15,7 @@ namespace TRW.CommonLibraries.Data.Core
         private bool _disposed = false;
 
         #region Properties
-        public int Count => _rows.Count - _deletedCount;
+        public int Count => _rows.Count;
 
         public DataRow Current
         {
@@ -37,7 +36,6 @@ namespace TRW.CommonLibraries.Data.Core
             _index = -1;
             _rows = new List<DataRow>();
             _nodeTree = new CustomDataTableTree();
-            _deletedCount = 0;
         }
 
         public CustomDataRowEnumerator(CustomDataTableBase<DataRow> parentTable)
@@ -72,6 +70,7 @@ namespace TRW.CommonLibraries.Data.Core
         public void Add(DataRow row)
         {
             _rows.Add(row);
+            row._myIndex = _rows.Count - 1;
             _index = _rows.Count - 1;
             _nodeTree.Insert(row);
         }
@@ -96,11 +95,14 @@ namespace TRW.CommonLibraries.Data.Core
             Add(newRow);
         }
 
+        /// <summary>
+        /// Permanently delete a row from the enumerator
+        /// </summary>
+        /// <param name="row"></param>
         public void Delete(DataRow row)
         {
-            row.Delete();
             _nodeTree.Remove(row);
-            _deletedCount++;
+            _rows.Remove(row);
             // this is probably going to mess with the Current and screw some stuff up
             // but, insert "You shouldn't alter a enumerable while enumerating through it"
             if (Current == null || Current.Deleted)
@@ -240,26 +242,37 @@ namespace TRW.CommonLibraries.Data.Core
         public bool Seek(CustomDataTableIndex<DataRow> index, params object[] parameters)
         {
             // using a node tree should short circuit the search if the item is not in the collection
-            if (_nodeTree.Contains(index.CreateParameterRow(parameters)))
+            if (_nodeTree.FindRow(index.CreateParameterRow(parameters), out int gotoIndex))
             {
-                Reset();
-                while (MoveNext())
-                {
-                    if (index.IsMatch(Current, parameters))
-                        return true;
-                }
+                if(GoTo(gotoIndex))
+                    return true;
             }
 
             return false;
         }
 
+        /// <summary>
+        /// Slow regex scan of all rows in the enumerator
+        /// </summary>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
         public IEnumerable<DataRow> ScanForMatch(string pattern)
         {
             return ScanForMatch(_currentIndex, pattern);
         }
 
+        /// <summary>
+        /// Slow regex scan of all rows in the enumerator
+        /// </summary>
+        /// <param name="index"></param>
+        /// <param name="pattern"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"></exception>
         public IEnumerable<DataRow> ScanForMatch(CustomDataTableIndex<DataRow> index, string pattern)
         {
+            if (_currentIndex == null)
+                throw new ArgumentNullException();
+
             System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex(pattern, System.Text.RegularExpressions.RegexOptions.IgnoreCase);
             foreach (DataRow row in _rows)
                 if (index.IsMatch(row, regex))
@@ -299,11 +312,25 @@ namespace TRW.CommonLibraries.Data.Core
 
             RebuildNodeTree();
         }
+        
         internal void RebuildNodeTree()
         {
             _nodeTree = new CustomDataTableTree();
-            foreach (DataRow row in _rows)
-                _nodeTree.Insert(row);
+            for (int i = 0; i < _rows.Count; i++)
+            {
+                _rows[i]._myIndex = i;
+                _nodeTree.Insert(_rows[i]);
+            }   
+        }
+
+        internal void Pack()
+        {
+            List<DataRow> deleted = _rows.Where(r => r.Deleted).ToList();
+            foreach (DataRow r in deleted)
+            {
+                this.Delete(r);
+            }
+            RebuildNodeTree();
         }
         #endregion
     }

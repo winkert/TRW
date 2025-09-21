@@ -87,12 +87,12 @@ namespace TRW.CommonLibraries.Data.Test
             table["Date"] = now;
 
             table.First();
-            table.Delete();
+            table.Delete(true);
             Assert.AreEqual(1, table.Count);
             Assert.IsTrue(table.First());
             Assert.AreEqual("TestString2", table.Current[0]);
 
-            table.Delete();
+            table.Delete(true);
             Assert.IsNull(table.Current);
         }
 
@@ -281,6 +281,38 @@ namespace TRW.CommonLibraries.Data.Test
             Assert.AreEqual("Katie", table["String"]);
             Assert.IsTrue(Convert.ToBoolean(table["Bool"]));
 
+        }
+
+        [TestMethod]
+        public void DataTableIndexChangedTest()
+        {
+            DateTime now = DateTime.Now;
+            CustomDataTable table = new CustomDataTable(_testColumns);
+            for(int i = 0; i < 10; i++)
+            {
+                table.Add();
+                table["String"] = $"TestString{i:0000}";
+                table["Int"] = i;
+                table[2] = true;
+                table["Date"] = now;
+            }
+
+            table.SetIndex("Int");
+            Assert.IsTrue(table.Seek(5));
+            Assert.AreEqual("TestString0005", table["String"]);
+            table.Current.Delete();
+
+            Assert.IsTrue(table.Seek(1));
+            Assert.AreEqual("TestString0001", table["String"]);
+
+            Assert.IsTrue(table.Seek(5));
+            Assert.IsTrue(table.Current.Deleted);
+
+            table.Pack();
+
+            Assert.IsTrue(table.Seek(3));
+            Assert.AreEqual("TestString0003", table["String"]);
+            Assert.IsFalse(table.Seek(5));
         }
 
         [TestMethod]
