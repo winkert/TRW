@@ -131,6 +131,48 @@ namespace TRW.CommonLibraries.Core
             return _enumerator.Clone();
         }
 
+        public IMatrix<T> Clone()
+        {
+            // Create a new instance of the matrix with the same dimensions
+            IMatrix<T> clonedMatrix = new RectangularCollection<T>(Width, Height);
+
+            // Copy each element from the current matrix to the cloned matrix
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    clonedMatrix[x, y] = this[x, y];
+                }
+            }
+
+            return clonedMatrix;
+        }
+
+        public void CopyFrom(IMatrix<T> source)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+            if (source.Width != Width || source.Height != Height)
+            {
+                throw new ArgumentException("Source matrix dimensions do not match.");
+            }
+
+            // Assuming the dimensions of the source and current matrix are the same
+            for (int x = 0; x < Width; x++)
+            {
+                for (int y = 0; y < Height; y++)
+                {
+                    this[x, y] = source[x, y];
+                }
+            }
+        }
+
+        public IMatrix<T> CreateNewEmpty()
+        {
+            return new RectangularCollection<T>(Width, Height);
+        }
         #endregion
     }
 }

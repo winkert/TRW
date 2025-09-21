@@ -43,20 +43,20 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             {
                 if (_gradientGridComplex == null)
                 {
-                    _gradientGridComplex = new decimal[][] {
-                        new decimal[] { 0, 1 },     // up
-                        new decimal[] { 1, 0 },     // right
-                        new decimal[] { -1, 0 },    // down
-                        new decimal[] { 0, -1 },    // left
-                        new decimal[] { 0.707106781m, 0.707106781m },       // diagonal intermediate vector
-                        new decimal[] { 0.707106781m, -0.707106781m },      // diagonal intermediate vector
-                        new decimal[] { -0.707106781m, 0.707106781m },      // diagonal intermediate vector
-                        new decimal[] { -0.707106781m, -0.707106781m },      // diagonal intermediate vector
-                        new decimal[] { 0.230219016m, 0.230219016m },       // diagonal intermediate vector
-                        new decimal[] { 0.230219016m, -0.230219016m },      // diagonal intermediate vector
-                        new decimal[] { -0.230219016m, 0.230219016m },      // diagonal intermediate vector
-                        new decimal[] { -0.230219016m, -0.230219016m }      // diagonal intermediate vector
-                    };
+                    _gradientGridComplex = [
+                        [0, 1],     // up
+                        [1, 0],     // right
+                        [-1, 0],    // down
+                        [0, -1],    // left
+                        [0.707106781m, 0.707106781m],       // diagonal intermediate vector
+                        [0.707106781m, -0.707106781m],      // diagonal intermediate vector
+                        [-0.707106781m, 0.707106781m],      // diagonal intermediate vector
+                        [-0.707106781m, -0.707106781m],      // diagonal intermediate vector
+                        [0.230219016m, 0.230219016m],       // diagonal intermediate vector
+                        [0.230219016m, -0.230219016m],      // diagonal intermediate vector
+                        [-0.230219016m, 0.230219016m],      // diagonal intermediate vector
+                        [-0.230219016m, -0.230219016m]      // diagonal intermediate vector
+                    ];
                 }
                 return _gradientGridComplex;
             }
@@ -69,12 +69,12 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             {
                 if (_gradientGridSimple == null)
                 {
-                    _gradientGridSimple = new decimal[][] {
-                        new decimal[] { 0, 1 },     // up
-                        new decimal[] { 1, 0 },     // right
-                        new decimal[] { -1, 0 },    // down
-                        new decimal[] { 0, -1 }    // left
-                    };
+                    _gradientGridSimple = [
+                        [0, 1],     // up
+                        [1, 0],     // right
+                        [-1, 0],    // down
+                        [0, -1]    // left
+                    ];
                 }
                 return _gradientGridSimple;
             }

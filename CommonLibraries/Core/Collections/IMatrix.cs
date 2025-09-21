@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TRW.CommonLibraries.Core
 {
     public interface IMatrix<T>
     {
         T Current { get; }
+        int Width { get; }
+        int Height { get; }
+
         T this[int x, int y]  { get; set; }
 
         bool CellExists(int x, int y);
@@ -24,5 +23,8 @@ namespace TRW.CommonLibraries.Core
         /// </summary>
         /// <returns></returns>
         bool Next();
+        IMatrix<T> Clone();
+        void CopyFrom(IMatrix<T> source);
+        IMatrix<T> CreateNewEmpty();
     }
 }

@@ -85,7 +85,7 @@ namespace TRW.CommonLibraries.Core.Tests
             AssertFactorial(2, 2);
             AssertFactorial(5, 120);
             AssertFactorial(10, 3628800);
-            AssertFactorial(20, 2432902008176640000);
+            AssertFactorial(20L, 2432902008176640000);
         }
 
         private void AssertFactorial(int n, int expected)

@@ -19,8 +19,6 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
                 {
                     _parameters = new ProceduralAlgorithmParameterCollection(4)
                     {
-                        new ProceduralAlgorithmParameter<int>(CenterXParamName),
-                        new ProceduralAlgorithmParameter<int>(CenterYParamName),
                         new ProceduralAlgorithmParameter<int>(StepParamName),
                         new ProceduralAlgorithmParameter<decimal>(SpreadParamName)
                     };
@@ -29,31 +27,54 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             }
         }
 
+        /*
+         * Start with a grid of size 2^n + 1, where n is the number of iterations.
+         * Assign random values to the corners of the grid.
+         * Diamond step
+         *      Get the average of the four sides and add a random value based on the spread factor.
+         * Square step
+         *      Get the average of the four corners and add a random value based on the spread factor.
+         */
+
+
         protected override void DoAlgorithmInternal(params object[] args)
         {
-            int cx = Parameters.GetParameterValue<int>(args, CenterXParamName);
-            int cy = Parameters.GetParameterValue<int>(args, CenterYParamName);
             int step = Parameters.GetParameterValue<int>(args, StepParamName);
             decimal spread = Parameters.GetParameterValue<decimal>(args, SpreadParamName);
 
-            if (cx > _xDimension || cy > _yDimension)
-                return;
+            _grid[0, _yDimension - 1].Content = GetNextDecimal(spread);
+            _grid[_xDimension - 1, 0].Content = GetNextDecimal(spread);
+            _grid[_xDimension - 1, _yDimension - 1].Content = GetNextDecimal(spread);
+            _grid[0, 0].Content = GetNextDecimal(spread);
 
-            if (step < 1)
-                return;
-
-            DoDiamondSquare(cx - step, cy - step, step, spread);
-            DoDiamondSquare(cx - step, cy + step, step, spread);
-            DoDiamondSquare(cx + step, cy - step, step, spread);
-            DoDiamondSquare(cx + step, cy + step, step, spread);
+            DoDiamondSquare(step, spread);
         }
 
-        private void DoDiamondSquare(int cx, int cy, int step, decimal spread)
+        private void DoDiamondSquare(int step, decimal spread)
         {
-            DoSquare(cx, cy, step, spread);
-            DoDiamond(cx, cy, step, spread);
+            if (step < 2)
+                return;
 
-            DoAlgorithm(cx, cy, step / 2, spread * 0.75m);
+            int halfStep = step / 2;
+            for(int x = halfStep; x < this._xDimension - 1; x+= step)
+                for(int y = halfStep; y < this._yDimension - 1; y += step)
+                {
+                    if (_grid.CellExists(x, y))
+                    {
+                        DoDiamond(x, y, halfStep, spread);
+                    }
+                }
+
+            for (int x = halfStep; x < this._xDimension - 1; x += step)
+                for (int y = halfStep; y < this._yDimension - 1; y += step)
+                {
+                    if (_grid.CellExists(x, y))
+                    {
+                        DoSquare(x, y, halfStep, spread);
+                    }
+                }
+            
+            DoDiamondSquare(halfStep, spread * 0.5m);
         }
 
         private void DoSquare(int cx, int cy, int step, decimal spread)
@@ -66,7 +87,13 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
         private decimal GetAverageSquare(int cx, int cy, int step)
         {
-            //AVG([CX - Step, CY - Step], [CX + Step, CY - Step], [CX - Step, CY + Step], [CX + Step, CY + Step])
+            /*AVG([CX - Step, CY - Step], [CX + Step, CY - Step], [CX - Step, CY + Step], [CX + Step, CY + Step])
+             *     |     |     |     |
+             *     |  4  |     |  3  |
+             *     |     |CX,CY|     |
+             *     |  1  |     |  2  |
+             *     |     |     |     |
+             */
             decimal value = 0;
             int cells = 0;
             if (_grid.CellExists(cx - step, cy - step))
@@ -91,34 +118,29 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             }
 
             if (cells > 0)
-                value /= cells;
+                value = value / (decimal)cells;
 
             return value;
         }
 
         private void DoDiamond(int cx, int cy, int step, decimal spread)
         {
-            if (_grid.CellExists(cx, cy - step))
+            if (_grid.CellExists(cx, cy - step) && _grid.CellExists(cx - step, cy))
             {
-                _grid[cx, cy - step].Content = GetAverageDiamond(cx, cy - step, step) + GetNextDecimal(spread);
+                _grid[cx, cy].Content = GetAverageDiamond(cx, cy, step) + GetNextDecimal(spread);
             }
-            if (_grid.CellExists(cx - step, cy))
-            {
-                _grid[cx - step, cy].Content = GetAverageDiamond(cx - step, cy, step) + GetNextDecimal(spread);
-            }
-            if (_grid.CellExists(cx, cy + step))
-            {
-                _grid[cx, cy + step].Content = GetAverageDiamond(cx, cy + step, step) + GetNextDecimal(spread);
-            }
-            if (_grid.CellExists(cx + step, cy))
-            {
-                _grid[cx + step, cy].Content = GetAverageDiamond(cx + step, cy, step) + GetNextDecimal(spread);
-            }
+            return;
         }
 
         private decimal GetAverageDiamond(int cx, int cy, int step)
         {
-            //AVG([CX, CY - Step], [CX + Step, CY], [CX, CY + Step], [CX - Step, CY])
+            /*AVG([CX, CY - Step], [CX + Step, CY], [CX, CY + Step], [CX - Step, CY])
+             *     |     |     |     |
+             *     |     |  3  |     |
+             *     |  2  |CX,CY|  4  |
+             *     |     |  1  |     |
+             *     |     |     |     |
+             */
             decimal value = 0;
             int cells = 0;
             if (_grid.CellExists(cx, cy - step))
@@ -143,7 +165,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             }
 
             if (cells > 0)
-                value /= cells;
+                value = value / (decimal)cells;
 
             return value;
         }

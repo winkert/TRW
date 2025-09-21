@@ -1,4 +1,8 @@
-﻿namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using TRW.CommonLibraries.Core;
+
+namespace TRW.CommonLibraries.ProceduralAlgorithms.Test
 {
     [TestClass]
     public class ProcedualAlgorithmBaseTest : UnitTesting.UnitTestBase
@@ -51,7 +55,7 @@
             public ICell GetNeighborByVector(Vector vector)
             {
                 Position newPos = this.Position + vector;
-                
+
 
                 return null;
             }
@@ -90,40 +94,34 @@
         {
             RectangularCollection<Cell> map = new RectangularCollection<Cell>(5, 5);
             ProceduralAlgorithms.DiamondSquareAlgorithm<RectangularCollection<Cell>, Cell> ds = new ProceduralAlgorithms.DiamondSquareAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            PrivateObject dsPO = new PrivateObject(ds, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
-            bool paramsValid = Convert.ToBoolean(dsPO.Invoke("ValidParameters", 1, 1, 1, 1.0m));
-            Assert.IsTrue(paramsValid, "DiamondSquareAlgorithm failed");
-            paramsValid = Convert.ToBoolean(dsPO.Invoke("ValidParameters", false));
-            Assert.IsFalse(paramsValid, "DiamondSquareAlgorithm failed");
-            paramsValid = Convert.ToBoolean(dsPO.Invoke("ValidParameters", 1, 1, true, true));
-            Assert.IsFalse(paramsValid, "DiamondSquareAlgorithm failed");
+            DoValidParametersTest(ds, [1, 1.0m], true);
+            DoValidParametersTest(ds, [false], false);
+            DoValidParametersTest(ds, [1, 1, true, true], false);
 
             ProceduralAlgorithms.RandomWalkAlgorithm<RectangularCollection<Cell>, Cell> rw = new ProceduralAlgorithms.RandomWalkAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            PrivateObject rwPO = new PrivateObject(rw, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
-            paramsValid = Convert.ToBoolean(rwPO.Invoke("ValidParameters", new TRW.CommonLibraries.Core.Position(1, 1), 1, false, false));
-            Assert.IsTrue(paramsValid, "RandomWalkAlgorithm failed");
-            paramsValid = Convert.ToBoolean(rwPO.Invoke("ValidParameters", false));
-            Assert.IsFalse(paramsValid, "RandomWalkAlgorithm failed");
-            paramsValid = Convert.ToBoolean(rwPO.Invoke("ValidParameters", 1, new TRW.CommonLibraries.Core.Position(1, 1), false));
-            Assert.IsFalse(paramsValid, "RandomWalkAlgorithm failed");
+            DoValidParametersTest(rw, [new TRW.CommonLibraries.Core.Position(1, 1), 1, false, false], true);
+            DoValidParametersTest(rw, [false], false);
+            DoValidParametersTest(rw, [1, new TRW.CommonLibraries.Core.Position(1, 1), false], false);
 
-            ProceduralAlgorithms.CellularAutomataAlgorithm< RectangularCollection<Cell>, Cell> ca = new ProceduralAlgorithms.CellularAutomataAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            PrivateObject caPO = new PrivateObject(ca, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
-            paramsValid = Convert.ToBoolean(caPO.Invoke("ValidParameters", new CellularAutomataRulesSet<bool>(), 1, true, false));
-            Assert.IsTrue(paramsValid, "CellularAutomataAlgorithm failed");
-            paramsValid = Convert.ToBoolean(caPO.Invoke("ValidParameters", false));
-            Assert.IsFalse(paramsValid, "CellularAutomataAlgorithm failed");
-            paramsValid = Convert.ToBoolean(caPO.Invoke("ValidParameters", true, false, 1, new CellularAutomataRulesSet<bool>()));
-            Assert.IsFalse(paramsValid, "CellularAutomataAlgorithm failed");
+            ProceduralAlgorithms.CellularAutomataAlgorithm<RectangularCollection<Cell>, Cell> ca = new ProceduralAlgorithms.CellularAutomataAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
+            DoValidParametersTest(ca, [new CellularAutomataRulesSet<bool>(), 1, true, false], true);
+            DoValidParametersTest(ca, [false], false);
+            DoValidParametersTest(ca, [true, false, 1, new CellularAutomataRulesSet<bool>()], false);
 
             ProceduralAlgorithms.PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell> pn = new ProceduralAlgorithms.PerlinNoiseAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            PrivateObject pnPO = new PrivateObject(pn, new PrivateType(typeof(ProceduralAlgorithms.ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>)));
-            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", 16, 0.5m, 8m, 128m, false));
-            Assert.IsTrue(paramsValid, "PerlinNoiseAlgorithm failed");
-            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", false));
-            Assert.IsFalse(paramsValid, "PerlinNoiseAlgorithm failed");
-            paramsValid = Convert.ToBoolean(pnPO.Invoke("ValidParameters", true, false, 1, new CellularAutomataRulesSet<bool>()));
-            Assert.IsFalse(paramsValid, "PerlinNoiseAlgorithm failed");
+            DoValidParametersTest(pn, [16, 0.5m, 8m, 128m, false], true);
+            DoValidParametersTest(pn, [false], false);
+            DoValidParametersTest(pn, [1, 1, 1, 1, new CellularAutomataRulesSet<bool>()], false);
+        }
+
+        private void DoValidParametersTest(ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell> alg, object[] args, bool expected)
+        {
+            System.Reflection.MethodInfo? method = alg.GetType().GetMethod("ValidParameters", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            Assert.IsNotNull(method);
+            // I hear you like argument arrays so I put an argument array in your argument array
+            bool paramsValid = Convert.ToBoolean(method.Invoke(alg, [args]));
+            
+            Assert.AreEqual(expected, paramsValid, $"{alg.GetType()} failed. Expected [{expected}] Actual [{paramsValid}]");
         }
 
         [TestMethod]
@@ -132,8 +130,8 @@
             RectangularCollection<Cell> map = new RectangularCollection<Cell>(5, 5);
             map.Fill();
             ProceduralAlgorithms.DiamondSquareAlgorithm<RectangularCollection<Cell>, Cell> ds = new ProceduralAlgorithms.DiamondSquareAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
-            ds.DoAlgorithm(1, 1, 1, 1.0m);
-            
+            ds.DoAlgorithm(1, 1.0m);
+
             ProceduralAlgorithms.RandomWalkAlgorithm<RectangularCollection<Cell>, Cell> rw = new ProceduralAlgorithms.RandomWalkAlgorithm<RectangularCollection<Cell>, Cell>(this, map, 5, 5);
             rw.DoAlgorithm(new TRW.CommonLibraries.Core.Position(1, 1), 1, false, false);
 
@@ -144,5 +142,22 @@
             pn.DoAlgorithm(2, .5m, 8m, 128m, false);
 
         }
+
+        private class AlgorithmHelperClass : ProceduralAlgorithmBase<RectangularCollection<Cell>, Cell>
+        {
+            public AlgorithmHelperClass(object sender, RectangularCollection<Cell> grid, int xDim, int yDim) : base(sender, grid, xDim, yDim)
+            {
+            }
+            public override ProceduralAlgorithmParameterCollection Parameters => new ProceduralAlgorithmParameterCollection(0);
+            protected override void DoAlgorithmInternal(params object[] args)
+            {
+                // Do nothing
+            }
+            public bool TestValidParameters(params object[] args)
+            {
+                return ValidParameters(args);
+            }
+        }
     }
 }
+

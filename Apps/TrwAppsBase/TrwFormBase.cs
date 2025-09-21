@@ -294,7 +294,6 @@ namespace TRW.Apps.TrwAppsBase
         protected void StartTask(Task task)
         {
             task.ContinueWith(TaskComplete_Event);
-
             _taskList.Add(task.Id, task);
             task.Start();
         }

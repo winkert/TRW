@@ -34,6 +34,7 @@
       <Project>{6dd8cedb-1bac-4cb8-93b8-3757556f6bca}</Project>
       <Name>Serialization</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\CommonLibraries\Xml\Xml.csproj" />
     <ProjectReference Include="..\..\GameLibraries\Maps\Maps.csproj">
       <Project>{28c688c0-5810-41e7-ba89-b866030b96bc}</Project>
       <Name>Maps</Name>
