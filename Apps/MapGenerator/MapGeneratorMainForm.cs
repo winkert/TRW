@@ -269,27 +269,7 @@ namespace TRW.Apps.MapGenerator
         private void RunCellAutomata(Map map, int iterations, bool avoidEdges)
         {
             map.UpdateMap += UpdateMapHandler;
-            CommonLibraries.ProceduralAlgorithms.CellularAutomataRulesSet<bool> rules = new CommonLibraries.ProceduralAlgorithms.CellularAutomataRulesSet<bool>();
-            rules.Add(0, true, false);
-            rules.Add(0, false, false);
-            rules.Add(1, true, false);
-            rules.Add(1, false, false);
-            rules.Add(2, false, false);
-            rules.Add(4, true, false);
-            rules.Add(4, false, false);
-            rules.Add(5, true, false);
-            rules.Add(5, false, false);
-            rules.Add(6, true, false);
-            rules.Add(6, false, false);
-            rules.Add(7, true, false);
-            rules.Add(7, false, false);
-            rules.Add(8, true, false);
-            rules.Add(8, false, false);
-            rules.Add(2, true, true);
-            rules.Add(3, true, true);
-            rules.Add(3, false, true);
-            //rules.Add(4, true, true);
-            //rules.Add(4, false, true);
+            CommonLibraries.ProceduralAlgorithms.CellularAutomataRulesSet<bool> rules = CommonLibraries.ProceduralAlgorithms.CellularAutomataRulesSet<bool>.DefaultRuleSetBool();
             map.FillCellAutomata(rules, iterations, avoidEdges, false);
 
             _map = map;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace TRW.CommonLibraries.ProceduralAlgorithms
 {
-    public class CellularAutomataRuleCollection<R> : ICollection<CellularAutomataRule<R>>
+    public class CellularAutomataRuleCollection<R> : ICollection<CellularAutomataRule<R>> where R : IComparable<R>
     {
         private HashSet<CellularAutomataRule<R>> _rules;
 
@@ -21,9 +21,11 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         {
             get
             {
-                foreach (CellularAutomataRule<R> rule in _rules)
-                    if (rule.Equals(aliveNeighbors, currentState))
-                        return rule.NewState;
+                var searchKey = new CellularAutomataRule<R>(aliveNeighbors, currentState, default(R));
+                if(_rules.TryGetValue(searchKey, out var rule))
+                {
+                    return rule.NewState;
+                }
 
                 return default(R);
             }
@@ -42,6 +44,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         public bool Contains(CellularAutomataRule<R> item)
         {
             return (_rules).Contains(item);
+
         }
 
         public void CopyTo(CellularAutomataRule<R>[] array, int arrayIndex)
@@ -52,11 +55,13 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         public IEnumerator<CellularAutomataRule<R>> GetEnumerator()
         {
             return (_rules).GetEnumerator();
+
         }
 
         public bool Remove(CellularAutomataRule<R> item)
         {
             return (_rules).Remove(item);
+
         }
 
         IEnumerator IEnumerable.GetEnumerator()
