@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,8 @@ namespace TRW.GameLibraries.Maps
             }
             set
             {
+                //if(this.Position != null)
+                //    Debug.WriteLine($"[{this.Position.X}, {this.Position.Y}]={value}");
                 if (value is bool)
                     _bitState = Convert.ToBoolean(value);
                 _content = value;

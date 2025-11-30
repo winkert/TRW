@@ -87,7 +87,7 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
         }
         protected decimal GetNextDecimal(decimal spread)
         {
-            return R.NextDecimal() * spread;
+            return R.NextDecimal(0, spread);
         }
 
 

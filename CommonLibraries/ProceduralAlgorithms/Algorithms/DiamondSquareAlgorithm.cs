@@ -47,34 +47,35 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             _grid[_xDimension - 1, _yDimension - 1].Content = GetNextDecimal(spread);
             _grid[0, 0].Content = GetNextDecimal(spread);
 
-            DoDiamondSquare(step, spread);
+            DoDiamondSquare(0, 0, _xDimension - 1, _yDimension - 1, spread);
         }
 
-        private void DoDiamondSquare(int step, decimal spread)
+        private void DoDiamondSquare(int x1, int y1, int x2, int y2, decimal spread)
         {
+            int step = x2 - x1;
             if (step < 2)
                 return;
-
             int halfStep = step / 2;
-            for(int x = halfStep; x < this._xDimension - 1; x+= step)
-                for(int y = halfStep; y < this._yDimension - 1; y += step)
-                {
-                    if (_grid.CellExists(x, y))
-                    {
-                        DoDiamond(x, y, halfStep, spread);
-                    }
-                }
-
-            for (int x = halfStep; x < this._xDimension - 1; x += step)
-                for (int y = halfStep; y < this._yDimension - 1; y += step)
-                {
-                    if (_grid.CellExists(x, y))
-                    {
-                        DoSquare(x, y, halfStep, spread);
-                    }
-                }
+            int midX = (x1 + x2) / 2;
+            int midY = (y1 + y2) / 2;
+            int cx = x1 + halfStep;
+            int cy = y1 + halfStep;
             
-            DoDiamondSquare(halfStep, spread * 0.5m);
+            // Diamond step for the four edge centers (N, E, S, W)
+            DoDiamond(cx, y1, halfStep, spread); // top edge center
+            DoDiamond(x2, cy, halfStep, spread); // right edge center
+            DoDiamond(cx, y2, halfStep, spread); // bottom edge center
+            DoDiamond(x1, cy, halfStep, spread); // left edge center
+
+            // Square step for the center
+            DoSquare(cx, cy, halfStep, spread);
+
+            // Attenuate spread (use same factor as other overload for smoother falloff)
+            decimal newSpread = spread * 0.6m;
+            DoDiamondSquare(x1, y1, midX, midY, newSpread);
+            DoDiamondSquare(midX, y1, x2, midY, newSpread);
+            DoDiamondSquare(x1, midY, midX, y2, newSpread);
+            DoDiamondSquare(midX, midY, x2, y2, newSpread);
         }
 
         private void DoSquare(int cx, int cy, int step, decimal spread)
@@ -120,16 +121,18 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
             if (cells > 0)
                 value = value / (decimal)cells;
 
+            if(cells == 0)
+                Console.WriteLine($"Found 0 neighbors at [{cx},{cy}] Step = [{step}");
+
             return value;
         }
 
         private void DoDiamond(int cx, int cy, int step, decimal spread)
         {
-            if (_grid.CellExists(cx, cy - step) && _grid.CellExists(cx - step, cy))
+            if (_grid.CellExists(cx, cy))
             {
                 _grid[cx, cy].Content = GetAverageDiamond(cx, cy, step) + GetNextDecimal(spread);
             }
-            return;
         }
 
         private decimal GetAverageDiamond(int cx, int cy, int step)
@@ -166,6 +169,9 @@ namespace TRW.CommonLibraries.ProceduralAlgorithms
 
             if (cells > 0)
                 value = value / (decimal)cells;
+
+            if (cells == 0)
+                Console.WriteLine($"Found 0 neighbors at [{cx},{cy}] Step = [{step}");
 
             return value;
         }

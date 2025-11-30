@@ -45,7 +45,7 @@ namespace TRW.Apps.MapGenerator
         private void InitializeToolTips()
         {
             // diamond square
-            txtDiamondValueSpread.SetToolTip("Seed. Should be less than the max value of color map");
+            txtDiamondValueSpread.SetToolTip("Seed. Should be less than the max value of color map. Is used to randomly assign each corner");
             txtDiamondBaseValue.SetToolTip("Starting value of cells. Base on Color Map.");
             txtDiamondMapWidth.SetToolTip("Width of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
             txtDiamondMapHeight.SetToolTip("Height of the map. Must be a power of 2 + 1 (e.g. 33, 257, 1025, etc.)");
@@ -90,7 +90,7 @@ namespace TRW.Apps.MapGenerator
                 if (!System.IO.Directory.Exists(newPath))
                     System.IO.Directory.CreateDirectory(newPath);
 
-                ManageColorMapDialog.SerializeColorMaps(newPath, ColorMap.GrayScale, ColorMap.GrayScaleLarge, ColorMap.Terra);
+                ManageColorMapDialog.SerializeColorMaps(newPath, ColorMap.GrayScale, ColorMap.GrayScaleLarge);
             }
 
             cmbColorMap.Items.Clear();
@@ -226,7 +226,7 @@ namespace TRW.Apps.MapGenerator
                 map.FillRandomWalk(iterations, avoidEdges, avoidClusters);
             else
                 map.FillRandomWalk(position, iterations, avoidEdges, avoidClusters);
-            UpdateStatus(map.ToString());
+            //UpdateStatus(map.ToString());
 
             _map = map;
         }
