@@ -1,0 +1,42 @@
+TRW License v1.0
+Based on GNU General Public License v3.0 (GPL-3.0)
+
+Copyright (c) 2025 Winkert
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3
+as published by the Free Software Foundation, with the following
+additional restrictions:
+
+1. Non-Commercial Use
+   This software may not be used, in whole or in part, for any
+   commercial purposes. "Commercial purposes" include but are not
+   limited to: selling, licensing, renting, or offering services
+   that incorporate or depend on this software for profit.
+
+2. Restrictions on AI/ML Training
+   This software, and any derivative works, may not be used to train,
+   fine-tune, or otherwise contribute to the development of large
+   language models (LLMs), generative AI systems, or other machine
+   learning models intended for general-purpose text, image, audio,
+   or multimodal generation.
+
+3. Copyleft
+   All other terms of the GNU GPL v3.0 apply. In particular:
+   - Source code must remain available under the same license.
+   - Derivative works must carry this license and restrictions.
+   - Modifications must be documented.
+
+4. Disclaimer
+   This software is provided "as is", without warranty of any kind,
+   express or implied, including but not limited to the warranties
+   of merchantability, fitness for a particular purpose, and
+   non-infringement. In no event shall the authors be liable for any
+   claim, damages, or other liability arising from the use of this
+   software.
+
+---
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+
