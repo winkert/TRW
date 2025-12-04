@@ -32,11 +32,11 @@ namespace TRW.CommonLibraries.Core
 
         public static bool IsPalindrome(this string input)
         {
-            if (input.Length < 2)
-                throw new ArgumentException("not a valid input - must be 2 characters");
-
             if (input == null)
                 throw new ArgumentNullException(nameof(input));
+
+            if (input.Length < 2)
+                throw new ArgumentException("not a valid input - must be 2 characters");
 
             string cleanInput = input.Replace(" ", "").ToLowerInvariant();
 
@@ -53,7 +53,6 @@ namespace TRW.CommonLibraries.Core
             return true;
 
         }
-
 
         public static bool IsPowerOfTwo<T>(this T n) where T : IConvertible
         {
@@ -189,5 +188,12 @@ namespace TRW.CommonLibraries.Core
             }
 
         }
+
+        public static IEnumerable<(double[], double[])> Merge(double[][] a, double[][] b)
+        {
+            for (int i = 0; i < a.Length; i++)
+                yield return (a[i], b[i]);
+        }
+
     }
 }
